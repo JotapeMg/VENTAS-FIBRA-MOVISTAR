@@ -618,6 +618,20 @@
   }
 </style>
 
+
+<style id="fecha-expedicion-style">
+  #fechaExpedicion {
+    color-scheme: dark;
+    cursor: pointer;
+  }
+
+  #fechaExpedicion::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.9;
+    filter: invert(1) brightness(1.35);
+  }
+</style>
+
 </head>
 
 <body>
@@ -779,6 +793,11 @@
         <div class="campo">
           <label for="documento">Número de documento</label>
           <input id="documento" type="tel" inputmode="numeric" required>
+        </div>
+
+        <div class="campo">
+          <label for="fechaExpedicion">Fecha de expedición</label>
+          <input id="fechaExpedicion" type="date" required>
         </div>
 
         <div class="campo">
@@ -991,6 +1010,7 @@
       tipoCliente: "",
       nombreCliente: "",
       documento: "",
+      fechaExpedicion: "",
       celular: "",
       nombreSegundoContacto: "",
       numeroSegundoContacto: "",
@@ -1200,6 +1220,7 @@
         [
           "nombreCliente",
           "documento",
+          "fechaExpedicion",
           "celular",
           "nombreSegundoContacto",
           "numeroSegundoContacto",
