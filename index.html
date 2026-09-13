@@ -6,6 +6,7 @@
   <title>Ventas Fibra Movistar</title>
 
   <link
+    <link rel="icon" type="image/png" href="logo.png">
   rel="icon"
   type="image/svg+xml"
   href="data:image/svg+xml,
@@ -36,15 +37,17 @@
     }
 
     .marca-agua {
-      position: fixed;
-      right: -70px;
-      bottom: -120px;
-      z-index: -2;
-      color: rgba(0, 158, 227, 0.05);
-      font-size: 420px;
-      font-weight: bold;
-      transform: rotate(-8deg);
-    }
+  position: fixed;
+  right: -65px;
+  bottom: -60px;
+  z-index: -2;
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.marca-agua img {
+  width: 360px;
+}
 
     .app {
       width: 100%;
@@ -309,8 +312,9 @@
 </head>
 
 <body>
-  <div class="marca-agua">M</div>
-
+  <div class="marca-agua">
+  <img src="logo.png" alt="Movistar">
+</div>
   <main class="app">
     <header class="encabezado">
       <div class="logo">Ventas Fibra <span>Movistar</span></div>
@@ -586,10 +590,8 @@
   </div>
 
   <script>
-    const URL_GOOGLE_SHEETS =
-      "https://script.google.com/macros/s/AKfycbxdOvpVutXY9oxmqf_zlsx-UiFOKJE8pe4ksFKf7VgsTBVm-N_5-HAa7OBsYg9hy2bB/exec";
-
-    const CLAVE_ADMIN = "admin123";
+  const URL_GOOGLE_SHEETS =
+  "https://script.google.com/macros/s/AKfycbzVTtPoXFUzUm35Cn0UHg3OijokpA__iqcAh7uLoFo41SvH2BgdFsolCUsNb4vdHPOn/exec";
 
     const configuracionInicial = {
       centros: [
