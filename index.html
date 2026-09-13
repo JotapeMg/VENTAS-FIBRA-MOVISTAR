@@ -14,107 +14,117 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, #eefaff, #ffffff);
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 25px;
+      background: #ffffff;
       overflow-x: hidden;
+      position: relative;
     }
 
     .marca-agua {
       position: fixed;
-      right: -80px;
-      bottom: -130px;
-      font-size: 430px;
+      right: -70px;
+      bottom: -110px;
+      font-size: 420px;
+      line-height: 1;
       font-weight: bold;
-      color: rgba(0, 158, 227, 0.05);
-      z-index: -1;
+      color: rgba(0, 158, 227, 0.055);
+      z-index: -2;
+      transform: rotate(-8deg);
     }
+
+    .fibras {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .fibra {
+      position: absolute;
+      height: 2px;
+      border-radius: 50%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 158, 227, 0.25),
+        #00b4f0,
+        rgba(0, 158, 227, 0.2),
+        transparent
+      );
+      box-shadow: 0 0 12px rgba(0, 180, 240, 0.6);
+      transform: rotate(-28deg);
+    }
+
+    .fibra1 { width: 750px; top: 15%; left: -260px; }
+    .fibra2 { width: 650px; top: 28%; left: -180px; opacity: 0.7; }
+    .fibra3 { width: 700px; bottom: 20%; right: -260px; transform: rotate(145deg); opacity: 0.7; }
+    .fibra4 { width: 600px; bottom: 9%; right: -180px; transform: rotate(145deg); opacity: 0.45; }
 
     .contenedor {
       width: 100%;
-      max-width: 850px;
-      background: white;
-      border-radius: 24px;
-      padding: 38px;
-      box-shadow: 0 10px 35px rgba(0, 118, 181, 0.15);
+      max-width: 650px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.96);
+      padding: 50px 40px;
+      border-radius: 25px;
+      box-shadow: 0 12px 35px rgba(0, 118, 181, 0.16);
       border: 1px solid #d9f1fa;
-    }
-
-    .encabezado {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #dceef5;
-      padding-bottom: 20px;
-      margin-bottom: 30px;
     }
 
     .logo {
       color: #009ee3;
-      font-size: 24px;
+      font-size: 25px;
       font-weight: bold;
+      margin-bottom: 45px;
     }
 
     .logo span {
       color: #06345a;
     }
 
-    .paso {
-      color: #009ee3;
-      background: #e4f7ff;
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
     h1 {
-      margin: 0 0 10px;
       color: #06345a;
       font-size: 30px;
+      margin-bottom: 15px;
     }
 
-    .subtitulo {
+    p {
       color: #668196;
-      margin-bottom: 28px;
-      font-size: 16px;
-    }
-
-    .formulario {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      font-size: 17px;
+      line-height: 1.6;
+      margin-bottom: 35px;
     }
 
     .campo {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .campo-completo {
-      grid-column: span 2;
+      text-align: left;
+      max-width: 420px;
+      margin: auto;
     }
 
     label {
-      font-weight: bold;
+      display: block;
       color: #17425e;
-      margin-bottom: 8px;
       font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 9px;
     }
 
-    input,
     select,
     textarea {
+      width: 100%;
       border: 1px solid #c7dce8;
       border-radius: 10px;
-      padding: 13px;
-      font-size: 15px;
+      padding: 14px;
+      font-size: 16px;
+      color: #17425e;
       outline: none;
+      background: white;
     }
 
-    input:focus,
     select:focus,
     textarea:focus {
       border-color: #009ee3;
@@ -122,23 +132,18 @@
     }
 
     textarea {
-      min-height: 105px;
+      min-height: 100px;
       resize: vertical;
     }
 
-    .botones {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 30px;
-    }
-
     button {
+      margin-top: 30px;
       border: none;
       background: #009ee3;
       color: white;
-      padding: 14px 25px;
+      padding: 14px 30px;
       border-radius: 10px;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
     }
@@ -147,22 +152,70 @@
       background: #007fba;
     }
 
-    @media (max-width: 650px) {
+    .boton-admin {
+      background: transparent;
+      color: #668196;
+      font-size: 13px;
+      margin-top: 25px;
+      padding: 8px;
+    }
+
+    .boton-admin:hover {
+      background: transparent;
+      color: #009ee3;
+    }
+
+    .panel-admin {
+      display: none;
+      width: 100%;
+      max-width: 650px;
+      margin-top: 20px;
+      background: #06345a;
+      color: white;
+      padding: 28px;
+      border-radius: 20px;
+      text-align: left;
+    }
+
+    .panel-admin h2 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+
+    .panel-admin p {
+      color: #cce9f8;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .panel-admin label {
+      color: white;
+      margin-top: 18px;
+    }
+
+    .panel-admin textarea {
+      margin-top: 7px;
+    }
+
+    .panel-admin button {
+      margin-right: 10px;
+    }
+
+    .boton-cerrar {
+      background: #607d92;
+    }
+
+    @media (max-width: 600px) {
       .contenedor {
-        padding: 25px;
+        padding: 35px 24px;
       }
 
-      .formulario {
-        grid-template-columns: 1fr;
+      h1 {
+        font-size: 26px;
       }
 
-      .campo-completo {
-        grid-column: span 1;
-      }
-
-      .encabezado {
-        flex-direction: column;
-        align-items: flex-start;
+      .marca-agua {
+        font-size: 300px;
       }
     }
   </style>
@@ -171,98 +224,159 @@
 <body>
   <div class="marca-agua">M</div>
 
-  <main class="contenedor">
-    <div class="encabezado">
+  <div class="fibras">
+    <div class="fibra fibra1"></div>
+    <div class="fibra fibra2"></div>
+    <div class="fibra fibra3"></div>
+    <div class="fibra fibra4"></div>
+  </div>
+
+  <div>
+    <main class="contenedor">
       <div class="logo">Ventas Fibra <span>Movistar</span></div>
-      <div class="paso">Paso 1 de 6</div>
-    </div>
 
-    <h1>Inicio de gestión</h1>
+      <h1>¡Bienvenido!</h1>
 
-    <p class="subtitulo">
-      Selecciona el asesor y registra la información inicial de la llamada.
-    </p>
+      <p>
+        Nos alegra mucho que hayas realizado una venta.<br>
+        Dinos, ¿qué asesor eres?
+      </p>
 
-    <form id="formularioVenta">
-      <div class="formulario">
-
+      <form id="formularioAsesor">
         <div class="campo">
-          <label for="asesor">Asesor</label>
-
-          <select id="asesor" required>
-            <option value="">Selecciona un asesor</option>
-            <option>Asesor 1</option>
-            <option>Asesor 2</option>
-            <option>Asesor 3</option>
-          </select>
+          <label for="asesor">Selecciona tu nombre</label>
+          <select id="asesor" required></select>
         </div>
 
-        <div class="campo">
-          <label for="estadoBase">Estado de la base</label>
-
-          <select id="estadoBase" required>
-            <option value="">Selecciona una opción</option>
-            <option>Contactado</option>
-            <option>No contactado</option>
-            <option>Pendiente</option>
-            <option>Número incorrecto</option>
-          </select>
-        </div>
-
-        <div class="campo">
-          <label for="fecha">Fecha de gestión</label>
-          <input type="date" id="fecha" required>
-        </div>
-
-        <div class="campo">
-          <label for="franja">Franja horaria</label>
-
-          <select id="franja" required>
-            <option value="">Selecciona</option>
-            <option>AM</option>
-            <option>PM</option>
-          </select>
-        </div>
-
-        <div class="campo campo-completo">
-          <label for="observacion">Observación</label>
-
-          <textarea
-            id="observacion"
-            placeholder="Escribe aquí el resultado de la llamada o una observación importante..."
-          ></textarea>
-        </div>
-
-      </div>
-
-      <div class="botones">
         <button type="submit">Continuar →</button>
-      </div>
-    </form>
-  </main>
+      </form>
+
+      <button class="boton-admin" type="button" onclick="abrirAdministracion()">
+        Administración
+      </button>
+    </main>
+
+    <section class="panel-admin" id="panelAdmin">
+      <h2>Administración</h2>
+
+      <p>
+        Escribe un elemento por línea. Desde aquí podrás agregar o quitar
+        asesores, planes y call centers.
+      </p>
+
+      <label for="listaAsesores">Asesores</label>
+      <textarea id="listaAsesores"></textarea>
+
+      <label for="listaPlanes">Planes de fibra</label>
+      <textarea id="listaPlanes"></textarea>
+
+      <label for="listaCallCenters">Call centers</label>
+      <textarea id="listaCallCenters"></textarea>
+
+      <button type="button" onclick="guardarConfiguracion()">
+        Guardar cambios
+      </button>
+
+      <button class="boton-cerrar" type="button" onclick="cerrarAdministracion()">
+        Cerrar
+      </button>
+    </section>
+  </div>
 
   <script>
-    document.getElementById("fecha").value = new Date()
-      .toISOString()
-      .split("T")[0];
+    const configuracionInicial = {
+      asesores: [
+        "Asesor 1",
+        "Asesor 2",
+        "Asesor 3",
+        "Asesor 4"
+      ],
+      planes: [
+        "Fibra 150 Mbps",
+        "Fibra 300 Mbps",
+        "Fibra 600 Mbps"
+      ],
+      callCenters: [
+        "Call Center Principal"
+      ]
+    };
 
-    document.getElementById("formularioVenta").addEventListener("submit", function (event) {
+    let configuracion = JSON.parse(localStorage.getItem("configuracionMovistar"))
+      || configuracionInicial;
+
+    function cargarAsesores() {
+      const selectorAsesor = document.getElementById("asesor");
+
+      selectorAsesor.innerHTML = '<option value="">Selecciona un asesor</option>';
+
+      configuracion.asesores.forEach(function(asesor) {
+        selectorAsesor.innerHTML += `<option value="${asesor}">${asesor}</option>`;
+      });
+    }
+
+    function abrirAdministracion() {
+      const clave = prompt("Ingresa la clave de administrador:");
+
+      /* Cambia admin123 por la clave que tú quieras */
+      if (clave !== "admin123") {
+        alert("Clave incorrecta.");
+        return;
+      }
+
+      document.getElementById("listaAsesores").value =
+        configuracion.asesores.join("\n");
+
+      document.getElementById("listaPlanes").value =
+        configuracion.planes.join("\n");
+
+      document.getElementById("listaCallCenters").value =
+        configuracion.callCenters.join("\n");
+
+      document.getElementById("panelAdmin").style.display = "block";
+    }
+
+    function cerrarAdministracion() {
+      document.getElementById("panelAdmin").style.display = "none";
+    }
+
+    function guardarConfiguracion() {
+      configuracion.asesores = document.getElementById("listaAsesores").value
+        .split("\n")
+        .map(item => item.trim())
+        .filter(item => item !== "");
+
+      configuracion.planes = document.getElementById("listaPlanes").value
+        .split("\n")
+        .map(item => item.trim())
+        .filter(item => item !== "");
+
+      configuracion.callCenters = document.getElementById("listaCallCenters").value
+        .split("\n")
+        .map(item => item.trim())
+        .filter(item => item !== "");
+
+      localStorage.setItem(
+        "configuracionMovistar",
+        JSON.stringify(configuracion)
+      );
+
+      cargarAsesores();
+      cerrarAdministracion();
+
+      alert("Los cambios fueron guardados correctamente.");
+    }
+
+    document.getElementById("formularioAsesor").addEventListener("submit", function(event) {
       event.preventDefault();
 
       const asesor = document.getElementById("asesor").value;
-      const estadoBase = document.getElementById("estadoBase").value;
-      const fecha = document.getElementById("fecha").value;
-      const franja = document.getElementById("franja").value;
-      const observacion = document.getElementById("observacion").value;
 
       localStorage.setItem("asesor", asesor);
-      localStorage.setItem("estadoBase", estadoBase);
-      localStorage.setItem("fecha", fecha);
-      localStorage.setItem("franja", franja);
-      localStorage.setItem("observacion", observacion);
 
-      alert("Información guardada. Continuaremos con la vista de ubicación.");
+      alert("¡Perfecto, " + asesor + "! Continuaremos con el registro de la venta.");
     });
+
+    cargarAsesores();
   </script>
 </body>
 </html>
