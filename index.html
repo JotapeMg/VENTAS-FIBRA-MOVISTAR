@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ventas Fibra Movistar</title>
+  <link rel="icon" type="image/jpeg" href="imagenes/logooo.jpg">
 
   <style>
     :root {
@@ -63,16 +64,21 @@
       border-bottom: 1px solid #dceef5;
     }
 
-    .logo {
-      color: var(--azul);
-      font-size: 24px;
-      font-weight: bold;
-    }
+   .logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--azul);
+  font-size: 24px;
+  font-weight: bold;
+}
 
-    .logo span,
-    h1 {
-      color: var(--azul-oscuro);
-    }
+.logo img {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+  border-radius: 8px;
+}
 
     .asesor-activo {
       padding: 8px 12px;
@@ -309,9 +315,15 @@
 
   <main class="app">
     <header class="encabezado">
-      <div class="logo">Ventas Fibra <span>Movistar</span></div>
-      <div class="asesor-activo" id="asesorActivo">Sin asesor seleccionado</div>
-    </header>
+  <div class="logo">
+    <img src="imagenes/logooo.jpg" alt="Logo Movistar">
+    <div>Ventas Fibra <span>Movistar</span></div>
+  </div>
+
+  <div class="asesor-activo" id="asesorActivo">
+    Sin asesor seleccionado
+  </div>
+</header>
 
     <div class="progreso" id="progreso"></div>
 
