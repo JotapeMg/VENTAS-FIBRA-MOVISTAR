@@ -1,1 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ventas Fibra Movistar</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #eefaff, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+      overflow-x: hidden;
+    }
+
+    .marca-agua {
+      position: fixed;
+      right: -80px;
+      bottom: -130px;
+      font-size: 430px;
+      font-weight: bold;
+      color: rgba(0, 158, 227, 0.05);
+      z-index: -1;
+    }
+
+    .contenedor {
+      width: 100%;
+      max-width: 850px;
+      background: white;
+      border-radius: 24px;
+      padding: 38px;
+      box-shadow: 0 10px 35px rgba(0, 118, 181, 0.15);
+      border: 1px solid #d9f1fa;
+    }
+
+    .encabezado {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #dceef5;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      color: #009ee3;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #06345a;
+    }
+
+    .paso {
+      color: #009ee3;
+      background: #e4f7ff;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      color: #06345a;
+      font-size: 30px;
+    }
+
+    .subtitulo {
+      color: #668196;
+      margin-bottom: 28px;
+      font-size: 16px;
+    }
+
+    .formulario {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .campo-completo {
+      grid-column: span 2;
+    }
+
+    label {
+      font-weight: bold;
+      color: #17425e;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      border: 1px solid #c7dce8;
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 15px;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #009ee3;
+      box-shadow: 0 0 0 3px rgba(0, 158, 227, 0.12);
+    }
+
+    textarea {
+      min-height: 105px;
+      resize: vertical;
+    }
+
+    .botones {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 30px;
+    }
+
+    button {
+      border: none;
+      background: #009ee3;
+      color: white;
+      padding: 14px 25px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #007fba;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 650px) {
+      .contenedor {
+        padding: 25px;
+      }
+
+      .formulario {
+        grid-template-columns: 1fr;
+      }
+
+      .campo-completo {
+        grid-column: span 1;
+      }
+
+      .encabezado {
+        align-items: flex-start;
+        gap: 12px;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="marca-agua">M</div>
+
+  <main class="contenedor">
+    <div class="encabezado">
+      <div class="logo">Ventas Fibra <span>Movistar</span></div>
+      <div class="paso">Paso 1 de 6</div>
+    </div>
+
+    <h1>Inicio de gestión</h1>
+    <p class="subtitulo">
+      Selecciona el asesor y registra la información inicial de la llamada.
+    </p>
+
+    <form id="formularioVenta">
+      <div class="formulario">
+        <div class="campo">
+          <label for="asesor">Asesor</label>
+          <select id="asesor" required>
+            <option value="">Selecciona un asesor</option>
+            <option>Asesor 1</option>
+            <option>Asesor 2</option>
+            <option>Asesor 3</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="estadoBase">Estado de la base</label>
+          <select id="estadoBase" required>
+            <option value="">Selecciona una opción</option>
+            <option>Contactado</option>
+            <option>No contactado</option>
+            <option>Pendiente</option>
+            <option>Número incorrecto</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="fecha">Fecha de gestión</label>
+          <input type="date" id="fecha" required>
+        </div>
+
+        <div class="campo">
+          <label for="franja">Franja horaria</label>
+          <select id="franja" required>
+            <option value="">Selecciona</option>
+            <option>AM</option>
+            <option>PM</option>
+          </select>
+        </div>
+
+        <div class="campo campo-completo">
+          <label for="observacion">Observación</label>
+          <textarea
+            id="observacion"
+            placeholder="Escribe aquí el resultado de la llamada o una observación importante..."
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="botones">
+        <button type="submit">Continuar →</button>
+      </div>
+    </form>
+  </main>
+
+  <script>
+    document.getElementById("fecha").value = new Date()
+      .toISOString()
+      .split("T")[0];
+
+    document.getElementById("formularioVenta").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const asesor = document.getElementById("asesor").value;
+      const estadoBase = document.getElementById("estadoBase").value;
+      const fecha = document.getElementById("fecha").value;
+      const franja = document.getElementById("franja").value;
+      const observacion = document.getElementById("observacion").value;
+
+      localStorage.setItem("asesor", asesor);
+      localStorage.setItem("estadoBase", estadoBase);
+      localStorage.setItem("fecha", fecha);
+      localStorage.setItem("franja", franja);
+      localStorage.setItem("observacion", observacion);
+
+      alert("Información guardada. Ahora crearemos la vista 2: ubicación de instalación.");
+    });
+  </script>
+</body>
+</html>
