@@ -66,43 +66,66 @@
 
     .contenedor {
       width: 100%;
-      max-width: 650px;
-      text-align: center;
+      max-width: 760px;
       background: rgba(255, 255, 255, 0.96);
-      padding: 50px 40px;
+      padding: 45px 40px;
       border-radius: 25px;
       box-shadow: 0 12px 35px rgba(0, 118, 181, 0.16);
       border: 1px solid #d9f1fa;
+    }
+
+    .pagina {
+      display: none;
+    }
+
+    .pagina.activa {
+      display: block;
     }
 
     .logo {
       color: #009ee3;
       font-size: 25px;
       font-weight: bold;
-      margin-bottom: 45px;
+      margin-bottom: 25px;
+      text-align: center;
     }
 
     .logo span {
       color: #06345a;
     }
 
+    .paso {
+      text-align: center;
+      color: #009ee3;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 25px;
+    }
+
     h1 {
       color: #06345a;
       font-size: 30px;
-      margin-bottom: 15px;
+      margin: 0 0 15px;
+      text-align: center;
     }
 
     p {
       color: #668196;
       font-size: 17px;
       line-height: 1.6;
-      margin-bottom: 35px;
+      margin: 0 0 35px;
+      text-align: center;
     }
 
     .campo {
       text-align: left;
-      max-width: 420px;
-      margin: auto;
+      margin-bottom: 18px;
+    }
+
+    .dos-columnas {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
     }
 
     label {
@@ -113,6 +136,7 @@
       margin-bottom: 9px;
     }
 
+    input,
     select,
     textarea {
       width: 100%;
@@ -125,6 +149,7 @@
       background: white;
     }
 
+    input:focus,
     select:focus,
     textarea:focus {
       border-color: #009ee3;
@@ -132,16 +157,22 @@
     }
 
     textarea {
-      min-height: 100px;
+      min-height: 105px;
       resize: vertical;
     }
 
-    button {
+    .botones {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
       margin-top: 30px;
+    }
+
+    button {
       border: none;
       background: #009ee3;
       color: white;
-      padding: 14px 30px;
+      padding: 14px 28px;
       border-radius: 10px;
       font-size: 16px;
       font-weight: bold;
@@ -152,12 +183,22 @@
       background: #007fba;
     }
 
+    .boton-volver {
+      background: #e8f7fd;
+      color: #009ee3;
+    }
+
+    .boton-volver:hover {
+      background: #d6f0fa;
+    }
+
     .boton-admin {
       background: transparent;
       color: #668196;
       font-size: 13px;
-      margin-top: 25px;
       padding: 8px;
+      display: block;
+      margin: 20px auto 0;
     }
 
     .boton-admin:hover {
@@ -168,23 +209,22 @@
     .panel-admin {
       display: none;
       width: 100%;
-      max-width: 650px;
+      max-width: 760px;
       margin-top: 20px;
       background: #06345a;
       color: white;
       padding: 28px;
       border-radius: 20px;
-      text-align: left;
     }
 
     .panel-admin h2 {
       margin-top: 0;
-      font-size: 22px;
     }
 
     .panel-admin p {
       color: #cce9f8;
       font-size: 14px;
+      text-align: left;
       margin-bottom: 20px;
     }
 
@@ -197,17 +237,27 @@
       margin-top: 7px;
     }
 
-    .panel-admin button {
-      margin-right: 10px;
-    }
-
     .boton-cerrar {
       background: #607d92;
+      margin-left: 8px;
     }
 
     @media (max-width: 600px) {
       .contenedor {
         padding: 35px 24px;
+      }
+
+      .dos-columnas {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .botones {
+        flex-direction: column;
+      }
+
+      .botones button {
+        width: 100%;
       }
 
       h1 {
@@ -233,35 +283,116 @@
 
   <div>
     <main class="contenedor">
-      <div class="logo">Ventas Fibra <span>Movistar</span></div>
 
-      <h1>¡Bienvenido!</h1>
+      <!-- PÁGINA 1 -->
+      <section class="pagina activa" id="pagina1">
+        <div class="logo">Ventas Fibra <span>Movistar</span></div>
+        <div class="paso">Paso 1 de 6</div>
 
-      <p>
-        Nos alegra mucho que hayas realizado una venta.<br>
-        Dinos, ¿qué asesor eres?
-      </p>
+        <h1>¡Bienvenido!</h1>
 
-      <form id="formularioAsesor">
-        <div class="campo">
-          <label for="asesor">Selecciona tu nombre</label>
-          <select id="asesor" required></select>
-        </div>
+        <p>
+          Nos alegra mucho que hayas realizado una venta.<br>
+          Dinos, ¿qué asesor eres?
+        </p>
 
-        <button type="submit">Continuar →</button>
-      </form>
+        <form id="formularioAsesor">
+          <div class="campo">
+            <label for="asesor">Selecciona tu nombre</label>
+            <select id="asesor" required></select>
+          </div>
 
-      <button class="boton-admin" type="button" onclick="abrirAdministracion()">
-        Administración
-      </button>
+          <div class="botones">
+            <span></span>
+            <button type="submit">Continuar →</button>
+          </div>
+        </form>
+
+        <button class="boton-admin" type="button" onclick="abrirAdministracion()">
+          Administración
+        </button>
+      </section>
+
+      <!-- PÁGINA 2 -->
+      <section class="pagina" id="pagina2">
+        <div class="logo">Ventas Fibra <span>Movistar</span></div>
+        <div class="paso">Paso 2 de 6</div>
+
+        <h1>Información de la venta</h1>
+
+        <p>
+          Registra los datos iniciales de la venta realizada.
+        </p>
+
+        <form id="formularioVenta">
+          <div class="campo">
+            <label for="observacion">Observación del asesor</label>
+            <textarea
+              id="observacion"
+              placeholder="Escribe aquí una observación importante sobre la venta..."
+            ></textarea>
+          </div>
+
+          <div class="dos-columnas">
+            <div class="campo">
+              <label for="estadoVenta">Estado de la venta</label>
+              <select id="estadoVenta" required>
+                <option value="">Selecciona una opción</option>
+                <option>Venta confirmada</option>
+                <option>Pendiente de validación</option>
+                <option>Pendiente de instalación</option>
+                <option>Cancelada</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="origenVenta">Tipo u origen de venta</label>
+              <select id="origenVenta" required>
+                <option value="">Selecciona una opción</option>
+                <option>Venta nueva</option>
+                <option>Venta de la base</option>
+                <option>Venta fuera de la base</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="fechaInstalacion">Fecha de instalación</label>
+              <input type="date" id="fechaInstalacion" required>
+            </div>
+
+            <div class="campo">
+              <label for="franja">Franja de instalación</label>
+              <select id="franja" required>
+                <option value="">Selecciona una opción</option>
+                <option>AM</option>
+                <option>PM</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="fechaIngreso">Fecha de ingreso</label>
+              <input type="date" id="fechaIngreso" required>
+            </div>
+          </div>
+
+          <div class="botones">
+            <button class="boton-volver" type="button" onclick="volverPagina1()">
+              ← Volver
+            </button>
+
+            <button type="submit">Continuar →</button>
+          </div>
+        </form>
+      </section>
     </main>
 
+    <!-- ADMINISTRACIÓN -->
     <section class="panel-admin" id="panelAdmin">
       <h2>Administración</h2>
 
       <p>
-        Escribe un elemento por línea. Desde aquí podrás agregar o quitar
-        asesores, planes y call centers.
+        Escribe un elemento por línea. Aquí podrás agregar o quitar asesores,
+        planes y call centers.
       </p>
 
       <label for="listaAsesores">Asesores</label>
@@ -314,10 +445,23 @@
       });
     }
 
+    function mostrarPagina(numeroPagina) {
+      document.querySelectorAll(".pagina").forEach(function(pagina) {
+        pagina.classList.remove("activa");
+      });
+
+      document.getElementById("pagina" + numeroPagina).classList.add("activa");
+      window.scrollTo(0, 0);
+    }
+
+    function volverPagina1() {
+      mostrarPagina(1);
+    }
+
     function abrirAdministracion() {
       const clave = prompt("Ingresa la clave de administrador:");
 
-      /* Cambia admin123 por la clave que tú quieras */
+      /* Puedes cambiar admin123 por la clave que tú quieras */
       if (clave !== "admin123") {
         alert("Clave incorrecta.");
         return;
@@ -373,8 +517,48 @@
 
       localStorage.setItem("asesor", asesor);
 
-      alert("¡Perfecto, " + asesor + "! Continuaremos con el registro de la venta.");
+      mostrarPagina(2);
     });
+
+    document.getElementById("formularioVenta").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      localStorage.setItem(
+        "observacion",
+        document.getElementById("observacion").value
+      );
+
+      localStorage.setItem(
+        "estadoVenta",
+        document.getElementById("estadoVenta").value
+      );
+
+      localStorage.setItem(
+        "origenVenta",
+        document.getElementById("origenVenta").value
+      );
+
+      localStorage.setItem(
+        "fechaInstalacion",
+        document.getElementById("fechaInstalacion").value
+      );
+
+      localStorage.setItem(
+        "franja",
+        document.getElementById("franja").value
+      );
+
+      localStorage.setItem(
+        "fechaIngreso",
+        document.getElementById("fechaIngreso").value
+      );
+
+      alert("Información guardada. Ahora construiremos la página 3: ubicación de instalación.");
+    });
+
+    document.getElementById("fechaIngreso").value = new Date()
+      .toISOString()
+      .split("T")[0];
 
     cargarAsesores();
   </script>
