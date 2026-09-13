@@ -13,7 +13,7 @@
       --texto: #17425e;
       --gris: #668196;
       --borde: #c7dce8;
-      --verde: #079b7b;
+      --verde: #08755f;
     }
 
     * {
@@ -25,7 +25,7 @@
       margin: 0;
       min-height: 100vh;
       padding: 24px;
-      background: #ffffff;
+      background: #fff;
       overflow-x: hidden;
       position: relative;
     }
@@ -34,13 +34,13 @@
       position: fixed;
       right: -70px;
       bottom: -110px;
-      font-size: 420px;
-      line-height: 1;
-      font-weight: bold;
-      color: rgba(0, 158, 227, 0.05);
       z-index: -2;
-      transform: rotate(-8deg);
+      color: rgba(0, 158, 227, 0.05);
+      font-size: 420px;
+      font-weight: bold;
+      line-height: 1;
       pointer-events: none;
+      transform: rotate(-8deg);
     }
 
     .fibras {
@@ -76,10 +76,10 @@
       width: 100%;
       max-width: 900px;
       margin: 20px auto;
-      background: rgba(255, 255, 255, 0.97);
       padding: 36px;
-      border-radius: 26px;
       border: 1px solid #d9f1fa;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.97);
       box-shadow: 0 12px 35px rgba(0, 118, 181, 0.16);
     }
 
@@ -88,9 +88,9 @@
       justify-content: space-between;
       align-items: center;
       gap: 15px;
-      border-bottom: 1px solid #dceef5;
       padding-bottom: 20px;
       margin-bottom: 22px;
+      border-bottom: 1px solid #dceef5;
     }
 
     .logo {
@@ -104,12 +104,12 @@
     }
 
     .asesor-activo {
+      padding: 8px 12px;
+      border-radius: 20px;
+      background: var(--celeste);
       color: var(--azul);
       font-size: 13px;
       font-weight: bold;
-      background: var(--celeste);
-      padding: 8px 12px;
-      border-radius: 20px;
     }
 
     .progreso {
@@ -129,9 +129,9 @@
       content: "";
       display: block;
       height: 6px;
-      background: #dbeaf2;
-      border-radius: 10px;
       margin-bottom: 7px;
+      border-radius: 10px;
+      background: #dbeaf2;
     }
 
     .paso.activo,
@@ -154,20 +154,20 @@
     }
 
     h1 {
+      margin: 0 0 10px;
       color: var(--azul-oscuro);
       font-size: 29px;
-      margin: 0 0 10px;
-    }
-
-    .subtitulo {
-      color: var(--gris);
-      font-size: 16px;
-      line-height: 1.55;
-      margin: 0 0 27px;
     }
 
     .centrado {
       text-align: center;
+    }
+
+    .subtitulo {
+      margin: 0 0 27px;
+      color: var(--gris);
+      font-size: 16px;
+      line-height: 1.55;
     }
 
     .grid {
@@ -186,29 +186,25 @@
       margin-bottom: 18px;
     }
 
-    .campo-completo {
-      grid-column: 1 / -1;
-    }
-
     label {
       display: block;
+      margin-bottom: 8px;
       color: var(--texto);
       font-size: 14px;
       font-weight: bold;
-      margin-bottom: 8px;
     }
 
     input,
     select,
     textarea {
       width: 100%;
+      padding: 13px;
       border: 1px solid var(--borde);
       border-radius: 10px;
-      padding: 13px;
+      outline: none;
       background: white;
       color: var(--texto);
       font-size: 15px;
-      outline: none;
     }
 
     input:focus,
@@ -225,16 +221,16 @@
 
     .opciones {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 12px;
     }
 
     .opcion {
+      padding: 15px;
       border: 1px solid #cfe3ee;
       border-radius: 13px;
-      padding: 15px;
-      cursor: pointer;
       background: white;
+      cursor: pointer;
       transition: 0.2s;
     }
 
@@ -247,9 +243,9 @@
 
     .opcion strong {
       display: block;
+      margin-bottom: 5px;
       color: var(--azul-oscuro);
       font-size: 15px;
-      margin-bottom: 5px;
     }
 
     .opcion small {
@@ -265,9 +261,9 @@
     }
 
     button {
+      padding: 13px 21px;
       border: none;
       border-radius: 10px;
-      padding: 13px 21px;
       background: var(--azul);
       color: white;
       font-size: 15px;
@@ -280,8 +276,8 @@
     }
 
     .secundario {
-      color: var(--azul);
       background: #e8f7fd;
+      color: var(--azul);
     }
 
     .secundario:hover {
@@ -304,11 +300,11 @@
 
     .resumen {
       padding: 20px;
+      border: 1px solid #d8f1fa;
       border-radius: 14px;
       background: #f1fbff;
-      border: 1px solid #d8f1fa;
-      line-height: 1.7;
       color: var(--texto);
+      line-height: 1.75;
     }
 
     .resumen strong {
@@ -316,24 +312,23 @@
     }
 
     .total {
+      border-color: #c9eee5;
       background: #eafaf7;
-      border: 1px solid #c9eee5;
       color: var(--verde);
       font-weight: bold;
     }
 
     .exito {
       display: none;
-      text-align: center;
       margin-top: 20px;
       padding: 16px;
-      color: #08715c;
-      background: #eafaf5;
       border-radius: 12px;
+      background: #eafaf5;
+      color: #08715c;
       font-weight: bold;
+      text-align: center;
     }
 
-    /* Ventana de administración */
     .modal-fondo {
       display: none;
       position: fixed;
@@ -346,15 +341,15 @@
 
     .modal {
       max-width: 720px;
-      margin: 35px auto;
       padding: 30px;
+      margin: 35px auto;
       border-radius: 22px;
       background: white;
     }
 
     .modal h2 {
-      color: var(--azul-oscuro);
       margin-top: 0;
+      color: var(--azul-oscuro);
     }
 
     .nota {
@@ -364,8 +359,8 @@
     }
 
     .peligro {
-      color: #b4234b;
       background: #fff0f3;
+      color: #b4234b;
     }
 
     .peligro:hover {
@@ -383,8 +378,8 @@
       }
 
       .encabezado {
-        align-items: flex-start;
         flex-direction: column;
+        align-items: flex-start;
       }
 
       .grid,
@@ -434,19 +429,28 @@
 
     <div class="progreso" id="progreso"></div>
 
-    <!-- PÁGINA 1: ASESOR -->
+    <!-- PÁGINA 1 -->
     <section class="vista activa" id="vista1">
       <div class="centrado">
         <h1>¡Bienvenido!</h1>
         <p class="subtitulo">
           Nos alegra mucho que hayas realizado una venta.<br>
-          Dinos, ¿qué asesor eres?
+          Dinos, ¿desde qué call center y qué asesor eres?
         </p>
       </div>
 
-      <div class="campo">
-        <label for="asesor">Selecciona tu nombre</label>
-        <select id="asesor" required></select>
+      <div class="grid">
+        <div class="campo">
+          <label for="callCenterInicio">Call center</label>
+          <select id="callCenterInicio" required></select>
+        </div>
+
+        <div class="campo">
+          <label for="asesor">Asesor</label>
+          <select id="asesor" required disabled>
+            <option value="">Primero selecciona un call center</option>
+          </select>
+        </div>
       </div>
 
       <div class="botones">
@@ -459,7 +463,7 @@
       </button>
     </section>
 
-    <!-- PÁGINA 2: GESTIÓN -->
+    <!-- PÁGINA 2 -->
     <section class="vista" id="vista2">
       <h1>Información de la venta</h1>
       <p class="subtitulo">Registra los datos iniciales de la gestión realizada.</p>
@@ -474,20 +478,8 @@
           <label for="estadoVenta">Estado de la venta</label>
           <select id="estadoVenta" required>
             <option value="">Selecciona una opción</option>
-            <option>Venta confirmada</option>
-            <option>Pendiente de validación</option>
-            <option>Pendiente de instalación</option>
-            <option>Cancelada</option>
-          </select>
-        </div>
-
-        <div class="campo">
-          <label for="origenVenta">Origen de la venta</label>
-          <select id="origenVenta" required>
-            <option value="">Selecciona una opción</option>
-            <option>Venta nueva</option>
-            <option>Venta de la base</option>
-            <option>Venta fuera de la base</option>
+            <option>De la base</option>
+            <option>No es de la base</option>
           </select>
         </div>
 
@@ -517,7 +509,7 @@
       </div>
     </section>
 
-    <!-- PÁGINA 3: UBICACIÓN -->
+    <!-- PÁGINA 3 -->
     <section class="vista" id="vista3">
       <h1>Ubicación de instalación</h1>
       <p class="subtitulo">Registra la dirección donde se instalará el servicio.</p>
@@ -550,7 +542,7 @@
       </div>
     </section>
 
-    <!-- PÁGINA 4: CLIENTE -->
+    <!-- PÁGINA 4 -->
     <section class="vista" id="vista4">
       <h1>Datos del cliente</h1>
       <p class="subtitulo">Completa la información del titular del servicio.</p>
@@ -578,18 +570,43 @@
         </div>
 
         <div class="campo">
-          <label for="documento">Documento de identidad</label>
-          <input type="text" id="documento" required>
+          <label for="documento">Número de documento</label>
+          <input
+            type="tel"
+            id="documento"
+            inputmode="numeric"
+            pattern="[0-9]+"
+            placeholder="Solo números"
+            required
+          >
         </div>
 
         <div class="campo">
-          <label for="celular">Celular principal</label>
-          <input type="tel" id="celular" required>
+          <label for="celular">Número de celular principal</label>
+          <input
+            type="tel"
+            id="celular"
+            inputmode="numeric"
+            pattern="[0-9]+"
+            placeholder="Solo números"
+            required
+          >
         </div>
 
         <div class="campo">
-          <label for="segundoContacto">Segundo contacto</label>
-          <input type="tel" id="segundoContacto" placeholder="Opcional">
+          <label for="nombreSegundoContacto">Nombre del segundo contacto</label>
+          <input type="text" id="nombreSegundoContacto" placeholder="Opcional">
+        </div>
+
+        <div class="campo">
+          <label for="numeroSegundoContacto">Número del segundo contacto</label>
+          <input
+            type="tel"
+            id="numeroSegundoContacto"
+            inputmode="numeric"
+            pattern="[0-9]+"
+            placeholder="Solo números"
+          >
         </div>
 
         <div class="campo">
@@ -617,7 +634,7 @@
       </div>
     </section>
 
-    <!-- PÁGINA 5: PLAN -->
+    <!-- PÁGINA 5 -->
     <section class="vista" id="vista5">
       <h1>Plan y beneficios</h1>
       <p class="subtitulo">
@@ -633,15 +650,24 @@
         <div class="campo">
           <label for="decos">Decodificadores</label>
           <select id="decos">
-            <option value="1">1 decodificador</option>
-            <option value="2">2 decodificadores (+ $15.000)</option>
-            <option value="3">3 decodificadores (+ $30.000)</option>
-            <option value="4">4 decodificadores (+ $45.000)</option>
+            <option value="1">Sencilla (1 decodificador)</option>
+            <option value="2">2 decodificadores</option>
+            <option value="3">3 decodificadores (+ $15.000)</option>
+            <option value="4">4 decodificadores (+ $30.000)</option>
+          </select>
+        </div>
+
+        <div class="campo" id="campoEntretenimiento" style="display: none;">
+          <label for="entretenimiento">Entretenimiento incluido</label>
+          <select id="entretenimiento">
+            <option value="">Selecciona una opción</option>
+            <option>HBO</option>
+            <option>Paramount+</option>
           </select>
         </div>
 
         <div class="campo">
-          <label for="beneficio">Entretenimiento incluido</label>
+          <label for="beneficio">Beneficio del plan</label>
           <input type="text" id="beneficio" readonly value="Selecciona un plan">
         </div>
 
@@ -657,15 +683,10 @@
       </div>
     </section>
 
-    <!-- PÁGINA 6: CONFIRMACIÓN -->
+    <!-- PÁGINA 6 -->
     <section class="vista" id="vista6">
       <h1>Revisión final</h1>
       <p class="subtitulo">Verifica la información antes de guardar la venta.</p>
-
-      <div class="campo">
-        <label for="callCenter">Call center</label>
-        <select id="callCenter" required></select>
-      </div>
 
       <div class="resumen" id="resumenVenta"></div>
 
@@ -684,14 +705,16 @@
       <h2>Administración</h2>
 
       <p class="nota">
-        Escribe un asesor o call center por línea. Para los planes usa:
-        <strong>Nombre del plan | Precio | Beneficio incluido</strong>.<br><br>
-        Ejemplo: <strong>Fibra 300 Mbps | 69900 | Paramount+</strong>
+        Para call centers y asesores usa una línea por cada centro con este formato:<br>
+        <strong>Nombre del call center | Asesor 1, Asesor 2</strong><br><br>
+        Ejemplo: <strong>Call Center 1 | Pepito Pérez, Marta</strong><br><br>
+        Para planes usa este formato:<br>
+        <strong>Nombre | Precio | Descripción | Beneficio</strong>
       </p>
 
       <div class="campo">
-        <label for="adminAsesores">Asesores</label>
-        <textarea id="adminAsesores"></textarea>
+        <label for="adminCentros">Call centers y asesores</label>
+        <textarea id="adminCentros"></textarea>
       </div>
 
       <div class="campo">
@@ -700,21 +723,12 @@
       </div>
 
       <div class="campo">
-        <label for="adminCallCenters">Call centers</label>
-        <textarea id="adminCallCenters"></textarea>
-      </div>
-
-      <div class="campo">
         <label for="adminSheetsUrl">URL de Google Sheets / Apps Script</label>
         <input
           type="url"
           id="adminSheetsUrl"
-          placeholder="Opcional: pega aquí la URL cuando conectemos Google Sheets"
+          placeholder="Pega aquí la URL de Apps Script cuando la tengas"
         >
-        <p class="nota">
-          Mientras esta URL esté vacía, las ventas se guardan en este navegador
-          y se pueden descargar en un archivo CSV.
-        </p>
       </div>
 
       <div class="botones">
@@ -734,59 +748,77 @@
   </div>
 
   <script>
-    /*
-      CLAVE TEMPORAL DEL ADMINISTRADOR.
-      Puedes cambiar admin123 por una clave personal.
-      Esta clave funciona solo como protección visual; más adelante se puede
-      reemplazar por un inicio de sesión real.
-    */
     const CLAVE_ADMIN = "admin123";
 
     const configuracionInicial = {
-      asesores: [
-        "Asesor 1",
-        "Asesor 2",
-        "Asesor 3"
-      ],
-
-      /*
-        Puedes cambiar los nombres, precios y beneficios desde Administración.
-        Formato: Nombre del plan | Precio | Beneficio
-      */
-      planes: [
+      centros: [
         {
-          nombre: "Fibra 150 Mbps",
-          precio: 59900,
-          beneficio: "Paramount+ incluido"
+          nombre: "Call Center 1",
+          asesores: ["Pepito Pérez", "Marta"]
         },
         {
-          nombre: "Fibra 300 Mbps",
-          precio: 69900,
-          beneficio: "Paramount+ incluido"
-        },
-        {
-          nombre: "Fibra 600 Mbps",
-          precio: 89900,
-          beneficio: "HBO incluido"
+          nombre: "Call Center 2",
+          asesores: ["Carlos", "Patricia"]
         }
       ],
 
-      callCenters: [
-        "Call Center Principal"
+      planes: [
+        {
+          nombre: "Movistar Total",
+          precio: 119000,
+          descripcion: "500 megas + televisión + línea pospago ilimitada",
+          beneficio: "HBO o Paramount+",
+          seleccionarEntretenimiento: true
+        },
+        {
+          nombre: "Movistar Duo",
+          precio: 89000,
+          descripcion: "500 megas + línea pospago",
+          beneficio: "Línea pospago incluida",
+          seleccionarEntretenimiento: false
+        },
+        {
+          nombre: "Internet + Televisión",
+          precio: 89900,
+          descripcion: "Internet de 500 megas + televisión",
+          beneficio: "Televisión incluida",
+          seleccionarEntretenimiento: false
+        },
+        {
+          nombre: "Internet 500 Megas",
+          precio: 79900,
+          descripcion: "Internet de 500 megas",
+          beneficio: "Internet fibra óptica",
+          seleccionarEntretenimiento: false
+        }
       ],
 
       sheetsUrl: ""
     };
 
-    let configuracion = JSON.parse(
-      localStorage.getItem("configuracionMovistar")
-    ) || configuracionInicial;
+    function cargarConfiguracion() {
+      const guardada = JSON.parse(
+        localStorage.getItem("configuracionMovistar") || "null"
+      );
+
+      /*
+        Esto evita problemas si tienes una versión anterior del código
+        guardada en el navegador.
+      */
+      if (!guardada || !Array.isArray(guardada.centros)) {
+        return configuracionInicial;
+      }
+
+      return guardada;
+    }
+
+    let configuracion = cargarConfiguracion();
 
     let venta = {
+      callCenter: "",
       asesor: "",
       observacion: "",
       estadoVenta: "",
-      origenVenta: "",
       fechaInstalacion: "",
       franja: "",
       fechaIngreso: "",
@@ -798,15 +830,17 @@
       nombreCliente: "",
       documento: "",
       celular: "",
-      segundoContacto: "",
+      nombreSegundoContacto: "",
+      numeroSegundoContacto: "",
       correo: "",
       estrato: "",
       plan: "",
       precioPlan: 0,
+      descripcionPlan: "",
       beneficio: "",
+      entretenimiento: "",
       decos: "1",
-      valorTotal: 0,
-      callCenter: ""
+      valorTotal: 0
     };
 
     let paginaActual = 1;
@@ -829,12 +863,10 @@
     }
 
     function crearProgreso() {
-      const progreso = document.getElementById("progreso");
-
-      progreso.innerHTML = nombresPasos.map(function(nombre, indice) {
+      document.getElementById("progreso").innerHTML = nombresPasos.map(function(nombre, indice) {
         const numero = indice + 1;
-
         let estado = "";
+
         if (numero < paginaActual) estado = "completo";
         if (numero === paginaActual) estado = "activo";
 
@@ -860,7 +892,6 @@
       }
 
       if (numero === 6) {
-        cargarCallCenters();
         crearResumen();
       }
 
@@ -871,39 +902,63 @@
     }
 
     function actualizarAsesorActivo() {
-      const texto = venta.asesor
-        ? "Asesor: " + venta.asesor
-        : "Sin asesor seleccionado";
+      let texto = "Sin asesor seleccionado";
+
+      if (venta.asesor && venta.callCenter) {
+        texto = venta.callCenter + " · " + venta.asesor;
+      }
 
       document.getElementById("asesorActivo").textContent = texto;
     }
 
-    function cargarAsesores() {
-      const selector = document.getElementById("asesor");
-      selector.innerHTML = '<option value="">Selecciona un asesor</option>';
-
-      configuracion.asesores.forEach(function(asesor) {
-        const opcion = document.createElement("option");
-        opcion.value = asesor;
-        opcion.textContent = asesor;
-        selector.appendChild(opcion);
-      });
-    }
-
     function cargarCallCenters() {
-      const selector = document.getElementById("callCenter");
+      const selector = document.getElementById("callCenterInicio");
+
       selector.innerHTML = '<option value="">Selecciona un call center</option>';
 
-      configuracion.callCenters.forEach(function(callCenter) {
+      configuracion.centros.forEach(function(centro) {
         const opcion = document.createElement("option");
-        opcion.value = callCenter;
-        opcion.textContent = callCenter;
+        opcion.value = centro.nombre;
+        opcion.textContent = centro.nombre;
         selector.appendChild(opcion);
       });
 
       if (venta.callCenter) {
         selector.value = venta.callCenter;
       }
+    }
+
+    function cargarAsesoresPorCentro() {
+      const selectorCentro = document.getElementById("callCenterInicio");
+      const selectorAsesor = document.getElementById("asesor");
+      const nombreCentro = selectorCentro.value;
+
+      venta.callCenter = nombreCentro;
+      venta.asesor = "";
+
+      selectorAsesor.innerHTML = "";
+      selectorAsesor.disabled = true;
+
+      if (!nombreCentro) {
+        selectorAsesor.innerHTML =
+          '<option value="">Primero selecciona un call center</option>';
+        return;
+      }
+
+      const centro = configuracion.centros.find(function(item) {
+        return item.nombre === nombreCentro;
+      });
+
+      selectorAsesor.innerHTML = '<option value="">Selecciona un asesor</option>';
+
+      centro.asesores.forEach(function(asesor) {
+        const opcion = document.createElement("option");
+        opcion.value = asesor;
+        opcion.textContent = asesor;
+        selectorAsesor.appendChild(opcion);
+      });
+
+      selectorAsesor.disabled = false;
     }
 
     function cargarPlanes() {
@@ -921,14 +976,16 @@
         tarjeta.innerHTML = `
           <strong>${plan.nombre}</strong>
           <small>
-            Desde ${formatoDinero(plan.precio)} / mes<br>
-            ${plan.beneficio}
+            ${plan.descripcion}<br>
+            ${plan.beneficio}<br>
+            <b>${formatoDinero(plan.precio)} / mes</b>
           </small>
         `;
 
         tarjeta.addEventListener("click", function() {
           venta.plan = plan.nombre;
           venta.precioPlan = Number(plan.precio);
+          venta.descripcionPlan = plan.descripcion;
           venta.beneficio = plan.beneficio;
 
           document.querySelectorAll("#listaPlanes .opcion").forEach(function(item) {
@@ -936,6 +993,18 @@
           });
 
           tarjeta.classList.add("seleccionada");
+
+          const campoEntretenimiento =
+            document.getElementById("campoEntretenimiento");
+
+          if (plan.seleccionarEntretenimiento) {
+            campoEntretenimiento.style.display = "block";
+          } else {
+            campoEntretenimiento.style.display = "none";
+            venta.entretenimiento = "";
+            document.getElementById("entretenimiento").value = "";
+          }
+
           calcularTotal();
         });
 
@@ -944,28 +1013,34 @@
     }
 
     function calcularTotal() {
-      const cantidadDecos = Number(document.getElementById("decos").value || 1);
-      const costoAdicional = (cantidadDecos - 1) * 15000;
+      const decos = Number(document.getElementById("decos").value || 1);
 
-      venta.decos = String(cantidadDecos);
-      venta.valorTotal = Number(venta.precioPlan || 0) + costoAdicional;
+      let aumentoDecos = 0;
+
+      if (decos === 3) aumentoDecos = 15000;
+      if (decos === 4) aumentoDecos = 30000;
+
+      venta.decos = String(decos);
+      venta.valorTotal = Number(venta.precioPlan || 0) + aumentoDecos;
 
       document.getElementById("beneficio").value =
         venta.beneficio || "Selecciona un plan";
 
       document.getElementById("valorTotal").value =
-        venta.plan ? formatoDinero(venta.valorTotal) : "Selecciona un plan";
+        venta.plan
+          ? formatoDinero(venta.valorTotal)
+          : "Selecciona un plan";
     }
 
     function guardarDatosPaginaActual() {
       if (paginaActual === 1) {
+        venta.callCenter = document.getElementById("callCenterInicio").value;
         venta.asesor = document.getElementById("asesor").value;
       }
 
       if (paginaActual === 2) {
         venta.observacion = document.getElementById("observacion").value;
         venta.estadoVenta = document.getElementById("estadoVenta").value;
-        venta.origenVenta = document.getElementById("origenVenta").value;
         venta.fechaInstalacion = document.getElementById("fechaInstalacion").value;
         venta.franja = document.getElementById("franja").value;
         venta.fechaIngreso = document.getElementById("fechaIngreso").value;
@@ -982,23 +1057,29 @@
         venta.nombreCliente = document.getElementById("nombreCliente").value;
         venta.documento = document.getElementById("documento").value;
         venta.celular = document.getElementById("celular").value;
-        venta.segundoContacto = document.getElementById("segundoContacto").value;
+        venta.nombreSegundoContacto =
+          document.getElementById("nombreSegundoContacto").value;
+        venta.numeroSegundoContacto =
+          document.getElementById("numeroSegundoContacto").value;
         venta.correo = document.getElementById("correo").value;
         venta.estrato = document.getElementById("estrato").value;
       }
 
       if (paginaActual === 5) {
-        calcularTotal();
-      }
+        venta.entretenimiento =
+          document.getElementById("entretenimiento").value;
 
-      if (paginaActual === 6) {
-        venta.callCenter = document.getElementById("callCenter").value;
+        calcularTotal();
       }
     }
 
+    function soloNumeros(valor) {
+      return /^[0-9]+$/.test(valor);
+    }
+
     function validarPaginaActual() {
-      const vistaActual = document.getElementById("vista" + paginaActual);
-      const requeridos = vistaActual.querySelectorAll("[required]");
+      const vista = document.getElementById("vista" + paginaActual);
+      const requeridos = vista.querySelectorAll("[required]");
 
       for (const campo of requeridos) {
         if (!campo.value) {
@@ -1007,14 +1088,55 @@
         }
       }
 
-      if (paginaActual === 4 && !venta.tipoCliente) {
-        alert("Selecciona si es una venta nueva o un reingreso.");
-        return false;
+      if (paginaActual === 4) {
+        if (!venta.tipoCliente) {
+          alert("Selecciona si es una venta nueva o un reingreso.");
+          return false;
+        }
+
+        if (!soloNumeros(venta.documento)) {
+          alert("El número de documento debe contener únicamente números.");
+          return false;
+        }
+
+        if (!soloNumeros(venta.celular)) {
+          alert("El número de celular debe contener únicamente números.");
+          return false;
+        }
+
+        if (
+          venta.numeroSegundoContacto &&
+          !soloNumeros(venta.numeroSegundoContacto)
+        ) {
+          alert("El número del segundo contacto debe contener únicamente números.");
+          return false;
+        }
+
+        if (
+          venta.numeroSegundoContacto &&
+          venta.numeroSegundoContacto === venta.celular
+        ) {
+          alert(
+            "El número del segundo contacto no puede ser igual al celular principal."
+          );
+          return false;
+        }
       }
 
-      if (paginaActual === 5 && !venta.plan) {
-        alert("Selecciona un plan de fibra.");
-        return false;
+      if (paginaActual === 5) {
+        if (!venta.plan) {
+          alert("Selecciona un plan de fibra.");
+          return false;
+        }
+
+        const planActual = configuracion.planes.find(function(plan) {
+          return plan.nombre === venta.plan;
+        });
+
+        if (planActual.seleccionarEntretenimiento && !venta.entretenimiento) {
+          alert("Selecciona HBO o Paramount+.");
+          return false;
+        }
       }
 
       return true;
@@ -1038,27 +1160,6 @@
       }
     }
 
-    function crearResumen() {
-      guardarDatosPaginaActual();
-
-      const resumen = document.getElementById("resumenVenta");
-
-      resumen.innerHTML = `
-        <strong>Asesor:</strong> ${venta.asesor || "-"}<br>
-        <strong>Cliente:</strong> ${venta.nombreCliente || "-"}<br>
-        <strong>Documento:</strong> ${venta.documento || "-"}<br>
-        <strong>Celular:</strong> ${venta.celular || "-"}<br>
-        <strong>Dirección:</strong> ${venta.direccion || "-"}, ${venta.barrio || "-"}, ${venta.ciudad || "-"}<br>
-        <strong>Tipo de cliente:</strong> ${venta.tipoCliente || "-"}<br>
-        <strong>Plan:</strong> ${venta.plan || "-"}<br>
-        <strong>Beneficio:</strong> ${venta.beneficio || "-"}<br>
-        <strong>Decodificadores:</strong> ${venta.decos || "1"}<br>
-        <strong>Valor mensual estimado:</strong> ${formatoDinero(venta.valorTotal || 0)}<br>
-        <strong>Fecha de instalación:</strong> ${venta.fechaInstalacion || "-"} (${venta.franja || "-"})<br>
-        <strong>Estado:</strong> ${venta.estadoVenta || "-"}
-      `;
-    }
-
     function seleccionarTipoCliente() {
       document.querySelectorAll("#opcionesTipoCliente .opcion").forEach(function(opcion) {
         opcion.addEventListener("click", function() {
@@ -1073,11 +1174,34 @@
       });
     }
 
-    async function guardarVenta() {
+    function crearResumen() {
       guardarDatosPaginaActual();
 
-      if (!validarPaginaActual()) return;
+      const entretenimiento = venta.entretenimiento
+        ? " · " + venta.entretenimiento
+        : "";
 
+      document.getElementById("resumenVenta").innerHTML = `
+        <strong>Call center:</strong> ${venta.callCenter || "-"}<br>
+        <strong>Asesor:</strong> ${venta.asesor || "-"}<br>
+        <strong>Cliente:</strong> ${venta.nombreCliente || "-"}<br>
+        <strong>Documento:</strong> ${venta.documento || "-"}<br>
+        <strong>Celular:</strong> ${venta.celular || "-"}<br>
+        <strong>Segundo contacto:</strong>
+        ${venta.nombreSegundoContacto || "-"}
+        ${venta.numeroSegundoContacto ? " · " + venta.numeroSegundoContacto : ""}<br>
+        <strong>Dirección:</strong>
+        ${venta.direccion || "-"}, ${venta.barrio || "-"}, ${venta.ciudad || "-"}<br>
+        <strong>Tipo de cliente:</strong> ${venta.tipoCliente || "-"}<br>
+        <strong>Estado:</strong> ${venta.estadoVenta || "-"}<br>
+        <strong>Instalación:</strong> ${venta.fechaInstalacion || "-"} · ${venta.franja || "-"}<br>
+        <strong>Plan:</strong> ${venta.plan || "-"}${entretenimiento}<br>
+        <strong>Decodificadores:</strong> ${venta.decos || "1"}<br>
+        <strong>Valor mensual:</strong> ${formatoDinero(venta.valorTotal || 0)}
+      `;
+    }
+
+    async function guardarVenta() {
       const ventaFinal = {
         ...venta,
         registradoEn: new Date().toLocaleString("es-CO")
@@ -1095,8 +1219,7 @@
       );
 
       /*
-        Si en Administración agregas una URL de Apps Script,
-        esta información también se enviará a Google Sheets.
+        Si se configura la URL de Apps Script, se envía una copia a Google Sheets.
       */
       if (configuracion.sheetsUrl) {
         try {
@@ -1109,12 +1232,16 @@
             body: JSON.stringify(ventaFinal)
           });
         } catch (error) {
-          console.log("La venta se guardó localmente.");
+          console.log("La venta quedó guardada localmente.");
         }
       }
 
       const mensaje = document.getElementById("mensajeExito");
-      mensaje.textContent = "¡Venta guardada correctamente!";
+
+      mensaje.textContent = configuracion.sheetsUrl
+        ? "¡Venta guardada correctamente y enviada a Google Sheets!"
+        : "¡Venta guardada correctamente en este navegador! Puedes descargarla desde Administración.";
+
       mensaje.style.display = "block";
     }
 
@@ -1126,16 +1253,20 @@
         return;
       }
 
-      document.getElementById("adminAsesores").value =
-        configuracion.asesores.join("\n");
+      document.getElementById("adminCentros").value =
+        configuracion.centros.map(function(centro) {
+          return centro.nombre + " | " + centro.asesores.join(", ");
+        }).join("\n");
 
       document.getElementById("adminPlanes").value =
         configuracion.planes.map(function(plan) {
-          return `${plan.nombre} | ${plan.precio} | ${plan.beneficio}`;
+          return [
+            plan.nombre,
+            plan.precio,
+            plan.descripcion,
+            plan.beneficio
+          ].join(" | ");
         }).join("\n");
-
-      document.getElementById("adminCallCenters").value =
-        configuracion.callCenters.join("\n");
 
       document.getElementById("adminSheetsUrl").value =
         configuracion.sheetsUrl || "";
@@ -1148,17 +1279,7 @@
     }
 
     function guardarConfiguracion() {
-      const asesores = document.getElementById("adminAsesores").value
-        .split("\n")
-        .map(function(item) { return item.trim(); })
-        .filter(function(item) { return item !== ""; });
-
-      const callCenters = document.getElementById("adminCallCenters").value
-        .split("\n")
-        .map(function(item) { return item.trim(); })
-        .filter(function(item) { return item !== ""; });
-
-      const planes = document.getElementById("adminPlanes").value
+      const centros = document.getElementById("adminCentros").value
         .split("\n")
         .map(function(linea) {
           const partes = linea.split("|").map(function(parte) {
@@ -1167,18 +1288,48 @@
 
           return {
             nombre: partes[0],
+            asesores: (partes[1] || "")
+              .split(",")
+              .map(function(asesor) {
+                return asesor.trim();
+              })
+              .filter(Boolean)
+          };
+        })
+        .filter(function(centro) {
+          return centro.nombre && centro.asesores.length;
+        });
+
+      const planes = document.getElementById("adminPlanes").value
+        .split("\n")
+        .map(function(linea) {
+          const partes = linea.split("|").map(function(parte) {
+            return parte.trim();
+          });
+
+          const beneficio = partes[3] || "";
+
+          return {
+            nombre: partes[0],
             precio: Number(partes[1]) || 0,
-            beneficio: partes[2] || "Sin beneficio definido"
+            descripcion: partes[2] || "",
+            beneficio: beneficio,
+            seleccionarEntretenimiento:
+              beneficio.includes("HBO") && beneficio.includes("Paramount")
           };
         })
         .filter(function(plan) {
-          return plan.nombre !== "";
+          return plan.nombre;
         });
 
+      if (!centros.length || !planes.length) {
+        alert("Debe existir al menos un call center con asesores y un plan.");
+        return;
+      }
+
       configuracion = {
-        asesores: asesores,
+        centros: centros,
         planes: planes,
-        callCenters: callCenters,
         sheetsUrl: document.getElementById("adminSheetsUrl").value.trim()
       };
 
@@ -1187,7 +1338,7 @@
         JSON.stringify(configuracion)
       );
 
-      cargarAsesores();
+      cargarCallCenters();
       cerrarAdmin();
 
       alert("Configuración guardada correctamente.");
@@ -1219,6 +1370,7 @@
       });
 
       const csv = [columnas.join(","), ...filas].join("\n");
+
       const archivo = new Blob([csv], {
         type: "text/csv;charset=utf-8;"
       });
@@ -1229,13 +1381,28 @@
       enlace.click();
     }
 
-    document.getElementById("decos").addEventListener("change", calcularTotal);
+    document.getElementById("callCenterInicio").addEventListener(
+      "change",
+      cargarAsesoresPorCentro
+    );
+
+    document.getElementById("decos").addEventListener(
+      "change",
+      calcularTotal
+    );
+
+    document.getElementById("entretenimiento").addEventListener(
+      "change",
+      function() {
+        venta.entretenimiento = this.value;
+      }
+    );
 
     document.getElementById("fechaIngreso").value = new Date()
       .toISOString()
       .split("T")[0];
 
-    cargarAsesores();
+    cargarCallCenters();
     seleccionarTipoCliente();
     crearProgreso();
   </script>
