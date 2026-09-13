@@ -981,11 +981,12 @@
         });
 
         const mensaje = document.getElementById("mensajeExito");
-
-        mensaje.textContent = "¡Venta ingresada con éxito!";
+        mensaje.textContent =
+          "Información enviada. Verifica que aparezca en la hoja de ventas.";
         mensaje.style.display = "block";
 
         setTimeout(reiniciarFormulario, 1800);
+
       } catch (error) {
         alert("No fue posible enviar la venta. Inténtalo nuevamente.");
         boton.disabled = false;
