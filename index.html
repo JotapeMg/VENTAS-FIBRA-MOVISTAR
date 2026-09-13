@@ -1105,7 +1105,7 @@
 
       const selector = document.getElementById("asesor");
 
-      venta.callCenter = document.getElementById("callCenter").value;
+      venta.callCenter = document.getElementById("callCenter").value.trim();
       venta.asesor = "";
 
       if (!centro) {
@@ -1193,7 +1193,7 @@
 
     function guardarDatos() {
       if (paginaActual === 1) {
-        venta.callCenter = document.getElementById("callCenter").value;
+        venta.callCenter = document.getElementById("callCenter").value.trim();
         venta.asesor = document.getElementById("asesor").value;
       }
 
@@ -1359,6 +1359,11 @@
        * El Apps Script se encarga de convertirlos a las columnas
        * según el encabezado de la hoja.
        */
+      // Garantizar que el Call Center seleccionado en la primera vista
+      // sea el valor que se envía al Google Sheets.
+      venta.callCenter = (document.getElementById("callCenter")?.value || "").trim();
+      venta.asesor = (document.getElementById("asesor")?.value || "").trim();
+
       const datosFinales = {
         ...venta,
         marcaTemporal: new Date().toLocaleString("es-CO"),
