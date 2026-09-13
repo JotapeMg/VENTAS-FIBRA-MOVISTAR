@@ -9,11 +9,8 @@
     :root {
       --azul: #009ee3;
       --azul-oscuro: #06345a;
-      --celeste: #e8f8fe;
       --texto: #17425e;
       --gris: #668196;
-      --borde: #c7dce8;
-      --verde: #08755f;
     }
 
     * {
@@ -26,51 +23,18 @@
       min-height: 100vh;
       padding: 24px;
       background: #fff;
-      overflow-x: hidden;
-      position: relative;
     }
 
     .marca-agua {
       position: fixed;
       right: -70px;
-      bottom: -110px;
+      bottom: -120px;
       z-index: -2;
       color: rgba(0, 158, 227, 0.05);
       font-size: 420px;
       font-weight: bold;
-      line-height: 1;
-      pointer-events: none;
       transform: rotate(-8deg);
     }
-
-    .fibras {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .fibra {
-      position: absolute;
-      height: 2px;
-      border-radius: 50%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(0, 158, 227, 0.2),
-        #00b4f0,
-        rgba(0, 158, 227, 0.2),
-        transparent
-      );
-      box-shadow: 0 0 12px rgba(0, 180, 240, 0.55);
-      transform: rotate(-28deg);
-    }
-
-    .fibra1 { width: 750px; top: 15%; left: -260px; }
-    .fibra2 { width: 650px; top: 28%; left: -180px; opacity: 0.7; }
-    .fibra3 { width: 700px; bottom: 20%; right: -260px; transform: rotate(145deg); opacity: 0.7; }
-    .fibra4 { width: 600px; bottom: 9%; right: -180px; transform: rotate(145deg); opacity: 0.45; }
 
     .app {
       width: 100%;
@@ -79,15 +43,15 @@
       padding: 36px;
       border: 1px solid #d9f1fa;
       border-radius: 26px;
-      background: rgba(255, 255, 255, 0.97);
+      background: white;
       box-shadow: 0 12px 35px rgba(0, 118, 181, 0.16);
     }
 
     .encabezado {
       display: flex;
       justify-content: space-between;
-      align-items: center;
       gap: 15px;
+      align-items: center;
       padding-bottom: 20px;
       margin-bottom: 22px;
       border-bottom: 1px solid #dceef5;
@@ -99,14 +63,15 @@
       font-weight: bold;
     }
 
-    .logo span {
+    .logo span,
+    h1 {
       color: var(--azul-oscuro);
     }
 
     .asesor-activo {
       padding: 8px 12px;
       border-radius: 20px;
-      background: var(--celeste);
+      background: #e8f8fe;
       color: var(--azul);
       font-size: 13px;
       font-weight: bold;
@@ -155,7 +120,6 @@
 
     h1 {
       margin: 0 0 10px;
-      color: var(--azul-oscuro);
       font-size: 29px;
     }
 
@@ -199,10 +163,9 @@
     textarea {
       width: 100%;
       padding: 13px;
-      border: 1px solid var(--borde);
+      border: 1px solid #c7dce8;
       border-radius: 10px;
       outline: none;
-      background: white;
       color: var(--texto);
       font-size: 15px;
     }
@@ -229,23 +192,19 @@
       padding: 15px;
       border: 1px solid #cfe3ee;
       border-radius: 13px;
-      background: white;
       cursor: pointer;
-      transition: 0.2s;
     }
 
     .opcion:hover,
     .opcion.seleccionada {
       border-color: var(--azul);
       background: #ecf9ff;
-      box-shadow: 0 5px 16px rgba(0, 158, 227, 0.12);
     }
 
     .opcion strong {
       display: block;
       margin-bottom: 5px;
       color: var(--azul-oscuro);
-      font-size: 15px;
     }
 
     .opcion small {
@@ -280,24 +239,6 @@
       color: var(--azul);
     }
 
-    .secundario:hover {
-      background: #d6f0fa;
-    }
-
-    .admin-acceso {
-      display: block;
-      margin: 22px auto 0;
-      padding: 7px;
-      background: transparent;
-      color: var(--gris);
-      font-size: 13px;
-    }
-
-    .admin-acceso:hover {
-      background: transparent;
-      color: var(--azul);
-    }
-
     .resumen {
       padding: 20px;
       border: 1px solid #d8f1fa;
@@ -307,17 +248,6 @@
       line-height: 1.75;
     }
 
-    .resumen strong {
-      color: var(--azul-oscuro);
-    }
-
-    .total {
-      border-color: #c9eee5;
-      background: #eafaf7;
-      color: var(--verde);
-      font-weight: bold;
-    }
-
     .exito {
       display: none;
       margin-top: 20px;
@@ -325,8 +255,17 @@
       border-radius: 12px;
       background: #eafaf5;
       color: #08715c;
-      font-weight: bold;
       text-align: center;
+      font-weight: bold;
+    }
+
+    .admin {
+      display: block;
+      margin: 22px auto 0;
+      padding: 7px;
+      background: transparent;
+      color: var(--gris);
+      font-size: 13px;
     }
 
     .modal-fondo {
@@ -347,79 +286,20 @@
       background: white;
     }
 
-    .modal h2 {
-      margin-top: 0;
-      color: var(--azul-oscuro);
-    }
-
-    .nota {
-      color: var(--gris);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .peligro {
-      background: #fff0f3;
-      color: #b4234b;
-    }
-
-    .peligro:hover {
-      background: #ffdfe6;
-    }
-
     @media (max-width: 680px) {
-      body {
-        padding: 12px;
-      }
-
-      .app {
-        margin: 0 auto;
-        padding: 25px 20px;
-      }
-
-      .encabezado {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .grid,
-      .grid-3 {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-
-      .progreso {
-        gap: 4px;
-      }
-
-      .paso {
-        font-size: 9px;
-      }
-
-      .botones {
-        flex-direction: column-reverse;
-      }
-
-      .botones button {
-        width: 100%;
-      }
-
-      .marca-agua {
-        font-size: 280px;
-      }
+      body { padding: 12px; }
+      .app { padding: 25px 20px; }
+      .encabezado { flex-direction: column; align-items: flex-start; }
+      .grid, .grid-3 { grid-template-columns: 1fr; gap: 0; }
+      .botones { flex-direction: column-reverse; }
+      .botones button { width: 100%; }
+      .paso { font-size: 9px; }
     }
   </style>
 </head>
 
 <body>
   <div class="marca-agua">M</div>
-
-  <div class="fibras">
-    <div class="fibra fibra1"></div>
-    <div class="fibra fibra2"></div>
-    <div class="fibra fibra3"></div>
-    <div class="fibra fibra4"></div>
-  </div>
 
   <main class="app">
     <header class="encabezado">
@@ -429,7 +309,6 @@
 
     <div class="progreso" id="progreso"></div>
 
-    <!-- PÁGINA 1 -->
     <section class="vista activa" id="vista1">
       <div class="centrado">
         <h1>¡Bienvenido!</h1>
@@ -441,14 +320,14 @@
 
       <div class="grid">
         <div class="campo">
-          <label for="callCenterInicio">Call center</label>
-          <select id="callCenterInicio" required></select>
+          <label for="callCenter">Call center</label>
+          <select id="callCenter" required></select>
         </div>
 
         <div class="campo">
           <label for="asesor">Asesor</label>
-          <select id="asesor" required disabled>
-            <option value="">Primero selecciona un call center</option>
+          <select id="asesor" disabled required>
+            <option>Primero selecciona un call center</option>
           </select>
         </div>
       </div>
@@ -458,25 +337,24 @@
         <button type="button" onclick="siguiente()">Continuar →</button>
       </div>
 
-      <button class="admin-acceso" type="button" onclick="abrirAdmin()">
+      <button class="admin" type="button" onclick="abrirAdmin()">
         Administración
       </button>
     </section>
 
-    <!-- PÁGINA 2 -->
     <section class="vista" id="vista2">
       <h1>Información de la venta</h1>
       <p class="subtitulo">Registra los datos iniciales de la gestión realizada.</p>
 
       <div class="campo">
         <label for="observacion">Observación del asesor</label>
-        <textarea id="observacion" placeholder="Escribe una observación importante sobre la venta..."></textarea>
+        <textarea id="observacion"></textarea>
       </div>
 
       <div class="grid">
         <div class="campo">
-          <label for="estadoVenta">Estado de la venta</label>
-          <select id="estadoVenta" required>
+          <label for="estadoBase">Estado de la venta</label>
+          <select id="estadoBase" required>
             <option value="">Selecciona una opción</option>
             <option>De la base</option>
             <option>No es de la base</option>
@@ -485,7 +363,7 @@
 
         <div class="campo">
           <label for="fechaInstalacion">Fecha de instalación</label>
-          <input type="date" id="fechaInstalacion" required>
+          <input id="fechaInstalacion" type="date" required>
         </div>
 
         <div class="campo">
@@ -499,7 +377,7 @@
 
         <div class="campo">
           <label for="fechaIngreso">Fecha de ingreso</label>
-          <input type="date" id="fechaIngreso" required>
+          <input id="fechaIngreso" type="date" required>
         </div>
       </div>
 
@@ -509,7 +387,6 @@
       </div>
     </section>
 
-    <!-- PÁGINA 3 -->
     <section class="vista" id="vista3">
       <h1>Ubicación de instalación</h1>
       <p class="subtitulo">Registra la dirección donde se instalará el servicio.</p>
@@ -517,22 +394,22 @@
       <div class="grid">
         <div class="campo">
           <label for="ciudad">Ciudad</label>
-          <input type="text" id="ciudad" placeholder="Ejemplo: Bogotá" required>
+          <input id="ciudad" required>
         </div>
 
         <div class="campo">
           <label for="barrio">Barrio</label>
-          <input type="text" id="barrio" required>
+          <input id="barrio" required>
         </div>
 
         <div class="campo">
           <label for="conjunto">Conjunto o edificio</label>
-          <input type="text" id="conjunto" placeholder="Opcional">
+          <input id="conjunto">
         </div>
 
         <div class="campo">
           <label for="direccion">Dirección completa</label>
-          <input type="text" id="direccion" placeholder="Calle, carrera, número y apartamento" required>
+          <input id="direccion" required>
         </div>
       </div>
 
@@ -542,7 +419,6 @@
       </div>
     </section>
 
-    <!-- PÁGINA 4 -->
     <section class="vista" id="vista4">
       <h1>Datos del cliente</h1>
       <p class="subtitulo">Completa la información del titular del servicio.</p>
@@ -550,7 +426,7 @@
       <div class="campo">
         <label>Tipo de cliente</label>
 
-        <div class="opciones" id="opcionesTipoCliente">
+        <div class="opciones" id="opcionesTipo">
           <div class="opcion" data-tipo="Venta nueva">
             <strong>Venta nueva</strong>
             <small>Cliente que contratará el servicio por primera vez.</small>
@@ -566,64 +442,40 @@
       <div class="grid">
         <div class="campo">
           <label for="nombreCliente">Nombre completo</label>
-          <input type="text" id="nombreCliente" required>
+          <input id="nombreCliente" required>
         </div>
 
         <div class="campo">
           <label for="documento">Número de documento</label>
-          <input
-            type="tel"
-            id="documento"
-            inputmode="numeric"
-            pattern="[0-9]+"
-            placeholder="Solo números"
-            required
-          >
+          <input id="documento" type="tel" inputmode="numeric" required>
         </div>
 
         <div class="campo">
           <label for="celular">Número de celular principal</label>
-          <input
-            type="tel"
-            id="celular"
-            inputmode="numeric"
-            pattern="[0-9]+"
-            placeholder="Solo números"
-            required
-          >
+          <input id="celular" type="tel" inputmode="numeric" required>
         </div>
 
         <div class="campo">
           <label for="nombreSegundoContacto">Nombre del segundo contacto</label>
-          <input type="text" id="nombreSegundoContacto" placeholder="Opcional">
+          <input id="nombreSegundoContacto">
         </div>
 
         <div class="campo">
           <label for="numeroSegundoContacto">Número del segundo contacto</label>
-          <input
-            type="tel"
-            id="numeroSegundoContacto"
-            inputmode="numeric"
-            pattern="[0-9]+"
-            placeholder="Solo números"
-          >
+          <input id="numeroSegundoContacto" type="tel" inputmode="numeric">
         </div>
 
         <div class="campo">
           <label for="correo">Correo electrónico</label>
-          <input type="email" id="correo" placeholder="Opcional">
+          <input id="correo" type="email">
         </div>
 
         <div class="campo">
           <label for="estrato">Estrato</label>
           <select id="estrato" required>
             <option value="">Selecciona una opción</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
+            <option>1</option><option>2</option><option>3</option>
+            <option>4</option><option>5</option><option>6</option>
           </select>
         </div>
       </div>
@@ -634,16 +486,13 @@
       </div>
     </section>
 
-    <!-- PÁGINA 5 -->
     <section class="vista" id="vista5">
       <h1>Plan y beneficios</h1>
-      <p class="subtitulo">
-        Selecciona el plan de fibra y la cantidad de decodificadores.
-      </p>
+      <p class="subtitulo">Selecciona el plan de fibra y los decodificadores.</p>
 
       <div class="campo">
         <label>Planes disponibles</label>
-        <div class="opciones" id="listaPlanes"></div>
+        <div class="opciones" id="planes"></div>
       </div>
 
       <div class="grid-3">
@@ -657,7 +506,7 @@
           </select>
         </div>
 
-        <div class="campo" id="campoEntretenimiento" style="display: none;">
+        <div class="campo" id="campoEntretenimiento" style="display:none;">
           <label for="entretenimiento">Entretenimiento incluido</label>
           <select id="entretenimiento">
             <option value="">Selecciona una opción</option>
@@ -668,12 +517,12 @@
 
         <div class="campo">
           <label for="beneficio">Beneficio del plan</label>
-          <input type="text" id="beneficio" readonly value="Selecciona un plan">
+          <input id="beneficio" readonly>
         </div>
 
         <div class="campo">
           <label for="valorTotal">Valor mensual estimado</label>
-          <input class="total" type="text" id="valorTotal" readonly value="Selecciona un plan">
+          <input id="valorTotal" readonly>
         </div>
       </div>
 
@@ -683,33 +532,30 @@
       </div>
     </section>
 
-    <!-- PÁGINA 6 -->
     <section class="vista" id="vista6">
       <h1>Revisión final</h1>
       <p class="subtitulo">Verifica la información antes de guardar la venta.</p>
 
-      <div class="resumen" id="resumenVenta"></div>
+      <div class="resumen" id="resumen"></div>
 
       <div class="botones">
         <button class="secundario" type="button" onclick="anterior()">← Volver</button>
-        <button type="button" onclick="guardarVenta()">Confirmar y guardar venta</button>
+        <button id="botonGuardar" type="button" onclick="guardarVenta()">
+          Confirmar y guardar venta
+        </button>
       </div>
 
       <div class="exito" id="mensajeExito"></div>
     </section>
   </main>
 
-  <!-- ADMINISTRACIÓN -->
   <div class="modal-fondo" id="modalAdmin">
     <div class="modal">
       <h2>Administración</h2>
 
-      <p class="nota">
-        Para call centers y asesores usa una línea por cada centro con este formato:<br>
-        <strong>Nombre del call center | Asesor 1, Asesor 2</strong><br><br>
-        Ejemplo: <strong>Call Center 1 | Pepito Pérez, Marta</strong><br><br>
-        Para planes usa este formato:<br>
-        <strong>Nombre | Precio | Descripción | Beneficio</strong>
+      <p class="subtitulo">
+        Call centers: <b>Nombre del call center | Asesor 1, Asesor 2</b><br><br>
+        Planes: <b>Nombre | Precio | Descripción | Beneficio</b>
       </p>
 
       <div class="campo">
@@ -718,36 +564,21 @@
       </div>
 
       <div class="campo">
-        <label for="adminPlanes">Planes de fibra</label>
+        <label for="adminPlanes">Planes</label>
         <textarea id="adminPlanes"></textarea>
-      </div>
-
-      <div class="campo">
-        <label for="adminSheetsUrl">URL de Google Sheets / Apps Script</label>
-        <input
-          type="url"
-          id="adminSheetsUrl"
-          placeholder="Pega aquí la URL de Apps Script cuando la tengas"
-        >
       </div>
 
       <div class="botones">
         <button class="secundario" type="button" onclick="cerrarAdmin()">Cerrar</button>
-
-        <div>
-          <button class="peligro" type="button" onclick="descargarVentas()">
-            Descargar ventas CSV
-          </button>
-
-          <button type="button" onclick="guardarConfiguracion()">
-            Guardar cambios
-          </button>
-        </div>
+        <button type="button" onclick="guardarConfiguracion()">Guardar cambios</button>
       </div>
     </div>
   </div>
 
   <script>
+    const URL_GOOGLE_SHEETS =
+      "https://script.google.com/macros/s/AKfycbxdOvpVutXY9oxmqf_zlsx-UiFOKJE8pe4ksFKf7VgsTBVm-N_5-HAa7OBsYg9hy2bB/exec";
+
     const CLAVE_ADMIN = "admin123";
 
     const configuracionInicial = {
@@ -761,64 +592,49 @@
           asesores: ["Carlos", "Patricia"]
         }
       ],
-
       planes: [
         {
           nombre: "Movistar Total",
           precio: 119000,
           descripcion: "500 megas + televisión + línea pospago ilimitada",
-          beneficio: "HBO o Paramount+",
-          seleccionarEntretenimiento: true
+          beneficio: "HBO o Paramount+"
         },
         {
           nombre: "Movistar Duo",
           precio: 89000,
           descripcion: "500 megas + línea pospago",
-          beneficio: "Línea pospago incluida",
-          seleccionarEntretenimiento: false
+          beneficio: "Línea pospago incluida"
         },
         {
           nombre: "Internet + Televisión",
           precio: 89900,
           descripcion: "Internet de 500 megas + televisión",
-          beneficio: "Televisión incluida",
-          seleccionarEntretenimiento: false
+          beneficio: "Televisión incluida"
         },
         {
           nombre: "Internet 500 Megas",
           precio: 79900,
           descripcion: "Internet de 500 megas",
-          beneficio: "Internet fibra óptica",
-          seleccionarEntretenimiento: false
+          beneficio: "Internet fibra óptica"
         }
-      ],
-
-      sheetsUrl: ""
+      ]
     };
 
-    function cargarConfiguracion() {
-      const guardada = JSON.parse(
-        localStorage.getItem("configuracionMovistar") || "null"
-      );
+    let configuracion = JSON.parse(
+      localStorage.getItem("configuracionMovistar") || "null"
+    );
 
-      /*
-        Esto evita problemas si tienes una versión anterior del código
-        guardada en el navegador.
-      */
-      if (!guardada || !Array.isArray(guardada.centros)) {
-        return configuracionInicial;
-      }
-
-      return guardada;
+    if (!configuracion || !Array.isArray(configuracion.centros)) {
+      configuracion = configuracionInicial;
     }
 
-    let configuracion = cargarConfiguracion();
+    let paginaActual = 1;
 
     let venta = {
       callCenter: "",
       asesor: "",
       observacion: "",
-      estadoVenta: "",
+      estadoBase: "",
       fechaInstalacion: "",
       franja: "",
       fechaIngreso: "",
@@ -836,14 +652,11 @@
       estrato: "",
       plan: "",
       precioPlan: 0,
-      descripcionPlan: "",
       beneficio: "",
       entretenimiento: "",
       decos: "1",
       valorTotal: 0
     };
-
-    let paginaActual = 1;
 
     const nombresPasos = [
       "Asesor",
@@ -854,7 +667,7 @@
       "Confirmar"
     ];
 
-    function formatoDinero(valor) {
+    function dinero(valor) {
       return new Intl.NumberFormat("es-CO", {
         style: "currency",
         currency: "COP",
@@ -863,15 +676,16 @@
     }
 
     function crearProgreso() {
-      document.getElementById("progreso").innerHTML = nombresPasos.map(function(nombre, indice) {
-        const numero = indice + 1;
-        let estado = "";
+      document.getElementById("progreso").innerHTML =
+        nombresPasos.map(function(nombre, indice) {
+          const paso = indice + 1;
+          let clase = "";
 
-        if (numero < paginaActual) estado = "completo";
-        if (numero === paginaActual) estado = "activo";
+          if (paso < paginaActual) clase = "completo";
+          if (paso === paginaActual) clase = "activo";
 
-        return `<div class="paso ${estado}">${numero}. ${nombre}</div>`;
-      }).join("");
+          return `<div class="paso ${clase}">${paso}. ${nombre}</div>`;
+        }).join("");
     }
 
     function mostrarPagina(numero) {
@@ -884,7 +698,7 @@
       document.getElementById("vista" + numero).classList.add("activa");
 
       crearProgreso();
-      actualizarAsesorActivo();
+      actualizarEncabezado();
 
       if (numero === 5) {
         cargarPlanes();
@@ -895,78 +709,57 @@
         crearResumen();
       }
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function actualizarAsesorActivo() {
-      let texto = "Sin asesor seleccionado";
-
-      if (venta.asesor && venta.callCenter) {
-        texto = venta.callCenter + " · " + venta.asesor;
-      }
-
-      document.getElementById("asesorActivo").textContent = texto;
+    function actualizarEncabezado() {
+      document.getElementById("asesorActivo").textContent =
+        venta.asesor
+          ? venta.callCenter + " · " + venta.asesor
+          : "Sin asesor seleccionado";
     }
 
     function cargarCallCenters() {
-      const selector = document.getElementById("callCenterInicio");
+      const selector = document.getElementById("callCenter");
 
       selector.innerHTML = '<option value="">Selecciona un call center</option>';
 
       configuracion.centros.forEach(function(centro) {
-        const opcion = document.createElement("option");
-        opcion.value = centro.nombre;
-        opcion.textContent = centro.nombre;
-        selector.appendChild(opcion);
+        selector.innerHTML += `<option>${centro.nombre}</option>`;
       });
-
-      if (venta.callCenter) {
-        selector.value = venta.callCenter;
-      }
     }
 
-    function cargarAsesoresPorCentro() {
-      const selectorCentro = document.getElementById("callCenterInicio");
-      const selectorAsesor = document.getElementById("asesor");
-      const nombreCentro = selectorCentro.value;
+    function cargarAsesores() {
+      const centro = configuracion.centros.find(function(item) {
+        return item.nombre === document.getElementById("callCenter").value;
+      });
 
-      venta.callCenter = nombreCentro;
+      const selector = document.getElementById("asesor");
+
+      venta.callCenter = document.getElementById("callCenter").value;
       venta.asesor = "";
 
-      selectorAsesor.innerHTML = "";
-      selectorAsesor.disabled = true;
-
-      if (!nombreCentro) {
-        selectorAsesor.innerHTML =
-          '<option value="">Primero selecciona un call center</option>';
+      if (!centro) {
+        selector.disabled = true;
+        selector.innerHTML = "<option>Primero selecciona un call center</option>";
         return;
       }
 
-      const centro = configuracion.centros.find(function(item) {
-        return item.nombre === nombreCentro;
-      });
-
-      selectorAsesor.innerHTML = '<option value="">Selecciona un asesor</option>';
+      selector.disabled = false;
+      selector.innerHTML = '<option value="">Selecciona un asesor</option>';
 
       centro.asesores.forEach(function(asesor) {
-        const opcion = document.createElement("option");
-        opcion.value = asesor;
-        opcion.textContent = asesor;
-        selectorAsesor.appendChild(opcion);
+        selector.innerHTML += `<option>${asesor}</option>`;
       });
-
-      selectorAsesor.disabled = false;
     }
 
     function cargarPlanes() {
-      const contenedor = document.getElementById("listaPlanes");
+      const contenedor = document.getElementById("planes");
       contenedor.innerHTML = "";
 
       configuracion.planes.forEach(function(plan) {
         const tarjeta = document.createElement("div");
+
         tarjeta.className = "opcion";
 
         if (venta.plan === plan.nombre) {
@@ -978,32 +771,26 @@
           <small>
             ${plan.descripcion}<br>
             ${plan.beneficio}<br>
-            <b>${formatoDinero(plan.precio)} / mes</b>
+            <b>${dinero(plan.precio)} / mes</b>
           </small>
         `;
 
         tarjeta.addEventListener("click", function() {
           venta.plan = plan.nombre;
           venta.precioPlan = Number(plan.precio);
-          venta.descripcionPlan = plan.descripcion;
           venta.beneficio = plan.beneficio;
 
-          document.querySelectorAll("#listaPlanes .opcion").forEach(function(item) {
+          document.querySelectorAll("#planes .opcion").forEach(function(item) {
             item.classList.remove("seleccionada");
           });
 
           tarjeta.classList.add("seleccionada");
 
-          const campoEntretenimiento =
-            document.getElementById("campoEntretenimiento");
-
-          if (plan.seleccionarEntretenimiento) {
-            campoEntretenimiento.style.display = "block";
-          } else {
-            campoEntretenimiento.style.display = "none";
-            venta.entretenimiento = "";
-            document.getElementById("entretenimiento").value = "";
-          }
+          document.getElementById("campoEntretenimiento").style.display =
+            plan.beneficio.includes("HBO") &&
+            plan.beneficio.includes("Paramount")
+              ? "block"
+              : "none";
 
           calcularTotal();
         });
@@ -1013,56 +800,55 @@
     }
 
     function calcularTotal() {
-      const decos = Number(document.getElementById("decos").value || 1);
+      const decos = Number(document.getElementById("decos").value);
 
-      let aumentoDecos = 0;
+      let adicional = 0;
 
-      if (decos === 3) aumentoDecos = 15000;
-      if (decos === 4) aumentoDecos = 30000;
+      if (decos === 3) adicional = 15000;
+      if (decos === 4) adicional = 30000;
 
       venta.decos = String(decos);
-      venta.valorTotal = Number(venta.precioPlan || 0) + aumentoDecos;
+      venta.valorTotal = Number(venta.precioPlan || 0) + adicional;
 
       document.getElementById("beneficio").value =
         venta.beneficio || "Selecciona un plan";
 
       document.getElementById("valorTotal").value =
-        venta.plan
-          ? formatoDinero(venta.valorTotal)
-          : "Selecciona un plan";
+        venta.plan ? dinero(venta.valorTotal) : "Selecciona un plan";
     }
 
-    function guardarDatosPaginaActual() {
+    function guardarDatos() {
       if (paginaActual === 1) {
-        venta.callCenter = document.getElementById("callCenterInicio").value;
+        venta.callCenter = document.getElementById("callCenter").value;
         venta.asesor = document.getElementById("asesor").value;
       }
 
       if (paginaActual === 2) {
-        venta.observacion = document.getElementById("observacion").value;
-        venta.estadoVenta = document.getElementById("estadoVenta").value;
-        venta.fechaInstalacion = document.getElementById("fechaInstalacion").value;
-        venta.franja = document.getElementById("franja").value;
-        venta.fechaIngreso = document.getElementById("fechaIngreso").value;
+        ["observacion", "estadoBase", "fechaInstalacion", "franja", "fechaIngreso"]
+          .forEach(function(campo) {
+            venta[campo] = document.getElementById(campo).value;
+          });
       }
 
       if (paginaActual === 3) {
-        venta.ciudad = document.getElementById("ciudad").value;
-        venta.barrio = document.getElementById("barrio").value;
-        venta.conjunto = document.getElementById("conjunto").value;
-        venta.direccion = document.getElementById("direccion").value;
+        ["ciudad", "barrio", "conjunto", "direccion"]
+          .forEach(function(campo) {
+            venta[campo] = document.getElementById(campo).value;
+          });
       }
 
       if (paginaActual === 4) {
-        venta.nombreCliente = document.getElementById("nombreCliente").value;
-        venta.documento = document.getElementById("documento").value;
-        venta.celular = document.getElementById("celular").value;
-        venta.nombreSegundoContacto =
-          document.getElementById("nombreSegundoContacto").value;
-        venta.numeroSegundoContacto =
-          document.getElementById("numeroSegundoContacto").value;
-        venta.correo = document.getElementById("correo").value;
-        venta.estrato = document.getElementById("estrato").value;
+        [
+          "nombreCliente",
+          "documento",
+          "celular",
+          "nombreSegundoContacto",
+          "numeroSegundoContacto",
+          "correo",
+          "estrato"
+        ].forEach(function(campo) {
+          venta[campo] = document.getElementById(campo).value;
+        });
       }
 
       if (paginaActual === 5) {
@@ -1073,15 +859,10 @@
       }
     }
 
-    function soloNumeros(valor) {
-      return /^[0-9]+$/.test(valor);
-    }
-
-    function validarPaginaActual() {
+    function validar() {
       const vista = document.getElementById("vista" + paginaActual);
-      const requeridos = vista.querySelectorAll("[required]");
 
-      for (const campo of requeridos) {
+      for (const campo of vista.querySelectorAll("[required]")) {
         if (!campo.value) {
           campo.reportValidity();
           return false;
@@ -1094,21 +875,21 @@
           return false;
         }
 
-        if (!soloNumeros(venta.documento)) {
+        if (!/^[0-9]+$/.test(venta.documento)) {
           alert("El número de documento debe contener únicamente números.");
           return false;
         }
 
-        if (!soloNumeros(venta.celular)) {
-          alert("El número de celular debe contener únicamente números.");
+        if (!/^[0-9]+$/.test(venta.celular)) {
+          alert("El celular debe contener únicamente números.");
           return false;
         }
 
         if (
           venta.numeroSegundoContacto &&
-          !soloNumeros(venta.numeroSegundoContacto)
+          !/^[0-9]+$/.test(venta.numeroSegundoContacto)
         ) {
-          alert("El número del segundo contacto debe contener únicamente números.");
+          alert("El segundo contacto debe contener únicamente números.");
           return false;
         }
 
@@ -1129,11 +910,10 @@
           return false;
         }
 
-        const planActual = configuracion.planes.find(function(plan) {
-          return plan.nombre === venta.plan;
-        });
-
-        if (planActual.seleccionarEntretenimiento && !venta.entretenimiento) {
+        if (
+          document.getElementById("campoEntretenimiento").style.display !== "none" &&
+          !venta.entretenimiento
+        ) {
           alert("Selecciona HBO o Paramount+.");
           return false;
         }
@@ -1143,9 +923,9 @@
     }
 
     function siguiente() {
-      guardarDatosPaginaActual();
+      guardarDatos();
 
-      if (!validarPaginaActual()) return;
+      if (!validar()) return;
 
       if (paginaActual < 6) {
         mostrarPagina(paginaActual + 1);
@@ -1153,102 +933,118 @@
     }
 
     function anterior() {
-      guardarDatosPaginaActual();
+      guardarDatos();
 
       if (paginaActual > 1) {
         mostrarPagina(paginaActual - 1);
       }
     }
 
-    function seleccionarTipoCliente() {
-      document.querySelectorAll("#opcionesTipoCliente .opcion").forEach(function(opcion) {
-        opcion.addEventListener("click", function() {
-          venta.tipoCliente = opcion.dataset.tipo;
-
-          document.querySelectorAll("#opcionesTipoCliente .opcion").forEach(function(item) {
-            item.classList.remove("seleccionada");
-          });
-
-          opcion.classList.add("seleccionada");
-        });
-      });
-    }
-
     function crearResumen() {
-      guardarDatosPaginaActual();
+      guardarDatos();
 
-      const entretenimiento = venta.entretenimiento
-        ? " · " + venta.entretenimiento
-        : "";
-
-      document.getElementById("resumenVenta").innerHTML = `
-        <strong>Call center:</strong> ${venta.callCenter || "-"}<br>
-        <strong>Asesor:</strong> ${venta.asesor || "-"}<br>
-        <strong>Cliente:</strong> ${venta.nombreCliente || "-"}<br>
-        <strong>Documento:</strong> ${venta.documento || "-"}<br>
-        <strong>Celular:</strong> ${venta.celular || "-"}<br>
-        <strong>Segundo contacto:</strong>
-        ${venta.nombreSegundoContacto || "-"}
-        ${venta.numeroSegundoContacto ? " · " + venta.numeroSegundoContacto : ""}<br>
-        <strong>Dirección:</strong>
-        ${venta.direccion || "-"}, ${venta.barrio || "-"}, ${venta.ciudad || "-"}<br>
-        <strong>Tipo de cliente:</strong> ${venta.tipoCliente || "-"}<br>
-        <strong>Estado:</strong> ${venta.estadoVenta || "-"}<br>
-        <strong>Instalación:</strong> ${venta.fechaInstalacion || "-"} · ${venta.franja || "-"}<br>
-        <strong>Plan:</strong> ${venta.plan || "-"}${entretenimiento}<br>
-        <strong>Decodificadores:</strong> ${venta.decos || "1"}<br>
-        <strong>Valor mensual:</strong> ${formatoDinero(venta.valorTotal || 0)}
+      document.getElementById("resumen").innerHTML = `
+        <b>Call center:</b> ${venta.callCenter}<br>
+        <b>Asesor:</b> ${venta.asesor}<br>
+        <b>Cliente:</b> ${venta.nombreCliente}<br>
+        <b>Documento:</b> ${venta.documento}<br>
+        <b>Celular:</b> ${venta.celular}<br>
+        <b>Dirección:</b> ${venta.direccion}, ${venta.barrio}, ${venta.ciudad}<br>
+        <b>Tipo de cliente:</b> ${venta.tipoCliente}<br>
+        <b>Estado:</b> ${venta.estadoBase}<br>
+        <b>Instalación:</b> ${venta.fechaInstalacion} · ${venta.franja}<br>
+        <b>Plan:</b> ${venta.plan}${venta.entretenimiento ? " · " + venta.entretenimiento : ""}<br>
+        <b>Decodificadores:</b> ${venta.decos}<br>
+        <b>Valor mensual:</b> ${dinero(venta.valorTotal)}
       `;
     }
 
     async function guardarVenta() {
-      const ventaFinal = {
+      const boton = document.getElementById("botonGuardar");
+
+      const datosFinales = {
         ...venta,
-        registradoEn: new Date().toLocaleString("es-CO")
+        marcaTemporal: new Date().toLocaleString("es-CO")
       };
 
-      const ventasGuardadas = JSON.parse(
-        localStorage.getItem("ventasMovistar") || "[]"
-      );
+      boton.disabled = true;
+      boton.textContent = "Enviando...";
 
-      ventasGuardadas.push(ventaFinal);
+      try {
+        await fetch(URL_GOOGLE_SHEETS, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(datosFinales)
+        });
 
-      localStorage.setItem(
-        "ventasMovistar",
-        JSON.stringify(ventasGuardadas)
-      );
+        const mensaje = document.getElementById("mensajeExito");
 
-      /*
-        Si se configura la URL de Apps Script, se envía una copia a Google Sheets.
-      */
-      if (configuracion.sheetsUrl) {
-        try {
-          await fetch(configuracion.sheetsUrl, {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-              "Content-Type": "text/plain;charset=utf-8"
-            },
-            body: JSON.stringify(ventaFinal)
-          });
-        } catch (error) {
-          console.log("La venta quedó guardada localmente.");
-        }
+        mensaje.textContent = "¡Venta ingresada con éxito!";
+        mensaje.style.display = "block";
+
+        setTimeout(reiniciarFormulario, 1800);
+      } catch (error) {
+        alert("No fue posible enviar la venta. Inténtalo nuevamente.");
+        boton.disabled = false;
+        boton.textContent = "Confirmar y guardar venta";
       }
+    }
 
-      const mensaje = document.getElementById("mensajeExito");
+    function reiniciarFormulario() {
+      venta = {
+        callCenter: "",
+        asesor: "",
+        observacion: "",
+        estadoBase: "",
+        fechaInstalacion: "",
+        franja: "",
+        fechaIngreso: new Date().toISOString().split("T")[0],
+        ciudad: "",
+        barrio: "",
+        conjunto: "",
+        direccion: "",
+        tipoCliente: "",
+        nombreCliente: "",
+        documento: "",
+        celular: "",
+        nombreSegundoContacto: "",
+        numeroSegundoContacto: "",
+        correo: "",
+        estrato: "",
+        plan: "",
+        precioPlan: 0,
+        beneficio: "",
+        entretenimiento: "",
+        decos: "1",
+        valorTotal: 0
+      };
 
-      mensaje.textContent = configuracion.sheetsUrl
-        ? "¡Venta guardada correctamente y enviada a Google Sheets!"
-        : "¡Venta guardada correctamente en este navegador! Puedes descargarla desde Administración.";
+      document.querySelectorAll("input, textarea").forEach(function(campo) {
+        if (campo.id !== "fechaIngreso") campo.value = "";
+      });
 
-      mensaje.style.display = "block";
+      document.querySelectorAll("select").forEach(function(campo) {
+        campo.selectedIndex = 0;
+      });
+
+      document.getElementById("asesor").disabled = true;
+      document.getElementById("asesor").innerHTML =
+        "<option>Primero selecciona un call center</option>";
+
+      document.getElementById("mensajeExito").style.display = "none";
+
+      document.getElementById("botonGuardar").disabled = false;
+      document.getElementById("botonGuardar").textContent =
+        "Confirmar y guardar venta";
+
+      mostrarPagina(1);
     }
 
     function abrirAdmin() {
-      const clave = prompt("Ingresa la clave de administrador:");
-
-      if (clave !== CLAVE_ADMIN) {
+      if (prompt("Ingresa la clave de administrador:") !== CLAVE_ADMIN) {
         alert("Clave incorrecta.");
         return;
       }
@@ -1267,9 +1063,6 @@
             plan.beneficio
           ].join(" | ");
         }).join("\n");
-
-      document.getElementById("adminSheetsUrl").value =
-        configuracion.sheetsUrl || "";
 
       document.getElementById("modalAdmin").style.display = "block";
     }
@@ -1307,31 +1100,18 @@
             return parte.trim();
           });
 
-          const beneficio = partes[3] || "";
-
           return {
             nombre: partes[0],
             precio: Number(partes[1]) || 0,
             descripcion: partes[2] || "",
-            beneficio: beneficio,
-            seleccionarEntretenimiento:
-              beneficio.includes("HBO") && beneficio.includes("Paramount")
+            beneficio: partes[3] || ""
           };
         })
         .filter(function(plan) {
           return plan.nombre;
         });
 
-      if (!centros.length || !planes.length) {
-        alert("Debe existir al menos un call center con asesores y un plan.");
-        return;
-      }
-
-      configuracion = {
-        centros: centros,
-        planes: planes,
-        sheetsUrl: document.getElementById("adminSheetsUrl").value.trim()
-      };
+      configuracion = { centros, planes };
 
       localStorage.setItem(
         "configuracionMovistar",
@@ -1344,46 +1124,9 @@
       alert("Configuración guardada correctamente.");
     }
 
-    function descargarVentas() {
-      const ventas = JSON.parse(
-        localStorage.getItem("ventasMovistar") || "[]"
-      );
-
-      if (!ventas.length) {
-        alert("Aún no hay ventas guardadas.");
-        return;
-      }
-
-      const columnas = [...new Set(
-        ventas.flatMap(function(ventaGuardada) {
-          return Object.keys(ventaGuardada);
-        })
-      )];
-
-      const filas = ventas.map(function(ventaGuardada) {
-        return columnas.map(function(columna) {
-          const valor = String(ventaGuardada[columna] || "")
-            .replace(/"/g, '""');
-
-          return `"${valor}"`;
-        }).join(",");
-      });
-
-      const csv = [columnas.join(","), ...filas].join("\n");
-
-      const archivo = new Blob([csv], {
-        type: "text/csv;charset=utf-8;"
-      });
-
-      const enlace = document.createElement("a");
-      enlace.href = URL.createObjectURL(archivo);
-      enlace.download = "ventas-fibra-movistar.csv";
-      enlace.click();
-    }
-
-    document.getElementById("callCenterInicio").addEventListener(
+    document.getElementById("callCenter").addEventListener(
       "change",
-      cargarAsesoresPorCentro
+      cargarAsesores
     );
 
     document.getElementById("decos").addEventListener(
@@ -1398,12 +1141,25 @@
       }
     );
 
+    document.querySelectorAll("#opcionesTipo .opcion").forEach(function(opcion) {
+      opcion.addEventListener("click", function() {
+        venta.tipoCliente = opcion.dataset.tipo;
+
+        document.querySelectorAll("#opcionesTipo .opcion").forEach(function(item) {
+          item.classList.remove("seleccionada");
+        });
+
+        opcion.classList.add("seleccionada");
+      });
+    });
+
     document.getElementById("fechaIngreso").value = new Date()
       .toISOString()
       .split("T")[0];
 
+    venta.fechaIngreso = document.getElementById("fechaIngreso").value;
+
     cargarCallCenters();
-    seleccionarTipoCliente();
     crearProgreso();
   </script>
 </body>
