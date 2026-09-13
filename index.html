@@ -594,8 +594,18 @@
   </div>
 
   <script>
+    /*
+     * CONFIGURACIÓN
+     * La página envía las ventas al Web App de Google Apps Script.
+     */
     const URL_GOOGLE_SHEETS =
-      "https://script.google.com/macros/s/AKfycbxdOvpVutXY9oxmqf_zlsx-UiFOKJE8pe4ksFKf7VgsTBVm-N_5-HAa7OBsYg9hy2bB/exec";
+      "https://script.google.com/macros/s/AKfycbxssnh1ORU3gjjgiJ4khyzeYWjjfHQ1LWeSJ16H-S9ZhEtpcCXRg9AJXwDfnFUPLyKt/exec";
+
+    const SPREADSHEET_ID =
+      "1wsbrlG9A3QDIXmqLdttshuhifYCUeKeE0pP9QKfmSCI";
+
+    const URL_GOOGLE_FORM =
+      "https://docs.google.com/forms/d/e/1FAIpQLSeKTKuk-cdMBJpjGnu32UfFid2w35rGoSVBOKeGIk1lGaB-CQ/viewform";
 
     const CLAVE_ADMIN = "admin123";
 
@@ -740,7 +750,8 @@
     function cargarCallCenters() {
       const selector = document.getElementById("callCenter");
 
-      selector.innerHTML = '<option value="">Selecciona un call center</option>';
+      selector.innerHTML =
+        '<option value="">Selecciona un call center</option>';
 
       configuracion.centros.forEach(function(centro) {
         selector.innerHTML += `<option>${centro.nombre}</option>`;
@@ -759,16 +770,21 @@
 
       if (!centro) {
         selector.disabled = true;
-        selector.innerHTML = "<option>Primero selecciona un call center</option>";
+        selector.innerHTML =
+          "<option>Primero selecciona un call center</option>";
+        actualizarEncabezado();
         return;
       }
 
       selector.disabled = false;
-      selector.innerHTML = '<option value="">Selecciona un asesor</option>';
+      selector.innerHTML =
+        '<option value="">Selecciona un asesor</option>';
 
       centro.asesores.forEach(function(asesor) {
         selector.innerHTML += `<option>${asesor}</option>`;
       });
+
+      actualizarEncabezado();
     }
 
     function cargarPlanes() {
@@ -842,10 +858,15 @@
       }
 
       if (paginaActual === 2) {
-        ["observacion", "estadoBase", "fechaInstalacion", "franja", "fechaIngreso"]
-          .forEach(function(campo) {
-            venta[campo] = document.getElementById(campo).value;
-          });
+        [
+          "observacion",
+          "estadoBase",
+          "fechaInstalacion",
+          "franja",
+          "fechaIngreso"
+        ].forEach(function(campo) {
+          venta[campo] = document.getElementById(campo).value;
+        });
       }
 
       if (paginaActual === 3) {
@@ -885,6 +906,11 @@
           campo.reportValidity();
           return false;
         }
+      }
+
+      if (paginaActual === 1 && !venta.asesor) {
+        alert("Selecciona un asesor.");
+        return false;
       }
 
       if (paginaActual === 4) {
@@ -980,9 +1006,22 @@
     async function guardarVenta() {
       const boton = document.getElementById("botonGuardar");
 
+      guardarDatos();
+
+      if (!venta.plan || !venta.asesor) {
+        alert("Falta información obligatoria de la venta.");
+        return;
+      }
+
+      /*
+       * Se mandan los nombres originales del objeto venta.
+       * El Apps Script se encarga de convertirlos a las columnas
+       * según el encabezado de la hoja.
+       */
       const datosFinales = {
         ...venta,
-        marcaTemporal: new Date().toLocaleString("es-CO")
+        marcaTemporal: new Date().toLocaleString("es-CO"),
+        spreadsheetId: SPREADSHEET_ID
       };
 
       boton.disabled = true;
@@ -999,14 +1038,21 @@
         });
 
         const mensaje = document.getElementById("mensajeExito");
+
         mensaje.textContent =
-          "Información enviada. Verifica que aparezca en la hoja de ventas.";
+          "Información enviada correctamente. La venta fue registrada.";
+
         mensaje.style.display = "block";
 
         setTimeout(reiniciarFormulario, 1800);
 
       } catch (error) {
-        alert("No fue posible enviar la venta. Inténtalo nuevamente.");
+        console.error("Error enviando venta:", error);
+
+        alert(
+          "No fue posible enviar la venta. Verifica tu conexión e inténtalo nuevamente."
+        );
+
         boton.disabled = false;
         boton.textContent = "Confirmar y guardar venta";
       }
@@ -1049,9 +1095,18 @@
         campo.selectedIndex = 0;
       });
 
+      document.querySelectorAll("#opcionesTipo .opcion").forEach(function(item) {
+        item.classList.remove("seleccionada");
+      });
+
+      document.getElementById("campoEntretenimiento").style.display = "none";
+
       document.getElementById("asesor").disabled = true;
       document.getElementById("asesor").innerHTML =
         "<option>Primero selecciona un call center</option>";
+
+      document.getElementById("fechaIngreso").value =
+        new Date().toISOString().split("T")[0];
 
       document.getElementById("mensajeExito").style.display = "none";
 
