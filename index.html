@@ -698,11 +698,11 @@
 
       <div class="grid">
         <div class="campo">
-          <label for="estadoBase">Estado de la venta</label>
+          <label for="estadoBase">Estado de la base</label>
           <select id="estadoBase" required>
             <option value="">Selecciona una opción</option>
-            <option>De la base</option>
-            <option>No es de la base</option>
+            <option>SÍ ES DE LA BASE</option>
+            <option>NO ES DE LA BASE</option>
           </select>
         </div>
 
@@ -743,13 +743,8 @@
         </div>
 
         <div class="campo">
-          <label for="barrio">Barrio</label>
-          <input id="barrio" required>
-        </div>
-
-        <div class="campo">
-          <label for="conjunto">Conjunto o edificio</label>
-          <input id="conjunto">
+          <label for="barrioConjunto">Barrio, conjunto o edificio</label>
+          <input id="barrioConjunto" required>
         </div>
 
         <div class="campo">
@@ -1004,8 +999,7 @@
       franja: "",
       fechaIngreso: "",
       ciudad: "",
-      barrio: "",
-      conjunto: "",
+      barrioConjunto: "",
       direccion: "",
       tipoCliente: "",
       nombreCliente: "",
@@ -1210,7 +1204,7 @@
       }
 
       if (paginaActual === 3) {
-        ["ciudad", "barrio", "conjunto", "direccion"]
+        ["ciudad", "barrioConjunto", "direccion"]
           .forEach(function(campo) {
             venta[campo] = document.getElementById(campo).value;
           });
@@ -1334,7 +1328,7 @@
         <b>Cliente:</b> ${venta.nombreCliente}<br>
         <b>Documento:</b> ${venta.documento}<br>
         <b>Celular:</b> ${venta.celular}<br>
-        <b>Dirección:</b> ${venta.direccion}, ${venta.barrio}, ${venta.ciudad}<br>
+        <b>Dirección:</b> ${venta.direccion}, ${venta.barrioConjunto}, ${venta.ciudad}<br>
         <b>Tipo de cliente:</b> ${venta.tipoCliente}<br>
         <b>Estado:</b> ${venta.estadoBase}<br>
         <b>Instalación:</b> ${venta.fechaInstalacion} · ${venta.franja}<br>
@@ -1414,12 +1408,12 @@
         franja: "",
         fechaIngreso: new Date().toISOString().split("T")[0],
         ciudad: "",
-        barrio: "",
-        conjunto: "",
+        barrioConjunto: "",
         direccion: "",
         tipoCliente: "",
         nombreCliente: "",
         documento: "",
+        fechaExpedicion: "",
         celular: "",
         nombreSegundoContacto: "",
         numeroSegundoContacto: "",
