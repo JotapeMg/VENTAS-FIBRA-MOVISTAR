@@ -698,7 +698,7 @@
 
       <div class="grid">
         <div class="campo">
-          <label for="estadoBase">Estado de la base</label>
+          <label for="estadoBase">Estado de la venta</label>
           <select id="estadoBase" required>
             <option value="">Selecciona una opción</option>
             <option>SÍ ES DE LA BASE</option>
@@ -764,7 +764,7 @@
       <p class="subtitulo">Completa la información del titular del servicio.</p>
 
       <div class="campo">
-        <label>Tipo de cliente</label>
+        <label>Venta nueva o reingreso</label>
 
         <div class="opciones" id="opcionesTipo">
           <div class="opcion" data-tipo="Venta nueva">
@@ -931,13 +931,13 @@
      * La página envía las ventas al Web App de Google Apps Script.
      */
     const URL_GOOGLE_SHEETS =
-      "https://script.google.com/macros/s/AKfycbxssnh1ORU3gjjgiJ4khyzeYWjjfHQ1LWeSJ16H-S9ZhEtpcCXRg9AJXwDfnFUPLyKt/exec";
+      "https://script.google.com/macros/s/AKfycbwc5rSDac4Pwl4qQYpMNRWlfradMlk7sbANKwACa2LLen5_gx8PYIFKbIIanFMs4oK2/exec";
 
     const SPREADSHEET_ID =
       "1wsbrlG9A3QDIXmqLdttshuhifYCUeKeE0pP9QKfmSCI";
 
     const URL_GOOGLE_FORM =
-      "https://script.google.com/macros/s/AKfycbz_LJ_IRUm7-MasJcIALoRlLiMr_vpmihgrP5EQUFho3rkcKSaTrr4hXWyLY0I1x6-F/exec ";
+      "https://docs.google.com/forms/d/e/1FAIpQLSeKTKuk-cdMBJpjGnu32UfFid2w35rGoSVBOKeGIk1lGaB-CQ/viewform";
 
     const CLAVE_ADMIN = "admin123";
 
@@ -1348,20 +1348,36 @@
         return;
       }
 
-      /*
-       * Se mandan los nombres originales del objeto venta.
-       * El Apps Script se encarga de convertirlos a las columnas
-       * según el encabezado de la hoja.
-       */
-      // Garantizar que el Call Center seleccionado en la primera vista
-      // sea el valor que se envía al Google Sheets.
+      // Garantizar que Call Center y Asesor sean los valores
+      // seleccionados en la primera pantalla.
       venta.callCenter = (document.getElementById("callCenter")?.value || "").trim();
       venta.asesor = (document.getElementById("asesor")?.value || "").trim();
 
+      // El Apps Script recibe los nombres de los campos y los coloca
+      // EXCLUSIVAMENTE en las columnas A:V definidas para este formulario.
       const datosFinales = {
-        ...venta,
         marcaTemporal: new Date().toLocaleString("es-CO"),
-        spreadsheetId: SPREADSHEET_ID
+        callCenter: venta.callCenter,       // V
+        asesor: venta.asesor,               // D
+        observacion: venta.observacion,     // C
+        estadoBase: venta.estadoBase,       // B
+        fechaInstalacion: venta.fechaInstalacion, // E
+        franja: venta.franja,               // F
+        fechaIngreso: venta.fechaIngreso,   // G
+        ciudad: venta.ciudad,               // H
+        barrioConjunto: venta.barrioConjunto, // I
+        direccion: venta.direccion,         // J
+        tipoCliente: venta.tipoCliente,     // K
+        documento: venta.documento,         // L
+        fechaExpedicion: venta.fechaExpedicion, // M
+        nombreCliente: venta.nombreCliente, // N
+        celular: venta.celular,             // O
+        nombreSegundoContacto: venta.nombreSegundoContacto, // P
+        numeroSegundoContacto: venta.numeroSegundoContacto, // Q
+        correo: venta.correo,               // R
+        estrato: venta.estrato,             // S
+        plan: venta.plan,                   // T
+        decos: venta.decos                  // U
       };
 
       boton.disabled = true;
