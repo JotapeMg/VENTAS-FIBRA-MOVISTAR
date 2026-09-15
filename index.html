@@ -999,12 +999,24 @@
       ]
     };
 
-    let configuracion = JSON.parse(
-      localStorage.getItem("configuracionMovistar") || "null"
-    );
+    // Cargar configuración guardada sin perder los planes base.
+    // Algunas versiones anteriores guardaron solo los call centers;
+    // por eso aquí siempre garantizamos que exista la lista de planes.
+    let configuracionGuardada = null;
+    try {
+      configuracionGuardada = JSON.parse(
+        localStorage.getItem("configuracionMovistar") || "null"
+      );
+    } catch (error) {
+      console.warn("Configuración local inválida. Se usarán los valores base.", error);
+    }
 
-    if (!configuracion || !Array.isArray(configuracion.centros)) {
-      configuracion = configuracionInicial;
+    let configuracion = configuracionGuardada && Array.isArray(configuracionGuardada.centros)
+      ? configuracionGuardada
+      : JSON.parse(JSON.stringify(configuracionInicial));
+
+    if (!Array.isArray(configuracion.planes) || configuracion.planes.length === 0) {
+      configuracion.planes = JSON.parse(JSON.stringify(configuracionInicial.planes));
     }
 
     let paginaActual = 1;
@@ -1625,9 +1637,23 @@
       window[callbackName] = function(remota) {
         try {
           if (remota && remota.ok && remota.configuracion && Array.isArray(remota.configuracion.centros)) {
-            configuracion = remota.configuracion;
+            const configuracionRemota = remota.configuracion;
+
+            // El servidor puede traer solo call centers. Nunca permitimos
+            // que eso borre los 4 planes acordados del formulario.
+            if (!Array.isArray(configuracionRemota.planes) || configuracionRemota.planes.length === 0) {
+              configuracionRemota.planes = JSON.parse(JSON.stringify(configuracionInicial.planes));
+            }
+
+            configuracion = configuracionRemota;
             localStorage.setItem("configuracionMovistar", JSON.stringify(configuracion));
             cargarCallCenters();
+
+            // Si el usuario está en el paso de planes, refrescarlo inmediatamente.
+            if (paginaActual === 5) {
+              cargarPlanes();
+              calcularTotal();
+            }
           }
         } finally {
           delete window[callbackName];
