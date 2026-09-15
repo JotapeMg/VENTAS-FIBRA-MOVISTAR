@@ -698,7 +698,7 @@
 
       <div class="grid">
         <div class="campo">
-          <label for="estadoBase">Estado de la venta</label>
+          <label for="estadoBase">Estado de la base</label>
           <select id="estadoBase" required>
             <option value="">Selecciona una opción</option>
             <option>SÍ ES DE LA BASE</option>
@@ -764,7 +764,7 @@
       <p class="subtitulo">Completa la información del titular del servicio.</p>
 
       <div class="campo">
-        <label>Venta nueva o reingreso</label>
+        <label>Tipo de cliente</label>
 
         <div class="opciones" id="opcionesTipo">
           <div class="opcion" data-tipo="Venta nueva">
@@ -904,13 +904,31 @@
       <h2>Administración</h2>
 
       <p class="subtitulo">
-        Call centers: <b>Nombre del call center | Asesor 1, Asesor 2</b><br><br>
-        Planes: <b>Nombre | Precio | Descripción | Beneficio</b>
+        Administra call centers, asesores y planes. Los call centers nuevos quedan disponibles para todos los usuarios al guardar.
       </p>
 
       <div class="campo">
+        <label for="nuevoCallCenter">Agregar nuevo call center</label>
+        <input id="nuevoCallCenter" placeholder="Nombre exacto del call center">
+      </div>
+
+      <div class="campo">
+        <label for="nuevoCallCenterSheet">Link del Google Sheet</label>
+        <input id="nuevoCallCenterSheet" type="url" placeholder="https://docs.google.com/spreadsheets/d/...">
+      </div>
+
+      <div class="campo">
+        <label for="nuevoCallCenterAsesor">Primer asesor (opcional)</label>
+        <input id="nuevoCallCenterAsesor" placeholder="Nombre del asesor">
+      </div>
+
+      <div class="botones">
+        <button type="button" onclick="agregarCallCenter()">Agregar call center</button>
+      </div>
+
+      <div class="campo">
         <label for="adminCentros">Call centers y asesores</label>
-        <textarea id="adminCentros"></textarea>
+        <textarea id="adminCentros" placeholder="Call Center | Asesor 1, Asesor 2"></textarea>
       </div>
 
       <div class="campo">
@@ -931,10 +949,7 @@
      * La página envía las ventas al Web App de Google Apps Script.
      */
     const URL_GOOGLE_SHEETS =
-      "https://script.google.com/macros/s/AKfycbwc5rSDac4Pwl4qQYpMNRWlfradMlk7sbANKwACa2LLen5_gx8PYIFKbIIanFMs4oK2/exec";
-
-    const SPREADSHEET_ID =
-      "1wsbrlG9A3QDIXmqLdttshuhifYCUeKeE0pP9QKfmSCI";
+      "https://script.google.com/macros/s/AKfycbw3Cte6wmqo7pBgZOwfSH7MAlzR0z1RhdYfjK-Gomw331mFbPTh2tBiB6RG3tNeG5bp/exec";
 
     const URL_GOOGLE_FORM =
       "https://docs.google.com/forms/d/e/1FAIpQLSeKTKuk-cdMBJpjGnu32UfFid2w35rGoSVBOKeGIk1lGaB-CQ/viewform";
@@ -944,12 +959,16 @@
     const configuracionInicial = {
       centros: [
         {
-          nombre: "Call Center 1",
-          asesores: ["Pepito Pérez", "Marta"]
+          nombre: "CONECTIVA",
+          spreadsheetId: "1wsbrlG9A3QDIXmqLdttshuhifYCUeKeE0pP9QKfmSCI",
+          sheetId: "539093692",
+          asesores: ["FELIPE"]
         },
         {
-          nombre: "Call Center 2",
-          asesores: ["Carlos", "Patricia"]
+          nombre: "CALL JJ CONEXION",
+          spreadsheetId: "1to2S5luKSGLm-j01OztpIm62_8c73ago8a6RpUUotko",
+          sheetId: "",
+          asesores: ["JUAN MENDEZ"]
         }
       ],
       planes: [
@@ -1348,36 +1367,23 @@
         return;
       }
 
-      // Garantizar que Call Center y Asesor sean los valores
-      // seleccionados en la primera pantalla.
+      /*
+       * Se mandan los nombres originales del objeto venta.
+       * El Apps Script se encarga de convertirlos a las columnas
+       * según el encabezado de la hoja.
+       */
+      // Garantizar que el Call Center seleccionado en la primera vista
+      // sea el valor que se envía al Google Sheets.
       venta.callCenter = (document.getElementById("callCenter")?.value || "").trim();
       venta.asesor = (document.getElementById("asesor")?.value || "").trim();
 
-      // El Apps Script recibe los nombres de los campos y los coloca
-      // EXCLUSIVAMENTE en las columnas A:V definidas para este formulario.
       const datosFinales = {
+        ...venta,
         marcaTemporal: new Date().toLocaleString("es-CO"),
-        callCenter: venta.callCenter,       // V
-        asesor: venta.asesor,               // D
-        observacion: venta.observacion,     // C
-        estadoBase: venta.estadoBase,       // B
-        fechaInstalacion: venta.fechaInstalacion, // E
-        franja: venta.franja,               // F
-        fechaIngreso: venta.fechaIngreso,   // G
-        ciudad: venta.ciudad,               // H
-        barrioConjunto: venta.barrioConjunto, // I
-        direccion: venta.direccion,         // J
-        tipoCliente: venta.tipoCliente,     // K
-        documento: venta.documento,         // L
-        fechaExpedicion: venta.fechaExpedicion, // M
-        nombreCliente: venta.nombreCliente, // N
-        celular: venta.celular,             // O
-        nombreSegundoContacto: venta.nombreSegundoContacto, // P
-        numeroSegundoContacto: venta.numeroSegundoContacto, // Q
-        correo: venta.correo,               // R
-        estrato: venta.estrato,             // S
-        plan: venta.plan,                   // T
-        decos: venta.decos                  // U
+        spreadsheetId: (function() {
+          const centro = configuracion.centros.find(function(c) { return c.nombre === venta.callCenter; });
+          return centro ? centro.spreadsheetId : "";
+        })()
       };
 
       boton.disabled = true;
@@ -1486,73 +1492,165 @@
 
       document.getElementById("adminPlanes").value =
         configuracion.planes.map(function(plan) {
-          return [
-            plan.nombre,
-            plan.precio,
-            plan.descripcion,
-            plan.beneficio
-          ].join(" | ");
+          return [plan.nombre, plan.precio, plan.descripcion, plan.beneficio].join(" | ");
         }).join("\n");
 
+      limpiarCamposNuevoCallCenter();
       document.getElementById("modalAdmin").style.display = "block";
     }
 
     function cerrarAdmin() {
       document.getElementById("modalAdmin").style.display = "none";
+      limpiarCamposNuevoCallCenter();
+    }
+
+    function limpiarCamposNuevoCallCenter() {
+      document.getElementById("nuevoCallCenter").value = "";
+      document.getElementById("nuevoCallCenterSheet").value = "";
+      document.getElementById("nuevoCallCenterAsesor").value = "";
+    }
+
+    function extraerSpreadsheetId_(url) {
+      const match = String(url || "").match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+      return match ? match[1] : "";
+    }
+
+    function extraerSheetId_(url) {
+      const match = String(url || "").match(/[?#&]gid=([0-9]+)/);
+      return match ? match[1] : "";
+    }
+
+    function agregarCallCenter() {
+      const nombre = document.getElementById("nuevoCallCenter").value.trim();
+      const url = document.getElementById("nuevoCallCenterSheet").value.trim();
+      const asesor = document.getElementById("nuevoCallCenterAsesor").value.trim();
+      const spreadsheetId = extraerSpreadsheetId_(url);
+      const sheetId = extraerSheetId_(url);
+
+      if (!nombre || !url || !spreadsheetId) {
+        alert("Escribe el nombre del call center y un link válido de Google Sheets.");
+        return;
+      }
+
+      if (configuracion.centros.some(function(c) { return c.nombre.toLowerCase() === nombre.toLowerCase(); })) {
+        alert("Ese call center ya existe.");
+        return;
+      }
+
+      configuracion.centros.push({
+        nombre: nombre,
+        spreadsheetId: spreadsheetId,
+        sheetId: sheetId,
+        asesores: asesor ? [asesor] : []
+      });
+
+      guardarConfiguracionRemota_(true);
+      cargarCallCenters();
+      actualizarListaAdminCentros();
+      limpiarCamposNuevoCallCenter();
+      alert("Call center agregado correctamente.");
+    }
+
+    function actualizarListaAdminCentros() {
+      document.getElementById("adminCentros").value =
+        configuracion.centros.map(function(centro) {
+          return centro.nombre + " | " + centro.asesores.join(", ");
+        }).join("\n");
+    }
+
+    function guardarConfiguracionRemota_(mostrarMensaje) {
+      localStorage.setItem("configuracionMovistar", JSON.stringify(configuracion));
+
+      const payload = {
+        accion: "guardarConfiguracion",
+        configuracion: configuracion
+      };
+
+      fetch(URL_GOOGLE_SHEETS, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      }).catch(function(error) {
+        console.error("No fue posible sincronizar la configuración:", error);
+      });
+
+      if (mostrarMensaje) {
+        console.log("Configuración sincronizada con el Apps Script.");
+      }
     }
 
     function guardarConfiguracion() {
-      const centros = document.getElementById("adminCentros").value
+      const centrosActualizados = document.getElementById("adminCentros").value
         .split("\n")
         .map(function(linea) {
-          const partes = linea.split("|").map(function(parte) {
-            return parte.trim();
+          const partes = linea.split("|").map(function(parte) { return parte.trim(); });
+          const existente = configuracion.centros.find(function(c) {
+            return c.nombre.toLowerCase() === String(partes[0] || "").toLowerCase();
           });
-
           return {
-            nombre: partes[0],
-            asesores: (partes[1] || "")
-              .split(",")
-              .map(function(asesor) {
-                return asesor.trim();
-              })
-              .filter(Boolean)
+            nombre: partes[0] || "",
+            spreadsheetId: existente ? existente.spreadsheetId : "",
+            sheetId: existente ? existente.sheetId : "",
+            asesores: (partes[1] || "").split(",").map(function(a) { return a.trim(); }).filter(Boolean)
           };
         })
-        .filter(function(centro) {
-          return centro.nombre && centro.asesores.length;
-        });
+        .filter(function(c) { return c.nombre && c.spreadsheetId; });
+
+      const centrosPorNombre = {};
+      centrosActualizados.forEach(function(c) { centrosPorNombre[c.nombre.toLowerCase()] = c; });
+      configuracion.centros.forEach(function(c) {
+        if (!centrosPorNombre[c.nombre.toLowerCase()]) {
+          centrosActualizados.push(c);
+        }
+      });
 
       const planes = document.getElementById("adminPlanes").value
         .split("\n")
         .map(function(linea) {
-          const partes = linea.split("|").map(function(parte) {
-            return parte.trim();
-          });
-
-          return {
-            nombre: partes[0],
-            precio: Number(partes[1]) || 0,
-            descripcion: partes[2] || "",
-            beneficio: partes[3] || ""
-          };
+          const partes = linea.split("|").map(function(parte) { return parte.trim(); });
+          return { nombre: partes[0], precio: Number(partes[1]) || 0, descripcion: partes[2] || "", beneficio: partes[3] || "" };
         })
-        .filter(function(plan) {
-          return plan.nombre;
-        });
+        .filter(function(plan) { return plan.nombre; });
 
-      configuracion = { centros, planes };
-
-      localStorage.setItem(
-        "configuracionMovistar",
-        JSON.stringify(configuracion)
-      );
-
+      configuracion = { centros: centrosActualizados, planes: planes };
+      guardarConfiguracionRemota_(false);
       cargarCallCenters();
       cerrarAdmin();
-
       alert("Configuración guardada correctamente.");
     }
+
+    function cargarConfiguracionRemota_() {
+      const callbackName = "movistarConfig_" + Date.now();
+      window[callbackName] = function(remota) {
+        try {
+          if (remota && remota.ok && remota.configuracion && Array.isArray(remota.configuracion.centros)) {
+            configuracion = remota.configuracion;
+            localStorage.setItem("configuracionMovistar", JSON.stringify(configuracion));
+            cargarCallCenters();
+          }
+        } finally {
+          delete window[callbackName];
+          const script = document.getElementById(callbackName);
+          if (script) script.remove();
+        }
+      };
+
+      const script = document.createElement("script");
+      script.id = callbackName;
+      script.src = URL_GOOGLE_SHEETS + "?accion=configuracion&callback=" + encodeURIComponent(callbackName);
+      script.onerror = function() {
+        delete window[callbackName];
+        script.remove();
+        cargarCallCenters();
+      };
+      document.body.appendChild(script);
+    }
+
+    document.getElementById("callCenter").addEventListener(
+      "change",
+      cargarAsesores
+    );
 
     document.getElementById("callCenter").addEventListener(
       "change",
@@ -1570,6 +1668,9 @@
         venta.entretenimiento = this.value;
       }
     );
+
+    cargarCallCenters();
+    cargarConfiguracionRemota_();
 
     document.querySelectorAll("#opcionesTipo .opcion").forEach(function(opcion) {
       opcion.addEventListener("click", function() {
@@ -1589,7 +1690,6 @@
 
     venta.fechaIngreso = document.getElementById("fechaIngreso").value;
 
-    cargarCallCenters();
     crearProgreso();
   </script>
 </body>
