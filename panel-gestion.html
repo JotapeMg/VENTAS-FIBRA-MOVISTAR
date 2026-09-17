@@ -924,6 +924,20 @@ td{background:rgba(12,0,4,.32) !important;color:#f1dfe3 !important;border-bottom
   background-image:none !important;
 }
 
+
+/* LOGOS DE CALL CENTER — estilo sutil y transparente */
+.center-brand{display:inline-flex;align-items:center;justify-content:center;gap:10px;vertical-align:middle;}
+.center-logo{width:34px;height:34px;object-fit:contain;border-radius:8px;display:block;flex:0 0 auto;filter:drop-shadow(0 2px 7px rgba(0,0,0,.35));}
+.call-btn .center-brand{width:100%;}
+.call-btn .center-logo{width:42px;height:42px;}
+.top-actions .center-brand{gap:8px;}
+.top-actions .center-logo{width:28px;height:28px;}
+.view-center-logo{width:36px;height:36px;}
+@media(max-width:600px){
+  .call-btn .center-logo{width:36px;height:36px;}
+  .center-logo{width:30px;height:30px;}
+}
+
 </style>
 </head>
 
@@ -997,6 +1011,7 @@ td{background:rgba(12,0,4,.32) !important;color:#f1dfe3 !important;border-bottom
   </div>
 
   <div class="center">
+    <div id="callMenuBrand" class="center-brand" style="margin-bottom:8px"></div>
     <h2>Gestión de ventas</h2>
     <p class="subtitle">Selecciona la consulta que deseas realizar.</p>
   </div>
@@ -1257,6 +1272,22 @@ async function init() {
   }
 }
 
+const CENTER_LOGOS = {
+  "CONECTIVA": "imagenes/logo%20conectiva%20rojo.jfif",
+  "CALL JJ CONEXION": "imagenes/jj%20conexion%20rojo.jfif"
+};
+
+function centerLogoHtml(name, extraClass = "") {
+  const key = String(name || "").trim().toUpperCase();
+  const src = CENTER_LOGOS[key];
+  if (!src) return "";
+  return `<img class="center-logo ${extraClass}" src="${src}" alt="Logo ${esc(name)}" loading="lazy" onerror="this.style.display='none'">`;
+}
+
+function centerBrandHtml(name, extraClass = "") {
+  return `<span class="center-brand ${extraClass}">${centerLogoHtml(name)}<span>${esc(name)}</span></span>`;
+}
+
 function renderCenters() {
   const grid = document.getElementById("callGrid");
   grid.innerHTML = "";
@@ -1264,7 +1295,7 @@ function renderCenters() {
   (appData.centers || []).forEach(c => {
     const b = document.createElement("button");
     b.className = "call-btn";
-    b.textContent = c.name;
+    b.innerHTML = centerBrandHtml(c.name);
     b.onclick = () => openCallLogin(c.name);
     grid.appendChild(b);
   });
@@ -1320,7 +1351,7 @@ function setLoginLoading(buttonId, loading) {
 /* PRIMERA CONTRASEÑA */
 function openCallLogin(name) {
   currentCenter = name;
-  document.getElementById("loginCallTitle").textContent = name;
+  document.getElementById("loginCallTitle").innerHTML = centerBrandHtml(name);
   document.getElementById("callPassword").value = "";
   clearMsg("callLoginError");
   show("callLoginView");
@@ -1342,7 +1373,7 @@ async function loginCall() {
 
 /* VENTAS EN TOTAL */
 function openTotalLogin() {
-  document.getElementById("totalLoginTitle").textContent = currentCenter;
+  document.getElementById("totalLoginTitle").innerHTML = centerBrandHtml(currentCenter);
   document.getElementById("totalPassword").value = "";
   clearMsg("totalLoginError");
   show("totalLoginView");
@@ -1360,7 +1391,7 @@ async function loginTotal() {
     const r = await jsonp("getTotalData", { center: currentCenter });
     if (!r.ok) { msg("totalLoginError", r.message || "No se pudieron cargar las ventas."); return; }
     renderTotalData(r);
-    document.getElementById("totalViewTitle").textContent = currentCenter;
+    document.getElementById("totalViewTitle").innerHTML = centerBrandHtml(currentCenter);
     show("totalView");
   } catch (e) { msg("totalLoginError", e.message); }
   finally { setLoginLoading("totalLoginBtn", false); }
@@ -1384,7 +1415,7 @@ function renderTotalData(data) {
 
 /* VENTAS POR ASESOR */
 async function openAdvisorLogin() {
-  document.getElementById("advisorLoginTitle").textContent = currentCenter;
+  document.getElementById("advisorLoginTitle").innerHTML = centerBrandHtml(currentCenter);
   document.getElementById("advisorPassword").value = "";
   clearMsg("advisorLoginError");
 
@@ -1435,7 +1466,7 @@ async function loginAdvisor() {
     if (!r.ok) { msg("advisorLoginError", r.message || "No se pudieron cargar las ventas del asesor."); return; }
     currentAdvisor = advisor;
     renderAdvisorData(r);
-    document.getElementById("advisorViewTitle").textContent = currentCenter + " · " + advisor;
+    document.getElementById("advisorViewTitle").innerHTML = centerBrandHtml(currentCenter) + " · " + esc(advisor);
     document.getElementById("advisorHeading").textContent = "Ventas de " + advisor;
     show("advisorView");
   } catch (e) { msg("advisorLoginError", e.message); }
