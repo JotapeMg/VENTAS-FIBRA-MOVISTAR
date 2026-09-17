@@ -927,15 +927,17 @@ td{background:rgba(12,0,4,.32) !important;color:#f1dfe3 !important;border-bottom
 
 /* LOGOS DE CALL CENTER — estilo sutil y transparente */
 .center-brand{display:inline-flex;align-items:center;justify-content:center;gap:10px;vertical-align:middle;}
-.center-logo{width:34px;height:34px;object-fit:contain;border-radius:8px;display:block;flex:0 0 auto;filter:drop-shadow(0 2px 7px rgba(0,0,0,.35));}
+.center-logo{width:68px;height:68px;object-fit:contain;border-radius:8px;display:block;flex:0 0 auto;filter:drop-shadow(0 2px 7px rgba(0,0,0,.35));}
+/* El negro del archivo del logo se integra visualmente como transparente */
+.center-logo{mix-blend-mode:screen;background:transparent !important;}
 .call-btn .center-brand{width:100%;}
-.call-btn .center-logo{width:42px;height:42px;}
+.call-btn .center-logo{width:84px;height:84px;}
 .top-actions .center-brand{gap:8px;}
-.top-actions .center-logo{width:28px;height:28px;}
-.view-center-logo{width:36px;height:36px;}
+.top-actions .center-logo{width:56px;height:56px;}
+.view-center-logo{width:72px;height:72px;}
 @media(max-width:600px){
-  .call-btn .center-logo{width:36px;height:36px;}
-  .center-logo{width:30px;height:30px;}
+  .call-btn .center-logo{width:60px;height:60px;}
+  .center-logo{width:48px;height:48px;}
 }
 
 </style>
