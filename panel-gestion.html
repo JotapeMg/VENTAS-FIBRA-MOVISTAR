@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -595,6 +595,103 @@ td{color:#dbeaf4}
 #homeView .call-grid,
 #homeView .center {
   background: transparent !important;
+}
+
+
+/* =========================================================
+   TEMA TRANSPARENTE ROJO/NEGRO PARA TODOS LOS BOTONES Y CUADROS
+   ========================================================= */
+
+/* Botones principales y secundarios */
+.btn,
+button.btn,
+.btn.secondary,
+.login-submit,
+.password-toggle,
+.call-button,
+.center-button,
+.menu-button,
+.category-button,
+.sales-toggle,
+.action-button {
+  background: rgba(20, 0, 4, 0.22) !important;
+  background-color: rgba(20, 0, 4, 0.22) !important;
+  background-image: none !important;
+  border: 1px solid rgba(179, 18, 47, 0.42) !important;
+  color: #f7e9ec !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18),
+              inset 0 1px 0 rgba(255, 255, 255, 0.035) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Hover: mismo efecto transparente, ligeramente más rojo */
+.btn:hover,
+button.btn:hover,
+.btn.secondary:hover,
+.login-submit:hover,
+.call-button:hover,
+.center-button:hover,
+.menu-button:hover,
+.category-button:hover,
+.sales-toggle:hover,
+.action-button:hover {
+  background: rgba(179, 18, 47, 0.18) !important;
+  background-color: rgba(179, 18, 47, 0.18) !important;
+  border-color: rgba(179, 18, 47, 0.68) !important;
+}
+
+/* Botones de mostrar contraseña */
+.password-toggle {
+  background: rgba(20, 0, 4, 0.18) !important;
+  color: #e8aab5 !important;
+  border: 1px solid rgba(179, 18, 47, 0.34) !important;
+  box-shadow: none !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.password-toggle:hover {
+  background: rgba(179, 18, 47, 0.18) !important;
+  color: #fff !important;
+}
+
+/* Todas las vistas/contenedores tipo tarjeta */
+.card,
+.panel,
+.form-card,
+.login-card,
+.content-card,
+.menu-card,
+.sales-card,
+.settings-card,
+.admin-card,
+.modal-card,
+.view-card {
+  background: rgba(20, 0, 4, 0.22) !important;
+  background-color: rgba(20, 0, 4, 0.22) !important;
+  background-image: none !important;
+  border: 1px solid rgba(179, 18, 47, 0.38) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22),
+              inset 0 1px 0 rgba(255, 255, 255, 0.035) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Estados de carga sin fondo azul */
+.login-submit.loading {
+  background: rgba(179, 18, 47, 0.18) !important;
+  border-color: rgba(179, 18, 47, 0.55) !important;
+}
+
+/* Elementos de búsqueda y campos para que no rompan el estilo */
+.sales-search-wrap,
+.field input,
+.field select,
+.category-search {
+  background: rgba(20, 0, 4, 0.18) !important;
+  background-color: rgba(20, 0, 4, 0.18) !important;
+  border-color: rgba(179, 18, 47, 0.34) !important;
+  color: #f7e9ec !important;
 }
 
 </style>
@@ -1427,4 +1524,3 @@ init();
 
 </body>
 </html>
-
