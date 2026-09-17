@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Gestión · Movistar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --azul:#08a8f5; --azul2:#008fe0; --fondo:#030b14;
+      --panel:rgba(10,28,45,.88); --borde:rgba(77,169,221,.28);
+      --texto:#eef7ff; --suave:#9fb4c7;
+      --verde:#32d49a; --rojo:#ff6875; --amarillo:#ffc857; --morado:#b78cff;
+    }
+    *{box-sizing:border-box;font-family:"Montserrat",Arial,sans-serif}
+    html,body{margin:0;min-height:100%;background:var(--fondo);color:var(--texto)}
+    body{
+      background:
+        radial-gradient(circle at 82% 92%,rgba(0,126,220,.26),transparent 28%),
+        radial-gradient(circle at 10% 12%,rgba(0,156,238,.10),transparent 30%),
+        linear-gradient(180deg,#020c18 0%,#001b32 52%,#00162a 100%);
+    }
+    .app{width:min(100% - 32px,1410px);margin:auto;padding-bottom:25px}
+    .encabezado{min-height:105px;padding:24px 15px 15px;display:flex;justify-content:center;align-items:center}
+    .slogan-header{text-align:center;color:#f7fbff;font-family:"Dancing Script",cursive;font-size:38px;line-height:.98;font-weight:600}
+    .slogan-header div{font-family:"Dancing Script",cursive}
+    .slogan-header div:nth-child(2){color:#08b6ff}
+    .slogan-header span{display:block;width:116px;height:3px;margin:12px auto 0;border-radius:50%;background:#08b6ff;transform:rotate(-4deg);box-shadow:0 0 12px rgba(8,182,255,.28)}
+    .hero{text-align:center;padding:8px 10px 30px}
+    .wifi-icon{width:72px;height:58px;margin:auto;color:#08b7ff;font-size:48px;font-weight:700;text-shadow:0 0 25px rgba(8,183,255,.46)}
+    .wifi-icon::before{content:"⌁";transform:rotate(90deg) scaleX(1.35);display:block}
+    .hero h2{margin:0;color:#f7fbff;font-size:clamp(34px,4vw,54px);letter-spacing:-2px}
+    .hero p{margin:10px 0 0;color:#a8d9ff;font-size:21px}
+    .hero-line{width:122px;height:5px;margin:17px auto 0;border-radius:10px;background:#09b9ff;box-shadow:0 0 17px rgba(8,183,255,.58)}
+    .vista{display:none;padding:30px 35px 28px;border:1px solid rgba(0,157,235,.52);border-radius:24px;background:linear-gradient(145deg,rgba(3,32,57,.92),rgba(1,25,45,.88));box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 18px 55px rgba(0,0,0,.30)}
+    .vista.activa{display:block;animation:aparecer .25s ease}
+    @keyframes aparecer{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+    h1{margin:0 0 8px;font-size:28px}
+    .subtitulo{margin:0 0 25px;color:var(--suave);font-size:14px;line-height:1.55}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .campo{margin-bottom:18px}
+    label{display:block;margin-bottom:8px;font-size:14px;font-weight:700}
+    input,select{width:100%;padding:14px;border:1px solid rgba(105,166,199,.38);border-radius:11px;outline:none;color:#edf7ff;background:rgba(9,28,44,.78);font-size:15px}
+    input:focus,select:focus{border-color:var(--azul);box-shadow:0 0 0 3px rgba(0,158,227,.12)}
+    option{color:#10283a;background:#fff}
+    button{padding:14px 23px;border:0;border-radius:11px;background:linear-gradient(90deg,#009de5,#12b2f5);color:white;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 8px 22px rgba(0,150,225,.18);transition:.2s}
+    button:hover{filter:brightness(1.08);transform:translateY(-1px)}
+    button:disabled{opacity:.55;cursor:not-allowed;transform:none}
+    .secundario{background:rgba(123,167,192,.12);color:#bcd2e1;box-shadow:none;border:1px solid rgba(123,167,192,.18)}
+    .admin-btn{background:rgba(183,140,255,.13);border:1px solid rgba(183,140,255,.28);color:#dbcaff}
+    .botones{display:flex;justify-content:space-between;gap:12px;margin-top:25px}
+    .centro-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .centro-card{padding:22px;border:1px solid var(--borde);border-radius:18px;background:rgba(8,28,45,.72);cursor:pointer;transition:.2s}
+    .centro-card:hover{border-color:var(--azul);transform:translateY(-2px);box-shadow:0 0 25px rgba(0,158,227,.09)}
+    .centro-card h3{margin:0 0 18px;font-size:20px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+    .stat{padding:13px 8px;text-align:center;border-radius:12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06)}
+    .stat b{display:block;font-size:25px}
+    .stat span{display:block;margin-top:4px;color:var(--suave);font-size:10px}
+    .stat.terminada b{color:var(--verde)} .stat.proceso b{color:var(--amarillo)}
+    .stat.cancelada b{color:var(--rojo)} .stat.recuperar b{color:var(--morado)}
+    .menu-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}
+    .menu-card{padding:20px;border-radius:16px;border:1px solid var(--borde);background:rgba(8,28,45,.72);text-align:center}
+    .menu-card b{font-size:30px;display:block;margin-bottom:7px}
+    .menu-card small{color:var(--suave)}
+    .tabla-wrap{overflow:auto;border:1px solid var(--borde);border-radius:15px;background:rgba(5,20,33,.68)}
+    table{width:100%;border-collapse:collapse;min-width:760px}
+    th,td{padding:12px 13px;border-bottom:1px solid rgba(105,166,199,.14);text-align:left;font-size:12px}
+    th{color:#bfe6ff;background:rgba(0,157,235,.08);position:sticky;top:0}
+    td{color:#d9eaf5}
+    .estado{display:inline-block;padding:5px 9px;border-radius:999px;font-size:10px;font-weight:800}
+    .estado.TERMINADA{color:#62e6b8;background:rgba(50,212,154,.10)}
+    .estado.CANCELADA{color:#ff8993;background:rgba(255,104,117,.10)}
+    .estado.RECUPERAR{color:#c9aaff;background:rgba(183,140,255,.10)}
+    .estado.PROCESO{color:#ffd77c;background:rgba(255,200,87,.10)}
+    .modal-fondo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:50;padding:25px;overflow:auto}
+    .modal{width:min(100%,520px);margin:7vh auto;padding:28px;border:1px solid rgba(0,157,235,.55);border-radius:22px;background:#061827;box-shadow:0 25px 80px rgba(0,0,0,.55)}
+    .mensaje{margin-top:14px;padding:12px;border-radius:10px;display:none}
+    .error{background:rgba(255,104,117,.10);border:1px solid rgba(255,104,117,.25);color:#ff9aa2}
+    .ok{background:rgba(50,212,154,.10);border:1px solid rgba(50,212,154,.25);color:#71e9c0}
+    .volver{margin-bottom:16px}
+    .footer-credit{text-align:center;margin-top:28px;color:rgba(255,255,255,.42);font-size:11px;letter-spacing:2px;text-transform:uppercase}
+    .footer-credit strong{font-size:20px;color:rgba(255,255,255,.65)}
+    .cargando{text-align:center;padding:30px;color:var(--suave)}
+    @media(max-width:900px){.grid4,.menu-cards{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:650px){.app{width:min(100% - 18px,1410px)}.vista{padding:23px 18px}.grid,.centro-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.grid4,.menu-cards{grid-template-columns:1fr 1fr}.slogan-header{font-size:30px}}
+  </style>
+</head>
+
+<body>
+<main class="app">
+  <header class="encabezado">
+    <div class="slogan-header" aria-label="Conectamos lo que te mueve">
+      <div>Conectamos</div>
+      <div>lo que te mueve</div>
+      <span></span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wifi-icon" aria-hidden="true"></div>
+    <h2>Panel de Gestión</h2>
+    <p>Fibra Óptica Movistar</p>
+    <div class="hero-line"></div>
+  </section>
+
+  <!-- INICIO -->
+  <section class="vista activa" id="inicio">
+    <div style="text-align:center">
+      <h1>¡Bienvenido!</h1>
+      <p class="subtitulo">Selecciona una opción para consultar la operación de cada call center.</p>
+    </div>
+
+    <div class="centro-grid">
+      <div class="centro-card" onclick="abrirCentro('CONECTIVA')">
+        <h3>CONECTIVA</h3>
+        <div class="stats" id="stats-CONECTIVA"><div class="cargando">Cargando...</div></div>
+      </div>
+      <div class="centro-card" onclick="abrirCentro('CALL JJ CONEXION')">
+        <h3>CALL JJ CONEXION</h3>
+        <div class="stats" id="stats-CALL-JJ-CONEXION"><div class="cargando">Cargando...</div></div>
+      </div>
+    </div>
+
+    <div class="botones" style="justify-content:center">
+      <button class="admin-btn" onclick="abrirAdmin()">⚙ Admin</button>
+    </div>
+  </section>
+
+  <!-- CALL CENTER -->
+  <section class="vista" id="centro">
+    <button class="secundario volver" onclick="volverInicio()">← Volver</button>
+    <h1 id="tituloCentro">Call Center</h1>
+    <p class="subtitulo">Resumen general y acceso individual de asesores.</p>
+
+    <div class="menu-cards" id="resumenCentro"></div>
+
+    <div class="campo">
+      <label for="asesorSelect">Selecciona un asesor</label>
+      <select id="asesorSelect">
+        <option value="">Selecciona un asesor...</option>
+      </select>
+    </div>
+
+    <div class="grid">
+      <div class="campo">
+        <label for="claveAsesor">Contraseña</label>
+        <input id="claveAsesor" type="password" placeholder="Ingresa tu contraseña">
+      </div>
+      <div style="display:flex;align-items:end">
+        <button style="width:100%" onclick="loginAsesor()">Ingresar como asesor</button>
+      </div>
+    </div>
+    <div class="mensaje error" id="loginError"></div>
+  </section>
+
+  <!-- ASESOR -->
+  <section class="vista" id="asesorPanel">
+    <button class="secundario volver" onclick="volverCentro()">← Volver</button>
+    <h1 id="tituloAsesor">Panel del asesor</h1>
+    <p class="subtitulo" id="subtituloAsesor"></p>
+
+    <div class="menu-cards" id="statsAsesor"></div>
+
+    <div class="campo">
+      <label for="filtroEstado">Mostrar</label>
+      <select id="filtroEstado" onchange="renderTablaAsesor()">
+        <option value="TERMINADA">Ventas instaladas / terminadas</option>
+        <option value="CANCELADA">Ventas canceladas</option>
+        <option value="RECUPERAR">Ventas por recuperar</option>
+        <option value="PROCESO">Ventas en agenda / proceso</option>
+      </select>
+    </div>
+
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha ingreso</th>
+            <th>Fecha instalación</th>
+            <th>Cliente</th>
+            <th>Documento</th>
+            <th>Ciudad</th>
+            <th>Plan</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="tablaAsesor"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="footer-credit">Creado por <strong>JPMG</strong></footer>
+</main>
+
+<!-- ADMIN -->
+<div class="modal-fondo" id="modalAdmin">
+  <div class="modal">
+    <h2>Administración</h2>
+    <p class="subtitulo">Acceso al dashboard general y a los ajustes de call centers.</p>
+    <div class="campo">
+      <label>Contraseña de administrador</label>
+      <input id="claveAdmin" type="password" placeholder="Contraseña">
+    </div>
+    <div class="botones">
+      <button class="secundario" onclick="cerrarAdmin()">Cerrar</button>
+      <button onclick="loginAdmin()">Entrar</button>
+    </div>
+    <div class="mensaje error" id="adminError"></div>
+  </div>
+</div>
+
+<div class="modal-fondo" id="modalAjustes">
+  <div class="modal">
+    <h2>Ajustes</h2>
+    <p class="subtitulo">Los nuevos call centers deben registrarse en la configuración del backend. El HTML está preparado para leerlos dinámicamente.</p>
+    <div id="listaAjustes"></div>
+    <div class="botones">
+      <button class="secundario" onclick="cerrarAjustes()">Cerrar</button>
+      <button onclick="recargarDatos()">Actualizar datos</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+  FRONTEND DEL NUEVO PANEL.
+
+  Este archivo NO usa los Excel cargados como base permanente.
+  Está preparado para trabajar con Google Apps Script y las hojas
+  consolidadas reales.
+
+  Fuentes que deberá leer el backend:
+  - CALL JJ CONEXION:
+    15_YpLzeE97lUYBxGoKHa--9AaxLAltlPhtyPntIbvnQ
+  - CONECTIVA:
+    1L-yMxz0mvrRHxYRxxdGmtD3JfAscVgQr1pXBystlwF4
+  - Credenciales:
+    1cyvCLbyzVZv_PTGNxR8zxH20effXVPkLruOlbBSZH9k
+    Regla indicada: A = contraseña, B = nombre del asesor.
+
+  El backend debe reconocer automáticamente nuevas pestañas del
+  libro de credenciales y nuevos call centers configurados.
+*/
+
+const DEMO = {
+  centros: {
+    "CONECTIVA": { terminada: 0, proceso: 0, cancelada: 0, recuperar: 0, asesores: [], ventas: {} },
+    "CALL JJ CONEXION": { terminada: 0, proceso: 0, cancelada: 0, recuperar: 0, asesores: [], ventas: {} }
+  }
+};
+
+let datos = null;
+let centroActual = "";
+let asesorActual = "";
+let ventasAsesor = [];
+
+function normalizarCentroId(nombre){
+  return nombre.replace(/[^a-zA-Z0-9]+/g,"-").replace(/^-|-$/g,"");
+}
+
+function mostrarVista(id){
+  document.querySelectorAll(".vista").forEach(v => v.classList.remove("activa"));
+  document.getElementById(id).classList.add("activa");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function iniciar(){
+  if(typeof google !== "undefined" && google.script && google.script.run){
+    google.script.run
+      .withSuccessHandler(cargarDatos)
+      .withFailureHandler(()=>cargarDatos(DEMO))
+      .obtenerDatosIniciales();
+  } else {
+    cargarDatos(DEMO);
+  }
+}
+
+function cargarDatos(respuesta){
+  datos = respuesta || DEMO;
+  renderDashboard();
+}
+
+function renderDashboard(){
+  const centros = datos.centros || {};
+  Object.keys(centros).forEach(nombre=>{
+    const box = document.getElementById("stats-"+normalizarCentroId(nombre));
+    if(!box) return;
+    const c = centros[nombre];
+    box.innerHTML = `
+      <div class="stat terminada"><b>${c.terminada||0}</b><span>TERMINADAS</span></div>
+      <div class="stat proceso"><b>${c.proceso||0}</b><span>EN PROCESO</span></div>
+      <div class="stat cancelada"><b>${c.cancelada||0}</b><span>CANCELADAS</span></div>
+      <div class="stat recuperar"><b>${c.recuperar||0}</b><span>POR RECUPERAR</span></div>`;
+  });
+}
+
+function abrirCentro(nombre){
+  centroActual = nombre;
+  const c = (datos.centros||{})[nombre] || DEMO.centros[nombre];
+  document.getElementById("tituloCentro").textContent = nombre;
+  document.getElementById("resumenCentro").innerHTML = `
+    <div class="menu-card"><b>${c.terminada||0}</b><small>Ventas terminadas</small></div>
+    <div class="menu-card"><b>${c.proceso||0}</b><small>Ventas en proceso</small></div>
+    <div class="menu-card"><b>${c.cancelada||0}</b><small>Ventas canceladas</small></div>
+    <div class="menu-card"><b>${c.recuperar||0}</b><small>Ventas por recuperar</small></div>`;
+  const select = document.getElementById("asesorSelect");
+  select.innerHTML = '<option value="">Selecciona un asesor...</option>';
+  (c.asesores||[]).forEach(a=>select.innerHTML += `<option>${escapeHtml(a)}</option>`);
+  document.getElementById("claveAsesor").value="";
+  document.getElementById("loginError").style.display="none";
+  mostrarVista("centro");
+}
+
+function loginAsesor(){
+  const asesor = document.getElementById("asesorSelect").value;
+  const clave = document.getElementById("claveAsesor").value;
+  const error = document.getElementById("loginError");
+  if(!asesor || !clave){ mostrarError(error,"Selecciona el asesor e ingresa la contraseña."); return; }
+
+  const terminar = res => {
+    if(!res || !res.ok){ mostrarError(error,(res&&res.error)||"Contraseña incorrecta."); return; }
+    asesorActual = asesor;
+    ventasAsesor = res.ventas || [];
+    renderPanelAsesor(res);
+    mostrarVista("asesorPanel");
+  };
+
+  if(typeof google !== "undefined" && google.script && google.script.run){
+    google.script.run.withSuccessHandler(terminar).withFailureHandler(()=>mostrarError(error,"No fue posible validar el acceso.")).validarAsesor(centroActual,asesor,clave);
+  } else {
+    const c = datos.centros[centroActual] || {};
+    const ok = (c.asesores||[]).includes(asesor) && clave === "1";
+    terminar(ok ? {ok:true,ventas:(c.ventas||{})[asesor]||[]} : {ok:false,error:"Modo de demostración: contraseña 1"});
+  }
+}
+
+function renderPanelAsesor(res){
+  document.getElementById("tituloAsesor").textContent = asesorActual;
+  document.getElementById("subtituloAsesor").textContent = centroActual;
+  document.getElementById("statsAsesor").innerHTML = `
+    <div class="menu-card"><b>${res.terminada||0}</b><small>Instaladas / terminadas</small></div>
+    <div class="menu-card"><b>${res.cancelada||0}</b><small>Canceladas</small></div>
+    <div class="menu-card"><b>${res.recuperar||0}</b><small>Por recuperar</small></div>
+    <div class="menu-card"><b>${res.proceso||0}</b><small>En agenda / proceso</small></div>`;
+  renderTablaAsesor();
+}
+
+function renderTablaAsesor(){
+  const estado = document.getElementById("filtroEstado").value;
+  const rows = ventasAsesor.filter(v => String(v.estado||"").toUpperCase()===estado);
+  const tbody = document.getElementById("tablaAsesor");
+  if(!rows.length){
+    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:#8ea5b8;padding:28px">No hay registros para este estado.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(v=>`
+    <tr>
+      <td>${escapeHtml(v.fechaIngreso||"")}</td>
+      <td>${escapeHtml(v.fechaInstalacion||"")}</td>
+      <td>${escapeHtml(v.cliente||"")}</td>
+      <td>${escapeHtml(v.documento||"")}</td>
+      <td>${escapeHtml(v.ciudad||"")}</td>
+      <td>${escapeHtml(v.plan||"")}</td>
+      <td><span class="estado ${escapeHtml(v.estado||"")}">${escapeHtml(v.estado||"")}</span></td>
+    </tr>`).join("");
+}
+
+function loginAdmin(){
+  const clave=document.getElementById("claveAdmin").value;
+  const error=document.getElementById("adminError");
+  const ok=res=>{
+    if(!res || !res.ok){mostrarError(error,(res&&res.error)||"Contraseña incorrecta.");return;}
+    cerrarAdmin();
+    document.getElementById("listaAjustes").innerHTML=(res.centros||Object.keys(datos.centros||{})).map(x=>`<p>• ${escapeHtml(x)}</p>`).join("");
+    document.getElementById("modalAjustes").style.display="block";
+  };
+  if(typeof google!=="undefined" && google.script && google.script.run){
+    google.script.run.withSuccessHandler(ok).withFailureHandler(()=>mostrarError(error,"No fue posible validar el administrador.")).validarAdministrador(clave);
+  } else {
+    ok(clave==="admin123"?{ok:true,centros:Object.keys(datos.centros||{})}:{ok:false,error:"Modo de demostración: contraseña admin123"});
+  }
+}
+
+function recargarDatos(){cerrarAjustes();iniciar()}
+function abrirAdmin(){document.getElementById("claveAdmin").value="";document.getElementById("adminError").style.display="none";document.getElementById("modalAdmin").style.display="block"}
+function cerrarAdmin(){document.getElementById("modalAdmin").style.display="none"}
+function cerrarAjustes(){document.getElementById("modalAjustes").style.display="none"}
+function volverInicio(){mostrarVista("inicio")}
+function volverCentro(){mostrarVista("centro")}
+function mostrarError(el,msg){el.textContent=msg;el.style.display="block"}
+function escapeHtml(x){return String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+
+iniciar();
+</script>
+</body>
+</html>
