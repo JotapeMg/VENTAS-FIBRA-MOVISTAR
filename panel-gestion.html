@@ -1219,8 +1219,8 @@ td{background:rgba(12,0,4,.32) !important;color:#f1dfe3 !important;border-bottom
 <script>
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQ1TA8bdc7HPRSsk1YvHuS7cRMb2eHJHiQ1phe7jyXfeL9WU0lIJ5gSOCbNLLDDu0nAA/exec";
 
-// FUENTES DE TABLA DINÁMICA — se consultan directamente desde Google Sheets.
-// No depende de una modificación adicional de codigo.gs.
+// FUENTES DE TABLA DINÁMICA — Apps Script lee la hoja "Tabla dinámica 1".
+// La tabla mostrada utiliza únicamente las columnas A y C del pivote.
 const DAILY_PIVOT_SOURCES = {
   "CONECTIVA": {
     spreadsheetId: "1wsbrlG9A3QDIXmqLdttshuhifYCUeKeE0pP9QKfmSCI",
@@ -1243,12 +1243,10 @@ async function loadDailyPivot(centerName) {
 }
 
 function renderDailyPivotBox(centerName, rows) {
-  const safeName = String(centerName || "").trim().toUpperCase();
-  const isAdvisor = safeName === "CONECTIVA";
   if (!rows.length) {
     return `
       <div class="daily-sales-head"><strong>TABLA DINÁMICA · VENTAS DIARIAS</strong><span>Sin datos</span></div>
-      <div class="daily-sales-empty">No hay ventas con fecha de ingreso registrada.</div>`;
+      <div class="daily-sales-empty">La hoja "Tabla dinámica 1" no tiene registros visibles.</div>`;
   }
 
   return `
@@ -1261,22 +1259,19 @@ function renderDailyPivotBox(centerName, rows) {
         <thead>
           <tr>
             <th>A · FECHA DE INGRESO</th>
-            ${isAdvisor ? '<th>B · ASESOR</th>' : ''}
-            <th>${isAdvisor ? 'C' : 'B'} · CANTIDAD DE VENTAS</th>
+            <th>C · CANTIDAD DE VENTAS</th>
           </tr>
         </thead>
         <tbody>
           ${rows.map(r => `
             <tr>
               <td>${esc(r[0] || "—")}</td>
-              ${isAdvisor ? `<td>${esc(r[1] || "—")}</td>` : ''}
-              <td class="daily-count">${esc(r[isAdvisor ? 2 : 1] || "0")}</td>
+              <td class="daily-count">${esc(r[1] || "0")}</td>
             </tr>`).join("")}
         </tbody>
       </table>
     </div>`;
 }
-
 let appData = { centers: [] };
 let adminData = null;
 let currentCenter = null;
