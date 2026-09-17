@@ -520,6 +520,15 @@ td{color:#dbeaf4}
 .daily-sales-table td:last-child,.daily-sales-table th:last-child{text-align:right}
 .daily-sales-table .daily-count{font-weight:800;color:#ff6675;font-size:.98rem}
 .daily-sales-empty{padding:16px;color:#d8bcc2;text-align:center;font-size:.84rem}
+.admin-daily-placeholder{margin:18px auto 0;width:100%;background:linear-gradient(145deg,rgba(70,0,10,.62),rgba(0,0,0,.62));border:1px solid rgba(255,55,75,.42);border-radius:16px;box-shadow:0 10px 28px rgba(0,0,0,.28);overflow:hidden}
+.daily-pivot-wrap{border:0;border-radius:0;max-height:360px;overflow:auto;background:transparent}
+.daily-pivot-table{min-width:0;width:100%;border-collapse:collapse}
+.daily-pivot-table th,.daily-pivot-table td{padding:8px 12px;font-size:.78rem}
+.daily-pivot-table th{position:sticky;top:0;z-index:1;background:rgba(30,0,6,.78)!important;color:#e9a8b3!important}
+.daily-pivot-table td{background:rgba(12,0,4,.34)!important;color:#f1dfe3!important}
+.daily-pivot-table .daily-count{font-weight:800;color:#ff6675!important;text-align:right}
+.daily-pivot-table th:last-child{text-align:right}
+
 @media(max-width:900px){
   .summary{grid-template-columns:repeat(3,1fr)}
 }
@@ -1210,6 +1219,64 @@ td{background:rgba(12,0,4,.32) !important;color:#f1dfe3 !important;border-bottom
 <script>
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbeAWIdDxs3rIsbinY4bFXicLe9Fm7z5EUpEEMmR-VxFI6P5Fk2bnGFWc36IXx6mC07Q/exec";
 
+// FUENTES DE TABLA DINÁMICA — se consultan directamente desde Google Sheets.
+// No depende de una modificación adicional de codigo.gs.
+const DAILY_PIVOT_SOURCES = {
+  "CONECTIVA": {
+    spreadsheetId: "1wsbrlG9A3QDIXmqLdttshuhifYCUeKeE0pP9QKfmSCI",
+    gid: "2096746613",
+    mode: "advisor"
+  },
+  "CALL JJ CONEXION": {
+    spreadsheetId: "1to2S5luKSGLm-j01OztpIm62_8c73ago8a6RpUUotko",
+    gid: "1813563730",
+    mode: "total"
+  }
+};
+
+async function loadDailyPivot(centerName) {
+  const data = await jsonp("getDailyPivot", { center: centerName });
+  if (!data || !data.ok) {
+    throw new Error(data?.message || "No fue posible cargar la tabla dinámica.");
+  }
+  return Array.isArray(data.rows) ? data.rows : [];
+}
+
+function renderDailyPivotBox(centerName, rows) {
+  const safeName = String(centerName || "").trim().toUpperCase();
+  const isAdvisor = safeName === "CONECTIVA";
+  if (!rows.length) {
+    return `
+      <div class="daily-sales-head"><strong>TABLA DINÁMICA · VENTAS DIARIAS</strong><span>Sin datos</span></div>
+      <div class="daily-sales-empty">No hay ventas con fecha de ingreso registrada.</div>`;
+  }
+
+  return `
+    <div class="daily-sales-head">
+      <strong>TABLA DINÁMICA · VENTAS DIARIAS</strong>
+      <span>${esc(centerName)}</span>
+    </div>
+    <div class="table-wrap daily-pivot-wrap">
+      <table class="daily-pivot-table">
+        <thead>
+          <tr>
+            <th>A · FECHA DE INGRESO</th>
+            ${isAdvisor ? '<th>B · ASESOR</th>' : ''}
+            <th>${isAdvisor ? 'C' : 'B'} · CANTIDAD DE VENTAS</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map(r => `
+            <tr>
+              <td>${esc(r[0] || "—")}</td>
+              ${isAdvisor ? `<td>${esc(r[1] || "—")}</td>` : ''}
+              <td class="daily-count">${esc(r[isAdvisor ? 2 : 1] || "0")}</td>
+            </tr>`).join("")}
+        </tbody>
+      </table>
+    </div>`;
+}
+
 let appData = { centers: [] };
 let adminData = null;
 let currentCenter = null;
@@ -1434,28 +1501,20 @@ function renderTotalData(data) {
   // No se cargan ni se muestran las filas individuales aquí.
   document.getElementById("totalSections").innerHTML = "";
 
-  const daily = Array.isArray(data.dailySales) ? data.dailySales : [];
   const dailyBox = document.getElementById("dailySalesBox");
-  if (!daily.length) {
-    dailyBox.innerHTML = `
-      <div class="daily-sales-head"><strong>VENTAS DIARIAS</strong><span>Sin datos</span></div>
-      <div class="daily-sales-empty">No hay ventas con fecha de ingreso registrada.</div>`;
-    return;
-  }
-
   dailyBox.innerHTML = `
-    <div class="daily-sales-head">
-      <strong>VENTAS DIARIAS</strong>
-      <span>Fecha de ingreso</span>
-    </div>
-    <table class="daily-sales-table">
-      <thead><tr><th>Fecha</th><th>Cantidad de ventas</th></tr></thead>
-      <tbody>
-        ${daily.map(item => `
-          <tr><td>${esc(item.date)}</td><td class="daily-count">${Number(item.count)||0}</td></tr>
-        `).join("")}
-      </tbody>
-    </table>`;
+    <div class="daily-sales-head"><strong>TABLA DINÁMICA · VENTAS DIARIAS</strong><span>Cargando...</span></div>
+    <div class="daily-sales-empty">Consultando información actualizada...</div>`;
+
+  try {
+    const pivotRows = await loadDailyPivot(currentCenter);
+    dailyBox.innerHTML = renderDailyPivotBox(currentCenter, pivotRows);
+  } catch (e) {
+    console.error(e);
+    dailyBox.innerHTML = `
+      <div class="daily-sales-head"><strong>TABLA DINÁMICA · VENTAS DIARIAS</strong><span>Error</span></div>
+      <div class="daily-sales-empty">No fue posible leer la tabla dinámica. Verifica que el Google Sheet permita acceso de lectura.</div>`;
+  }
 }
 
 /* VENTAS POR ASESOR */
@@ -1702,9 +1761,10 @@ async function loginAdmin() {
   finally { setLoginLoading("adminLoginBtn", false); }
 }
 
-function showAdminDashboard() {
+async function showAdminDashboard() {
   if (!adminData?.centers) return;
 
+  // Primero pintamos el dashboard para que el administrador vea la pantalla de inmediato.
   const cards = adminData.centers.map(c => `
     <div class="admin-card">
       <h3>${esc(c.name)}</h3>
@@ -1715,10 +1775,31 @@ function showAdminDashboard() {
         <div class="metric red"><b>${c.summary?.cancelada||0}</b><span>CANCELADAS</span></div>
         <div class="metric yellow"><b>${c.summary?.recuperar||0}</b><span>POR RECUPERAR</span></div>
       </div>
+      <div class="admin-daily-placeholder" data-center-daily="${esc(c.name)}">
+        <div class="daily-sales-head"><strong>VENTAS DIARIAS</strong><span>Cargando...</span></div>
+        <div class="daily-sales-empty">Consultando ventas del día...</div>
+      </div>
     </div>`).join("");
 
   document.getElementById("adminContent").innerHTML =
     `<h2>Dashboard</h2><p class="subtitle">Las cantidades se leen directamente de cada consolidado configurado.</p><div class="admin-grid">${cards}</div>`;
+
+  // La tabla dinámica se consulta directamente desde el Google Sheet fuente.
+  // Así el Dashboard del administrador se actualiza sin cambiar codigo.gs.
+  await Promise.all(adminData.centers.map(async c => {
+    const box = document.querySelector(`[data-center-daily="${CSS.escape(c.name)}"]`);
+    if (!box) return;
+
+    try {
+      const pivotRows = await loadDailyPivot(c.name);
+      box.innerHTML = renderDailyPivotBox(c.name, pivotRows);
+    } catch (e) {
+      console.error(e);
+      box.innerHTML = `
+        <div class="daily-sales-head"><strong>TABLA DINÁMICA · VENTAS DIARIAS</strong><span>Error</span></div>
+        <div class="daily-sales-empty">No fue posible leer la tabla dinámica de este Call Center.</div>`;
+    }
+  }));
 }
 
 function showSettings() {
