@@ -309,6 +309,104 @@ td{color:#dbeaf4}
 .status.blue{color:var(--azul-claro)}
 .status.purple{color:var(--morado)}
 
+/* Acordeón compacto para las ventas del asesor */
+.sales-accordion{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:18px;
+}
+.sales-group{
+  border:1px solid var(--borde);
+  border-radius:13px;
+  overflow:hidden;
+  background:rgba(5,23,37,.68);
+}
+.sales-toggle{
+  width:100%;
+  border:0;
+  padding:12px 15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(145deg,rgba(8,35,54,.96),rgba(4,22,35,.96));
+  font-weight:800;
+  text-align:left;
+}
+.sales-toggle:hover{background:#0a2940}
+.sales-toggle .sales-name{display:flex;align-items:center;gap:9px}
+.sales-toggle .arrow{font-size:15px;transition:transform .18s ease}
+.sales-group.open .arrow{transform:rotate(90deg)}
+.sales-count{
+  min-width:28px;
+  padding:3px 8px;
+  border-radius:20px;
+  background:#071a2a;
+  border:1px solid var(--borde);
+  text-align:center;
+  color:#bfe7ff;
+  font-size:12px;
+}
+.sales-body{display:none;padding:9px;background:rgba(2,15,25,.42)}
+.sales-group.open .sales-body{display:block}
+.sale-card{
+  border:1px solid rgba(122,190,225,.14);
+  border-radius:10px;
+  background:#061a2a;
+  margin:0 0 7px;
+  overflow:hidden;
+}
+.sale-card:last-child{margin-bottom:0}
+.sale-title{
+  padding:8px 10px;
+  background:#081f32;
+  color:#dff4ff;
+  font-size:11px;
+  font-weight:800;
+  border-bottom:1px solid rgba(122,190,225,.12);
+}
+.sale-cells{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.sale-cell{
+  min-width:0;
+  padding:7px 9px;
+  border-right:1px solid rgba(122,190,225,.09);
+  border-bottom:1px solid rgba(122,190,225,.09);
+}
+.sale-cell:nth-child(4n){border-right:0}
+.sale-label{
+  display:block;
+  margin-bottom:2px;
+  color:#73c8f2;
+  font-size:9px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.2px;
+}
+.sale-value{
+  display:block;
+  color:#dcecf6;
+  font-size:11px;
+  line-height:1.25;
+  overflow-wrap:anywhere;
+}
+.empty-sales{
+  padding:14px;
+  text-align:center;
+  color:#829caf;
+  font-size:12px;
+}
+@media(max-width:760px){
+  .sale-cells{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sale-cell:nth-child(4n){border-right:1px solid rgba(122,190,225,.09)}
+  .sale-cell:nth-child(2n){border-right:0}
+}
+
 .section-title{margin:28px 0 10px}
 .muted{color:#91aabc}
 .hidden{display:none!important}
@@ -941,12 +1039,72 @@ function renderAdvisorData(data) {
     <div class="metric yellow"><b>${s.recuperar||0}</b><span>POR RECUPERAR</span></div>
   `;
 
-  document.getElementById("advisorSections").innerHTML =
-    renderDataTable("Ventas instaladas / terminadas", data.categories?.terminada || [], "green", data.headers) +
-    renderDataTable("Ventas en proceso", data.categories?.proceso || [], "blue", data.headers) +
-    renderDataTable("Ventas en agenda", data.categories?.agenda || [], "purple", data.headers) +
-    renderDataTable("Ventas canceladas", data.categories?.cancelada || [], "red", data.headers) +
-    renderDataTable("Ventas por recuperar", data.categories?.recuperar || [], "yellow", data.headers);
+  const groups = [
+    ["terminada", "Instaladas / Terminadas", "green", data.categories?.terminada || []],
+    ["proceso", "En proceso", "blue", data.categories?.proceso || []],
+    ["agenda", "En agenda", "purple", data.categories?.agenda || []],
+    ["cancelada", "Canceladas", "red", data.categories?.cancelada || []],
+    ["recuperar", "Por recuperar", "yellow", data.categories?.recuperar || []]
+  ];
+
+  const headers = data.headers && data.headers.length === 32
+    ? data.headers
+    : Array.from({length:32}, (_,i) => "COLUMNA " + (i+1));
+
+  document.getElementById("advisorSections").innerHTML = `
+    <div class="sales-accordion">
+      ${groups.map((g, idx) => renderAdvisorGroup(g, headers, idx === 0)).join("")}
+    </div>
+  `;
+
+  // Solo una categoría abierta a la vez.
+  document.querySelectorAll("#advisorSections .sales-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const group = btn.closest(".sales-group");
+      const wasOpen = group.classList.contains("open");
+      document.querySelectorAll("#advisorSections .sales-group").forEach(g => g.classList.remove("open"));
+      if (!wasOpen) group.classList.add("open");
+    });
+  });
+}
+
+function renderAdvisorGroup(group, headers, open) {
+  const [key, title, cls, rows] = group;
+  const icon = cls === "green" ? "✓" : cls === "red" ? "✕" : cls === "yellow" ? "↻" : cls === "purple" ? "◷" : "•";
+
+  return `
+    <div class="sales-group ${open ? "open" : ""}">
+      <button type="button" class="sales-toggle" aria-expanded="${open}">
+        <span class="sales-name">
+          <span class="status ${cls}">${icon}</span>
+          <span>${esc(title)}</span>
+        </span>
+        <span style="display:flex;align-items:center;gap:8px">
+          <span class="sales-count">${rows.length}</span>
+          <span class="arrow">›</span>
+        </span>
+      </button>
+      <div class="sales-body">
+        ${rows.length ? rows.map((row, i) => renderCompactSale(row, headers, i + 1)).join("") : '<div class="empty-sales">No hay ventas en esta categoría.</div>'}
+      </div>
+    </div>
+  `;
+}
+
+function renderCompactSale(row, headers, number) {
+  return `
+    <div class="sale-card">
+      <div class="sale-title">VENTA ${number}</div>
+      <div class="sale-cells">
+        ${headers.map((h, i) => `
+          <div class="sale-cell">
+            <span class="sale-label">${String.fromCharCode(65 + Math.floor(i / 26))}${i % 26 < 26 ? String.fromCharCode(65 + (i % 26)) : ""} · ${esc(h || "Columna")}</span>
+            <span class="sale-value">${esc(row?.[i] ?? "") || "—"}</span>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
 }
 
 /* TABLAS: A:AF COMPLETAS */
@@ -1134,3 +1292,4 @@ init();
 
 </body>
 </html>
+
