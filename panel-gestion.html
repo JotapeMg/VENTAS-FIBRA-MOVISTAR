@@ -766,6 +766,164 @@ input::placeholder,textarea::placeholder{color:#b9959d!important}
   background-image: none !important;
 }
 
+
+
+/* =========================================================
+   AJUSTE FINAL DE DISEÑO — TODO TRANSPARENTE OSCURO
+   ========================================================= */
+:root{
+  --glass-dark: rgba(18, 0, 4, .52);
+  --glass-darker: rgba(10, 0, 3, .62);
+  --glass-hover: rgba(150, 12, 38, .18);
+  --glass-border: rgba(197, 42, 69, .48);
+  --glass-border-soft: rgba(197, 42, 69, .32);
+}
+
+/* Todos los botones */
+button,
+.btn,
+.call-btn,
+.menu-btn,
+.back,
+.category-button,
+.sales-toggle,
+.action-button,
+.login-submit,
+.password-toggle{
+  background: var(--glass-dark) !important;
+  background-color: var(--glass-dark) !important;
+  background-image: none !important;
+  border: 1px solid var(--glass-border) !important;
+  color: #fff5f7 !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.035) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+button:hover,
+.btn:hover,
+.call-btn:hover,
+.menu-btn:hover,
+.category-button:hover,
+.sales-toggle:hover,
+.action-button:hover,
+.login-submit:hover{
+  background: var(--glass-hover) !important;
+  background-color: var(--glass-hover) !important;
+  border-color: rgba(224,58,84,.72) !important;
+}
+.back{background:transparent !important;border-color:rgba(197,42,69,.38) !important}
+
+/* Todas las vistas principales */
+.view,
+.view.active,
+.card,
+.panel,
+.form-card,
+.login-card,
+.content-card,
+.menu-card,
+.sales-card,
+.settings-card,
+.admin-card,
+.modal-card,
+.view-card,
+.info-box{
+  background: var(--glass-dark) !important;
+  background-color: var(--glass-dark) !important;
+  background-image: none !important;
+  border: 1px solid var(--glass-border-soft) !important;
+  box-shadow: 0 18px 55px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.035) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Cuadros de cantidades: instaladas, proceso, agenda, canceladas, recuperar */
+.summary,
+.metric{
+  background: transparent !important;
+  background-color: transparent !important;
+}
+.metric{
+  background: rgba(18,0,4,.46) !important;
+  border: 1px solid var(--glass-border-soft) !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.025) !important;
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+}
+.metric:hover{
+  background: rgba(150,12,38,.14) !important;
+  border-color: rgba(224,58,84,.62) !important;
+}
+.metric span{color:#d8bcc2 !important}
+
+/* Acordeones/cajas donde aparecen las ventas */
+.sales-accordion,
+.sales-group,
+.sales-body,
+.sales-search,
+.sales-results,
+.sale-card,
+.sale-title,
+.sale-cell,
+.sales-count{
+  background-image: none !important;
+}
+.sales-group{
+  background: rgba(12,0,4,.48) !important;
+  border: 1px solid var(--glass-border-soft) !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,.20) !important;
+}
+.sales-toggle{
+  background: rgba(18,0,4,.56) !important;
+  border-bottom: 1px solid rgba(197,42,69,.32) !important;
+}
+.sales-toggle:hover{background:rgba(150,12,38,.18) !important}
+.sales-body{
+  background: rgba(6,0,2,.40) !important;
+}
+.sale-card{
+  background: rgba(14,0,4,.44) !important;
+  border-top: 1px solid rgba(197,42,69,.18) !important;
+}
+.sale-title{
+  background: rgba(30,0,6,.52) !important;
+  border-right: 1px solid rgba(197,42,69,.25) !important;
+}
+.sale-cell{
+  border-right: 1px solid rgba(197,42,69,.16) !important;
+}
+.sale-card.search-hit{
+  background: rgba(150,12,38,.16) !important;
+  outline-color: #c52a45 !important;
+}
+.sale-card.search-hit .sale-title{background:rgba(150,12,38,.28) !important}
+
+/* Buscadores y campos */
+.sales-search input,
+.field input,
+.field select,
+textarea,
+.category-search{
+  background: rgba(8,0,3,.48) !important;
+  background-color: rgba(8,0,3,.48) !important;
+  border: 1px solid rgba(197,42,69,.36) !important;
+  color:#fff5f7 !important;
+}
+.sales-search{background:rgba(12,0,4,.38) !important}
+.sales-search-icon{color:#e2a2ad !important}
+
+/* Tablas de datos */
+.table-wrap{background:rgba(10,0,3,.38) !important;border-color:var(--glass-border-soft) !important}
+th{background:rgba(30,0,6,.55) !important;color:#e9a8b3 !important}
+td{background:rgba(12,0,4,.32) !important;color:#f1dfe3 !important;border-bottom-color:rgba(197,42,69,.14) !important}
+
+/* Quitar cualquier resto azul en fondos */
+.call-btn,.menu-btn,.btn,.btn.secondary,.metric,.sales-group,.sales-toggle,
+.sales-body,.sale-card,.sale-title,.sales-search,.sales-search input,
+.admin-card,.info-box,.table-wrap,th,td{
+  background-image:none !important;
+}
+
 </style>
 </head>
 
