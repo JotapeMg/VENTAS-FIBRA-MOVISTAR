@@ -1246,7 +1246,7 @@ function renderDailyPivotBox(centerName, rows) {
   if (!rows.length) {
     return `
       <div class="daily-sales-head"><strong>TABLA DINÁMICA · VENTAS DIARIAS</strong><span>Sin datos</span></div>
-      <div class="daily-sales-empty">No hay ventas con fecha de ingreso registrada.</div>`;
+      <div class="daily-sales-empty">La hoja "Tabla dinámica 1" no contiene filas de ventas para mostrar.</div>`;
   }
 
   return `
@@ -1256,22 +1256,14 @@ function renderDailyPivotBox(centerName, rows) {
     </div>
     <div class="table-wrap daily-pivot-wrap">
       <table class="daily-pivot-table">
-        <thead>
-          <tr>
-            <th>A · FECHA DE INGRESO</th>
-            <th>C · CANTIDAD DE VENTAS</th>
-          </tr>
-        </thead>
+        <thead><tr><th>A · FECHA DE INGRESO</th><th>C · CANTIDAD DE VENTAS</th></tr></thead>
         <tbody>
-          ${rows.map(r => `
-            <tr>
-              <td>${esc(r[0] || "—")}</td>
-              <td class="daily-count">${esc(r[1] || "0")}</td>
-            </tr>`).join("")}
+          ${rows.map(r => `<tr><td>${esc(r[0] || "—")}</td><td class="daily-count">${esc(r[1] || "0")}</td></tr>`).join("")}
         </tbody>
       </table>
     </div>`;
 }
+
 let appData = { centers: [] };
 let adminData = null;
 let currentCenter = null;
