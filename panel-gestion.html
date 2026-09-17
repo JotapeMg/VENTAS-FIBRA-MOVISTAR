@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -23,7 +23,7 @@
   --rojo:#ff7786;
   --amarillo:#ffd36a;
   --morado:#b99cff;
-  --azul-claro:#72cfff;
+  --azul-claro:#e18a94;
 }
 *{box-sizing:border-box;font-family:"Montserrat",Arial,sans-serif}
 body{
@@ -32,9 +32,10 @@ body{
   padding:0;
   color:var(--texto);
   background:
-    radial-gradient(circle at 82% 92%,rgba(0,126,220,.26),transparent 28%),
-    radial-gradient(circle at 10% 12%,rgba(0,156,238,.10),transparent 30%),
-    linear-gradient(180deg,#020c18 0%,#001b32 52%,#00162a 100%);
+    radial-gradient(circle at 82% 92%,rgba(130,0,18,.30),transparent 30%),
+    radial-gradient(circle at 10% 12%,rgba(105,0,12,.18),transparent 32%),
+    radial-gradient(circle at 50% 48%,rgba(70,0,8,.10),transparent 55%),
+    linear-gradient(180deg,#080202 0%,#180607 50%,#0b0304 100%);
 }
 .app{
   width:min(1120px,94%);
@@ -60,7 +61,7 @@ body{
   content:"";
   position:absolute;
   inset:0;
-  background:radial-gradient(ellipse at 50% 0%,rgba(0,174,248,.10),transparent 58%);
+  background:radial-gradient(ellipse at 50% 0%,rgba(150,0,20,.14),transparent 58%);
   pointer-events:none;
 }
 .slogan-header{
@@ -76,31 +77,31 @@ body{
   text-shadow:0 2px 18px rgba(0,0,0,.22);
 }
 .slogan-header div{font-family:"Dancing Script","Segoe Script",cursive}
-.slogan-header div:nth-child(2){color:#08b6ff}
+.slogan-header div:nth-child(2){color:#c52f45}
 .slogan-header span{
   display:block;
   width:116px;
   height:3px;
   margin:12px auto 0;
   border-radius:50%;
-  background:#08b6ff;
+  background:#c52f45;
   transform:rotate(-4deg);
   box-shadow:0 0 12px rgba(8,182,255,.28);
 }
 .hero{text-align:center;padding:26px 5px 28px}
 .wifi-icon{
   width:48px;height:28px;margin:0 auto 13px;
-  border-top:4px solid #08b7ff;border-radius:50%;position:relative
+  border-top:4px solid #c52f45;border-radius:50%;position:relative
 }
 .wifi-icon:before,.wifi-icon:after{
   content:"";position:absolute;left:50%;transform:translateX(-50%);
-  border-top:4px solid #08b7ff;border-radius:50%
+  border-top:4px solid #c52f45;border-radius:50%
 }
 .wifi-icon:before{width:34px;height:19px;top:4px}
 .wifi-icon:after{width:19px;height:10px;top:10px}
 .hero h1{font-size:35px;margin:0 0 7px}
-.hero p{font-size:17px;color:#a8d9ff;margin:0}
-.hero-line{width:100px;height:3px;background:#08b6ff;margin:17px auto 0;border-radius:5px}
+.hero p{font-size:17px;color:#d9a4aa;margin:0}
+.hero-line{width:100px;height:3px;background:#c52f45;margin:17px auto 0;border-radius:5px}
 
 .view{
   display:none;
@@ -134,7 +135,7 @@ body{
 }
 .call-btn:hover{
   transform:translateY(-3px);
-  border-color:#08b6ff;
+  border-color:#c52f45;
   box-shadow:0 12px 35px rgba(8,182,255,.14)
 }
 
@@ -157,7 +158,7 @@ body{
 }
 .menu-btn:hover{
   transform:translateY(-3px);
-  border-color:#08b6ff;
+  border-color:#c52f45;
   box-shadow:0 12px 35px rgba(8,182,255,.14)
 }
 .menu-icon{
@@ -227,7 +228,7 @@ input,select{
   color:#fff;
   outline:none
 }
-input:focus,select:focus{border-color:#08b6ff}
+input:focus,select:focus{border-color:#c52f45}
 .login-box{max-width:440px;margin:25px auto 5px}
 .error,.ok{
   display:none;
@@ -350,50 +351,67 @@ td{color:#dbeaf4}
   color:#bfe7ff;
   font-size:12px;
 }
-.sales-body{display:none;padding:9px;background:rgba(2,15,25,.42)}
+.sales-body{display:none;padding:7px 0;background:rgba(2,15,25,.42);overflow:hidden}
 .sales-group.open .sales-body{display:block}
+
+/* Cada venta es una sola fila horizontal. Sus celdas siguen hacia la derecha;
+   la siguiente venta queda inmediatamente debajo. */
 .sale-card{
-  border:1px solid rgba(122,190,225,.14);
-  border-radius:10px;
+  display:flex;
+  width:max-content;
+  min-width:100%;
+  margin:0;
   background:#061a2a;
-  margin:0 0 7px;
-  overflow:hidden;
+  border-top:1px solid rgba(122,190,225,.10);
 }
-.sale-card:last-child{margin-bottom:0}
+.sale-card:first-child{border-top:0}
 .sale-title{
-  padding:8px 10px;
+  flex:0 0 72px;
+  min-width:72px;
+  padding:8px 7px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   background:#081f32;
   color:#dff4ff;
-  font-size:11px;
+  font-size:9px;
   font-weight:800;
-  border-bottom:1px solid rgba(122,190,225,.12);
+  border-right:1px solid rgba(122,190,225,.12);
 }
 .sale-cells{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+  display:flex;
+  flex-wrap:nowrap;
+  width:max-content;
 }
 .sale-cell{
-  min-width:0;
-  padding:7px 9px;
+  flex:0 0 118px;
+  width:118px;
+  min-width:118px;
+  min-height:47px;
+  padding:5px 7px;
   border-right:1px solid rgba(122,190,225,.09);
-  border-bottom:1px solid rgba(122,190,225,.09);
+  box-sizing:border-box;
 }
-.sale-cell:nth-child(4n){border-right:0}
 .sale-label{
   display:block;
   margin-bottom:2px;
   color:#73c8f2;
-  font-size:9px;
+  font-size:8px;
   font-weight:800;
   text-transform:uppercase;
-  letter-spacing:.2px;
+  letter-spacing:.15px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 .sale-value{
   display:block;
   color:#dcecf6;
-  font-size:11px;
-  line-height:1.25;
-  overflow-wrap:anywhere;
+  font-size:10px;
+  line-height:1.2;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 .empty-sales{
   padding:14px;
@@ -401,11 +419,28 @@ td{color:#dbeaf4}
   color:#829caf;
   font-size:12px;
 }
-@media(max-width:760px){
-  .sale-cells{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .sale-cell:nth-child(4n){border-right:1px solid rgba(122,190,225,.09)}
-  .sale-cell:nth-child(2n){border-right:0}
-}
+
+/* Contraseñas: mostrar/ocultar y estado de carga */
+.password-wrap{position:relative;display:flex;align-items:center}
+.password-wrap input{width:100%;padding-right:48px}
+.password-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:38px;height:34px;border:0;border-radius:9px;background:rgba(8,182,255,.10);color:#8fdcff;cursor:pointer;font-size:16px}
+.password-toggle:hover{background:rgba(8,182,255,.20)}
+.password-toggle:disabled{opacity:.55;cursor:wait}
+.login-submit.loading{opacity:.78;cursor:wait;display:flex;align-items:center;justify-content:center;gap:9px}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.28);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Buscador dentro de cada categoría del asesor */
+.sales-search{padding:10px 12px;border-bottom:1px solid rgba(122,190,225,.10);background:#071d2f;position:sticky;top:0;z-index:2}
+.sales-search-wrap{position:relative;display:flex;align-items:center}
+.sales-search input{width:100%;box-sizing:border-box;padding:9px 12px 9px 34px;border:1px solid rgba(122,190,225,.20);border-radius:9px;background:#061726;color:#e7f6ff;outline:none;font-size:11px}
+.sales-search input:focus{border-color:#c52f45;box-shadow:0 0 0 2px rgba(8,182,255,.10)}
+.sales-search-icon{position:absolute;left:11px;color:#73c8f2;font-size:13px;pointer-events:none}
+.sales-search-result{margin-top:5px;color:#73c8f2;font-size:9px}
+.sale-card.search-hit{outline:2px solid #c52f45;outline-offset:-2px;background:#08263c;box-shadow:inset 0 0 0 1px rgba(8,182,255,.25)}
+.sale-card.search-hit .sale-title{background:#0a3550;color:#fff}
+.sale-card.search-hidden{display:none}
+.no-search-results{padding:14px;text-align:center;color:#91aabc;font-size:11px}
 
 .section-title{margin:28px 0 10px}
 .muted{color:#91aabc}
@@ -437,7 +472,7 @@ td{color:#dbeaf4}
 .footer-credit{
   padding:34px 0 4px;
   text-align:center;
-  color:#0878ba;
+  color:#a94a56;
   font-family:"Montserrat",Arial,sans-serif;
   font-size:16px;
   font-weight:500;
@@ -451,17 +486,17 @@ td{color:#dbeaf4}
   width:84px;
   height:2px;
   margin:0 18px 5px;
-  background:#087fbd;
+  background:#8f2635;
   opacity:.82;
 }
 .footer-credit strong{
-  color:#0787c9;
+  color:#d25a68;
   font-family:"Dancing Script","Segoe Script",cursive;
   font-size:31px;
   font-style:normal;
   font-weight:600;
   letter-spacing:.4px;
-  text-shadow:0 0 14px rgba(0,139,213,.12);
+  text-shadow:0 0 14px rgba(180,30,50,.16);
 }
 
 @media(max-width:900px){
@@ -472,19 +507,103 @@ td{color:#dbeaf4}
   .view{padding:20px}
   .hero h1{font-size:29px}
 }
+
+/* Cuadro de bienvenida: transparente e integrado al fondo */
+.welcome-box,
+.welcome-card,
+.welcome-panel,
+.card.welcome,
+.hero-card {
+  background: rgba(20, 0, 4, 0.22) !important;
+  border: 1px solid rgba(179, 18, 47, 0.38) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.035) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+
+/* Pantalla principal: todo el panel/contenedor transparente */
+#home .card,
+#home .panel,
+#home .container,
+#home .welcome-box,
+.home-card,
+.home-panel,
+.main-card,
+.main-panel {
+  background: rgba(20, 0, 4, 0.22) !important;
+  border: 1px solid rgba(179, 18, 47, 0.38) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22),
+              inset 0 1px 0 rgba(255, 255, 255, 0.035) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+
+/* === TRANSPARENCIA REAL DE LA PANTALLA PRINCIPAL === */
+#home,
+#home > div,
+#home .home-panel,
+#home .home-card,
+#home .panel,
+#home .card,
+#home .glass,
+#home .content-card,
+#home .main-card,
+#home .main-panel,
+#home .welcome-box {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Mantener solamente un borde muy sutil, sin rellenar el cuadro */
+#home .home-panel,
+#home .home-card,
+#home .panel,
+#home .card,
+#home .content-card,
+#home .main-card,
+#home .main-panel,
+#home .welcome-box {
+  border: 1px solid rgba(179, 18, 47, 0.28) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+
+/* === PANTALLA PRINCIPAL COMPLETAMENTE TRANSPARENTE ===
+   El fondo rojo/negro se ve directamente detrás de todo el contenido.
+   Solo se conserva un borde rojo muy sutil. */
+#homeView {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(179, 18, 47, 0.28) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+#homeView .welcome-box {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+#homeView .call-grid,
+#homeView .center {
+  background: transparent !important;
+}
+
 </style>
 </head>
 
 <body>
 <main class="app">
 
-<header class="encabezado">
-  <div class="slogan-header" aria-label="Conectamos lo que te mueve">
-    <div>Conectamos</div>
-    <div>lo que te mueve</div>
-    <span></span>
-  </div>
-</header>
+<header class="encabezado" aria-label="Panel de Gestión"></header>
 
 <section class="hero">
   <div class="wifi-icon"></div>
@@ -498,8 +617,8 @@ td{color:#dbeaf4}
      SOLO CALL CENTERS + ADMIN. NO HAY CIFRAS DE VENTAS.
      ========================================================= -->
 <section id="homeView" class="view active">
-  <div class="center">
-    <h2>Selecciona tu Call Center</h2>
+  <div class="center welcome-box">
+    <h2>BIENVENIDO ALIADO, SELECCIONA TU CALL</h2>
     <p class="subtitle">Ingresa al Call Center correspondiente para consultar la información autorizada.</p>
   </div>
 
@@ -527,11 +646,14 @@ td{color:#dbeaf4}
 
     <div class="field">
       <label for="callPassword">Contraseña</label>
+      <div class="password-wrap">
       <input id="callPassword" type="password" autocomplete="current-password"
              onkeydown="if(event.key==='Enter')loginCall()">
+      <button type="button" class="password-toggle" onclick="togglePassword('callPassword', this)" aria-label="Mostrar contraseña">👁</button>
+    </div>
     </div>
 
-    <button class="btn" style="width:100%" onclick="loginCall()">Ingresar</button>
+    <button id="callLoginBtn" class="btn login-submit" style="width:100%" onclick="loginCall()">Ingresar</button>
     <div id="callLoginError" class="error"></div>
   </div>
 </section>
@@ -584,11 +706,14 @@ td{color:#dbeaf4}
 
     <div class="field">
       <label for="totalPassword">Contraseña</label>
+      <div class="password-wrap">
       <input id="totalPassword" type="password"
              onkeydown="if(event.key==='Enter')loginTotal()">
+      <button type="button" class="password-toggle" onclick="togglePassword('totalPassword', this)" aria-label="Mostrar contraseña">👁</button>
+    </div>
     </div>
 
-    <button class="btn" style="width:100%" onclick="loginTotal()">Ingresar</button>
+    <button id="totalLoginBtn" class="btn login-submit" style="width:100%" onclick="loginTotal()">Ingresar</button>
     <div id="totalLoginError" class="error"></div>
   </div>
 </section>
@@ -637,11 +762,14 @@ td{color:#dbeaf4}
 
     <div class="field">
       <label for="advisorPassword">Contraseña del asesor</label>
+      <div class="password-wrap">
       <input id="advisorPassword" type="password"
              onkeydown="if(event.key==='Enter')loginAdvisor()">
+      <button type="button" class="password-toggle" onclick="togglePassword('advisorPassword', this)" aria-label="Mostrar contraseña">👁</button>
+    </div>
     </div>
 
-    <button class="btn" style="width:100%" onclick="loginAdvisor()">Ingresar</button>
+    <button id="advisorLoginBtn" class="btn login-submit" style="width:100%" onclick="loginAdvisor()">Ingresar</button>
     <div id="advisorLoginError" class="error"></div>
   </div>
 </section>
@@ -681,11 +809,14 @@ td{color:#dbeaf4}
 
     <div class="field">
       <label for="adminPassword">Contraseña de administrador</label>
+      <div class="password-wrap">
       <input id="adminPassword" type="password"
              onkeydown="if(event.key==='Enter')loginAdmin()">
+      <button type="button" class="password-toggle" onclick="togglePassword('adminPassword', this)" aria-label="Mostrar contraseña">👁</button>
+    </div>
     </div>
 
-    <button class="btn" style="width:100%" onclick="loginAdmin()">Ingresar</button>
+    <button id="adminLoginBtn" class="btn login-submit" style="width:100%" onclick="loginAdmin()">Ingresar</button>
     <div id="adminLoginError" class="error"></div>
   </div>
 </section>
@@ -837,6 +968,28 @@ function showCallMenu() {
   show("callMenuView");
 }
 
+function togglePassword(id, button) {
+  const input = document.getElementById(id);
+  if (!input) return;
+  const showing = input.type === "text";
+  input.type = showing ? "password" : "text";
+  button.textContent = showing ? "👁" : "🙈";
+  button.setAttribute("aria-label", showing ? "Mostrar contraseña" : "Ocultar contraseña");
+}
+
+function setLoginLoading(buttonId, loading) {
+  const btn = document.getElementById(buttonId);
+  if (!btn) return;
+  btn.disabled = loading;
+  btn.classList.toggle("loading", loading);
+  if (loading) {
+    btn.dataset.originalText = btn.textContent;
+    btn.innerHTML = '<span class="spinner"></span> Verificando...';
+  } else {
+    btn.textContent = btn.dataset.originalText || "Ingresar";
+  }
+}
+
 /* PRIMERA CONTRASEÑA */
 function openCallLogin(name) {
   currentCenter = name;
@@ -850,28 +1003,14 @@ function openCallLogin(name) {
 async function loginCall() {
   clearMsg("callLoginError");
   const password = document.getElementById("callPassword").value.trim();
-
-  if (!password) {
-    msg("callLoginError", "Escribe la contraseña.");
-    return;
-  }
-
+  if (!password) { msg("callLoginError", "Escribe la contraseña."); return; }
+  setLoginLoading("callLoginBtn", true);
   try {
-    // codigo.gs recibe la contraseña normal, NO SHA-256.
-    const r = await jsonp("loginCenter", {
-      center: currentCenter,
-      password: password
-    });
-
-    if (!r.ok) {
-      msg("callLoginError", r.message || "Contraseña incorrecta.");
-      return;
-    }
-
+    const r = await jsonp("loginCenter", { center: currentCenter, password });
+    if (!r.ok) { msg("callLoginError", r.message || "Contraseña incorrecta."); return; }
     showCallMenu();
-  } catch (e) {
-    msg("callLoginError", e.message);
-  }
+  } catch (e) { msg("callLoginError", e.message); }
+  finally { setLoginLoading("callLoginBtn", false); }
 }
 
 /* VENTAS EN TOTAL */
@@ -886,34 +1025,18 @@ function openTotalLogin() {
 async function loginTotal() {
   clearMsg("totalLoginError");
   const password = document.getElementById("totalPassword").value.trim();
-
-  if (!password) {
-    msg("totalLoginError", "Escribe la contraseña.");
-    return;
-  }
-
+  if (!password) { msg("totalLoginError", "Escribe la contraseña."); return; }
+  setLoginLoading("totalLoginBtn", true);
   try {
     const auth = await jsonp("loginTotal", { password });
-
-    if (!auth.ok) {
-      msg("totalLoginError", auth.message || "Contraseña incorrecta.");
-      return;
-    }
-
+    if (!auth.ok) { msg("totalLoginError", auth.message || "Contraseña incorrecta."); return; }
     const r = await jsonp("getTotalData", { center: currentCenter });
-
-    if (!r.ok) {
-      msg("totalLoginError", r.message || "No se pudieron cargar las ventas.");
-      return;
-    }
-
+    if (!r.ok) { msg("totalLoginError", r.message || "No se pudieron cargar las ventas."); return; }
     renderTotalData(r);
     document.getElementById("totalViewTitle").textContent = currentCenter;
     show("totalView");
-
-  } catch (e) {
-    msg("totalLoginError", e.message);
-  }
+  } catch (e) { msg("totalLoginError", e.message); }
+  finally { setLoginLoading("totalLoginBtn", false); }
 }
 
 function renderTotalData(data) {
@@ -927,12 +1050,9 @@ function renderTotalData(data) {
     <div class="metric yellow"><b>${s.recuperar||0}</b><span>POR RECUPERAR</span></div>
   `;
 
-  document.getElementById("totalSections").innerHTML =
-    renderDataTable("Ventas instaladas / terminadas", data.categories?.terminada || [], "green", data.headers) +
-    renderDataTable("Ventas en proceso", data.categories?.proceso || [], "blue", data.headers) +
-    renderDataTable("Ventas en agenda", data.categories?.agenda || [], "purple", data.headers) +
-    renderDataTable("Ventas canceladas", data.categories?.cancelada || [], "red", data.headers) +
-    renderDataTable("Ventas por recuperar", data.categories?.recuperar || [], "yellow", data.headers);
+  // VENTAS EN TOTAL: esta vista muestra únicamente el cuadro de cantidades.
+  // No se cargan ni se muestran las filas de ventas aquí.
+  document.getElementById("totalSections").innerHTML = "";
 }
 
 /* VENTAS POR ASESOR */
@@ -976,56 +1096,23 @@ async function openAdvisorLogin() {
 
 async function loginAdvisor() {
   clearMsg("advisorLoginError");
-
   const advisor = document.getElementById("advisorSelectLogin").value;
   const password = document.getElementById("advisorPassword").value.trim();
-
-  if (!advisor) {
-    msg("advisorLoginError", "Selecciona un asesor.");
-    return;
-  }
-
-  if (!password) {
-    msg("advisorLoginError", "Escribe la contraseña del asesor.");
-    return;
-  }
-
+  if (!advisor) { msg("advisorLoginError", "Selecciona un asesor."); return; }
+  if (!password) { msg("advisorLoginError", "Escribe la contraseña del asesor."); return; }
+  setLoginLoading("advisorLoginBtn", true);
   try {
-    const auth = await jsonp("loginAdvisor", {
-      center: currentCenter,
-      advisor: advisor,
-      password: password
-    });
-
-    if (!auth.ok) {
-      msg("advisorLoginError", auth.message || "Asesor o contraseña incorrectos.");
-      return;
-    }
-
-    // Primero autentica y después pide exclusivamente las ventas de ese asesor.
-    const r = await jsonp("getAdvisorData", {
-      center: currentCenter,
-      advisor: advisor
-    });
-
-    if (!r.ok) {
-      msg("advisorLoginError", r.message || "No se pudieron cargar las ventas del asesor.");
-      return;
-    }
-
+    const auth = await jsonp("loginAdvisor", { center: currentCenter, advisor, password });
+    if (!auth.ok) { msg("advisorLoginError", auth.message || "Asesor o contraseña incorrectos."); return; }
+    const r = await jsonp("getAdvisorData", { center: currentCenter, advisor });
+    if (!r.ok) { msg("advisorLoginError", r.message || "No se pudieron cargar las ventas del asesor."); return; }
     currentAdvisor = advisor;
     renderAdvisorData(r);
-
-    document.getElementById("advisorViewTitle").textContent =
-      currentCenter + " · " + advisor;
-    document.getElementById("advisorHeading").textContent =
-      "Ventas de " + advisor;
-
+    document.getElementById("advisorViewTitle").textContent = currentCenter + " · " + advisor;
+    document.getElementById("advisorHeading").textContent = "Ventas de " + advisor;
     show("advisorView");
-
-  } catch (e) {
-    msg("advisorLoginError", e.message);
-  }
+  } catch (e) { msg("advisorLoginError", e.message); }
+  finally { setLoginLoading("advisorLoginBtn", false); }
 }
 
 function renderAdvisorData(data) {
@@ -1053,7 +1140,7 @@ function renderAdvisorData(data) {
 
   document.getElementById("advisorSections").innerHTML = `
     <div class="sales-accordion">
-      ${groups.map((g, idx) => renderAdvisorGroup(g, headers, idx === 0)).join("")}
+      ${groups.map((g) => renderAdvisorGroup(g, headers, false)).join("")}
     </div>
   `;
 
@@ -1066,6 +1153,7 @@ function renderAdvisorData(data) {
       if (!wasOpen) group.classList.add("open");
     });
   });
+  setupAdvisorSearch();
 }
 
 function renderAdvisorGroup(group, headers, open) {
@@ -1073,7 +1161,7 @@ function renderAdvisorGroup(group, headers, open) {
   const icon = cls === "green" ? "✓" : cls === "red" ? "✕" : cls === "yellow" ? "↻" : cls === "purple" ? "◷" : "•";
 
   return `
-    <div class="sales-group ${open ? "open" : ""}">
+    <div class="sales-group ${open ? "open" : ""}" data-category="${esc(key)}">
       <button type="button" class="sales-toggle" aria-expanded="${open}">
         <span class="sales-name">
           <span class="status ${cls}">${icon}</span>
@@ -1085,10 +1173,62 @@ function renderAdvisorGroup(group, headers, open) {
         </span>
       </button>
       <div class="sales-body">
-        ${rows.length ? rows.map((row, i) => renderCompactSale(row, headers, i + 1)).join("") : '<div class="empty-sales">No hay ventas en esta categoría.</div>'}
+        <div class="sales-search">
+          <div class="sales-search-wrap">
+            <span class="sales-search-icon">⌕</span>
+            <input type="search" class="category-search" placeholder="Buscar cualquier dato de esta venta..." autocomplete="off">
+          </div>
+          <div class="sales-search-result"></div>
+        </div>
+        <div class="sales-results">
+          ${rows.length ? rows.map((row, i) => renderCompactSale(row, headers, i + 1)).join("") : '<div class="empty-sales">No hay ventas en esta categoría.</div>'}
+        </div>
       </div>
     </div>
   `;
+}
+
+function setupAdvisorSearch() {
+  document.querySelectorAll("#advisorSections .sales-group").forEach(group => {
+    const input = group.querySelector(".category-search");
+    const result = group.querySelector(".sales-search-result");
+    const cards = Array.from(group.querySelectorAll(".sale-card"));
+    if (!input) return;
+
+    input.addEventListener("input", () => {
+      const q = input.value.trim().toLocaleLowerCase();
+      let matches = 0;
+      cards.forEach(card => {
+        const text = card.textContent.toLocaleLowerCase();
+        const hit = q !== "" && text.includes(q);
+        card.classList.toggle("search-hit", hit);
+        card.classList.toggle("search-hidden", q !== "" && !hit);
+        if (hit) matches++;
+      });
+
+      const empty = group.querySelector(".no-search-results");
+      if (empty) empty.remove();
+      if (!q) {
+        result.textContent = "";
+        return;
+      }
+      result.textContent = matches === 1 ? "1 venta encontrada y resaltada" : `${matches} ventas encontradas y resaltadas`;
+      if (!matches) {
+        group.querySelector(".sales-results").insertAdjacentHTML("beforeend", '<div class="no-search-results">No se encontró ninguna venta con ese dato.</div>');
+      }
+    });
+  });
+}
+
+function columnLetter(index) {
+  let n = index + 1;
+  let out = "";
+  while (n > 0) {
+    const rem = (n - 1) % 26;
+    out = String.fromCharCode(65 + rem) + out;
+    n = Math.floor((n - 1) / 26);
+  }
+  return out;
 }
 
 function renderCompactSale(row, headers, number) {
@@ -1098,7 +1238,7 @@ function renderCompactSale(row, headers, number) {
       <div class="sale-cells">
         ${headers.map((h, i) => `
           <div class="sale-cell">
-            <span class="sale-label">${String.fromCharCode(65 + Math.floor(i / 26))}${i % 26 < 26 ? String.fromCharCode(65 + (i % 26)) : ""} · ${esc(h || "Columna")}</span>
+            <span class="sale-label">${columnLetter(i)} · ${esc(h || "Columna")}</span>
             <span class="sale-value">${esc(row?.[i] ?? "") || "—"}</span>
           </div>
         `).join("")}
@@ -1147,27 +1287,16 @@ function openAdminLogin() {
 async function loginAdmin() {
   clearMsg("adminLoginError");
   const password = document.getElementById("adminPassword").value.trim();
-
-  if (!password) {
-    msg("adminLoginError", "Escribe la contraseña.");
-    return;
-  }
-
+  if (!password) { msg("adminLoginError", "Escribe la contraseña."); return; }
+  setLoginLoading("adminLoginBtn", true);
   try {
     const auth = await jsonp("loginAdmin", { password });
-
-    if (!auth.ok) {
-      msg("adminLoginError", auth.message || "Contraseña incorrecta.");
-      return;
-    }
-
+    if (!auth.ok) { msg("adminLoginError", auth.message || "Contraseña incorrecta."); return; }
     adminData = await jsonp("getAdminData");
     show("adminView");
     showAdminDashboard();
-
-  } catch (e) {
-    msg("adminLoginError", e.message);
-  }
+  } catch (e) { msg("adminLoginError", e.message); }
+  finally { setLoginLoading("adminLoginBtn", false); }
 }
 
 function showAdminDashboard() {
@@ -1201,7 +1330,10 @@ function showSettings() {
       ${centers.map((c,i)=>`
         <div class="field">
           <label>${esc(c.name)}</label>
+          <div class="password-wrap">
           <input type="password" id="pw_${i}" placeholder="Nueva contraseña">
+          <button type="button" class="password-toggle" onclick="togglePassword('pw_${i}', this)" aria-label="Mostrar contraseña">👁</button>
+        </div>
           <button class="btn secondary" onclick='changeCenterPassword(${JSON.stringify(c.name)},${i})'>Guardar contraseña</button>
         </div>`).join("")}
     </div>
@@ -1210,7 +1342,10 @@ function showSettings() {
       <h3>Agregar Call Center</h3>
       <div class="field"><label>Nombre exacto de la hoja de credenciales</label><input id="newName" placeholder="Ej. NUEVO CALL CENTER"></div>
       <div class="field"><label>URL o ID del consolidado</label><input id="newUrl" placeholder="https://docs.google.com/spreadsheets/d/..."></div>
-      <div class="field"><label>Contraseña inicial de la primera ventana</label><input id="newPw" type="password"></div>
+      <div class="field"><label>Contraseña inicial de la primera ventana</label><div class="password-wrap">
+        <input id="newPw" type="password">
+        <button type="button" class="password-toggle" onclick="togglePassword('newPw', this)" aria-label="Mostrar contraseña">👁</button>
+      </div></div>
       <button class="btn" onclick="addCenter()">Agregar Call Center</button>
       <div id="settingsMsg" class="ok"></div>
     </div>`;
