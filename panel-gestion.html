@@ -1486,7 +1486,7 @@ async function loginTotal() {
   finally { setLoginLoading("totalLoginBtn", false); }
 }
 
-function renderTotalData(data) {
+async function renderTotalData(data) {
   const s = data.summary || {};
 
   document.getElementById("totalSummary").innerHTML = `
