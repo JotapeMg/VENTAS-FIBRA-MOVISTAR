@@ -1507,13 +1507,16 @@ async function renderTotalData(data) {
     <div class="daily-sales-empty">Consultando información actualizada...</div>`;
 
   try {
-    const pivotRows = await loadDailyPivot(currentCenter);
+    // getTotalData ya trae la tabla dinámica desde Apps Script.
+    // Solo hacemos una segunda consulta si por alguna razón no vino incluida.
+    let pivotRows = Array.isArray(data.dailyPivot?.rows) ? data.dailyPivot.rows : null;
+    if (!pivotRows) pivotRows = await loadDailyPivot(currentCenter);
     dailyBox.innerHTML = renderDailyPivotBox(currentCenter, pivotRows);
   } catch (e) {
     console.error(e);
     dailyBox.innerHTML = `
       <div class="daily-sales-head"><strong>TABLA DINÁMICA · VENTAS DIARIAS</strong><span>Error</span></div>
-      <div class="daily-sales-empty">No fue posible leer la tabla dinámica. Verifica que el Google Sheet permita acceso de lectura.</div>`;
+      <div class="daily-sales-empty">No fue posible leer la tabla dinámica: ${esc(e.message || e)}</div>`;
   }
 }
 
@@ -1784,8 +1787,7 @@ async function showAdminDashboard() {
   document.getElementById("adminContent").innerHTML =
     `<h2>Dashboard</h2><p class="subtitle">Las cantidades se leen directamente de cada consolidado configurado.</p><div class="admin-grid">${cards}</div>`;
 
-  // La tabla dinámica se consulta directamente desde el Google Sheet fuente.
-  // Así el Dashboard del administrador se actualiza sin cambiar codigo.gs.
+  // La tabla dinámica se consulta desde Apps Script, que tiene acceso al Sheet fuente.
   await Promise.all(adminData.centers.map(async c => {
     const box = document.querySelector(`[data-center-daily="${CSS.escape(c.name)}"]`);
     if (!box) return;
@@ -1797,7 +1799,7 @@ async function showAdminDashboard() {
       console.error(e);
       box.innerHTML = `
         <div class="daily-sales-head"><strong>TABLA DINÁMICA · VENTAS DIARIAS</strong><span>Error</span></div>
-        <div class="daily-sales-empty">No fue posible leer la tabla dinámica de este Call Center.</div>`;
+        <div class="daily-sales-empty">No fue posible leer la tabla dinámica: ${esc(e.message || e)}</div>`;
     }
   }));
 }
