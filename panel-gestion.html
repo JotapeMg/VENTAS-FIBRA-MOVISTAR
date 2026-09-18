@@ -1219,7 +1219,7 @@ td{background:rgba(12,0,4,.32) !important;color:#f1dfe3 !important;border-bottom
 <script>
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQ1TA8bdc7HPRSsk1YvHuS7cRMb2eHJHiQ1phe7jyXfeL9WU0lIJ5gSOCbNLLDDu0nAA/exec";
 
-// FUENTES DE TABLA DINÁMICA — Apps Script lee la hoja "Tabla dinámica 1".
+// FUENTES DE TABLA DINÁMICA — Apps Script lee la hoja "Respuestas de formulario 1".
 // La tabla mostrada utiliza únicamente las columnas A y C del pivote.
 const DAILY_PIVOT_SOURCES = {
   "CONECTIVA": {
@@ -1245,18 +1245,18 @@ async function loadDailyPivot(centerName) {
 function renderDailyPivotBox(centerName, rows) {
   if (!rows.length) {
     return `
-      <div class="daily-sales-head"><strong>TABLA DINÁMICA · VENTAS DIARIAS</strong><span>Sin datos</span></div>
-      <div class="daily-sales-empty">La hoja "Tabla dinámica 1" no contiene filas de ventas para mostrar.</div>`;
+      <div class="daily-sales-head"><strong>VENTAS DIARIAS · FECHA DE INGRESO</strong><span>Sin datos</span></div>
+      <div class="daily-sales-empty">No hay fechas de ingreso registradas en "Respuestas de formulario 1".</div>`;
   }
 
   return `
     <div class="daily-sales-head">
-      <strong>TABLA DINÁMICA · VENTAS DIARIAS</strong>
+      <strong>VENTAS DIARIAS · FECHA DE INGRESO</strong>
       <span>${esc(centerName)}</span>
     </div>
     <div class="table-wrap daily-pivot-wrap">
       <table class="daily-pivot-table">
-        <thead><tr><th>A · FECHA DE INGRESO</th><th>C · CANTIDAD DE VENTAS</th></tr></thead>
+        <thead><tr><th>FECHA DE INGRESO</th><th>CANTIDAD DE VENTAS</th></tr></thead>
         <tbody>
           ${rows.map(r => `<tr><td>${esc(r[0] || "—")}</td><td class="daily-count">${esc(r[1] || "0")}</td></tr>`).join("")}
         </tbody>
@@ -1478,10 +1478,11 @@ async function renderTotalData(data) {
 
   document.getElementById("totalSummary").innerHTML = `
     <div class="metric green"><b>${s.terminada||0}</b><span>INSTALADAS / TERMINADAS</span></div>
-    <div class="metric blue"><b>${s.proceso||0}</b><span>EN PROCESO</span></div>
     <div class="metric purple"><b>${s.agenda||0}</b><span>EN AGENDA</span></div>
-    <div class="metric red"><b>${s.cancelada||0}</b><span>CANCELADAS</span></div>
     <div class="metric yellow"><b>${s.recuperar||0}</b><span>POR RECUPERAR</span></div>
+    <div class="metric yellow"><b>${s.recuperada||0}</b><span>RECUPERADAS</span></div>
+    <div class="metric red"><b>${s.cancelada||0}</b><span>CANCELADAS</span></div>
+    <div class="metric red"><b>${s.escalada||0}</b><span>ESCALADA</span></div>
   `;
 
   // VENTAS EN TOTAL: resumen + ventas diarias.
@@ -1490,11 +1491,11 @@ async function renderTotalData(data) {
 
   const dailyBox = document.getElementById("dailySalesBox");
   dailyBox.innerHTML = `
-    <div class="daily-sales-head"><strong>TABLA DINÁMICA · VENTAS DIARIAS</strong><span>Cargando...</span></div>
+    <div class="daily-sales-head"><strong>VENTAS DIARIAS · FECHA DE INGRESO</strong><span>Cargando...</span></div>
     <div class="daily-sales-empty">Consultando información actualizada...</div>`;
 
   try {
-    // getTotalData ya trae la tabla dinámica desde Apps Script.
+    // getTotalData ya trae la ventas diarias desde Apps Script.
     // Solo hacemos una segunda consulta si por alguna razón no vino incluida.
     let pivotRows = Array.isArray(data.dailyPivot?.rows) ? data.dailyPivot.rows : null;
     if (!pivotRows) pivotRows = await loadDailyPivot(currentCenter);
@@ -1502,8 +1503,8 @@ async function renderTotalData(data) {
   } catch (e) {
     console.error(e);
     dailyBox.innerHTML = `
-      <div class="daily-sales-head"><strong>TABLA DINÁMICA · VENTAS DIARIAS</strong><span>Error</span></div>
-      <div class="daily-sales-empty">No fue posible leer la tabla dinámica: ${esc(e.message || e)}</div>`;
+      <div class="daily-sales-head"><strong>VENTAS DIARIAS · FECHA DE INGRESO</strong><span>Error</span></div>
+      <div class="daily-sales-empty">No fue posible leer las ventas diarias: ${esc(e.message || e)}</div>`;
   }
 }
 
@@ -1572,18 +1573,20 @@ function renderAdvisorData(data) {
 
   document.getElementById("advisorSummary").innerHTML = `
     <div class="metric green"><b>${s.terminada||0}</b><span>INSTALADAS / TERMINADAS</span></div>
-    <div class="metric blue"><b>${s.proceso||0}</b><span>EN PROCESO</span></div>
     <div class="metric purple"><b>${s.agenda||0}</b><span>EN AGENDA</span></div>
-    <div class="metric red"><b>${s.cancelada||0}</b><span>CANCELADAS</span></div>
     <div class="metric yellow"><b>${s.recuperar||0}</b><span>POR RECUPERAR</span></div>
+    <div class="metric yellow"><b>${s.recuperada||0}</b><span>RECUPERADAS</span></div>
+    <div class="metric red"><b>${s.cancelada||0}</b><span>CANCELADAS</span></div>
+    <div class="metric red"><b>${s.escalada||0}</b><span>ESCALADA</span></div>
   `;
 
   const groups = [
     ["terminada", "Instaladas / Terminadas", "green", data.categories?.terminada || []],
-    ["proceso", "En proceso", "blue", data.categories?.proceso || []],
     ["agenda", "En agenda", "purple", data.categories?.agenda || []],
+    ["recuperar", "Por recuperar", "yellow", data.categories?.recuperar || []],
+    ["recuperada", "Recuperadas", "yellow", data.categories?.recuperada || []],
     ["cancelada", "Canceladas", "red", data.categories?.cancelada || []],
-    ["recuperar", "Por recuperar", "yellow", data.categories?.recuperar || []]
+    ["escalada", "Escalada", "red", data.categories?.escalada || []]
   ];
 
   const headers = data.headers && data.headers.length === 32
@@ -1760,10 +1763,11 @@ async function showAdminDashboard() {
       <h3>${esc(c.name)}</h3>
       <div class="summary">
         <div class="metric green"><b>${c.summary?.terminada||0}</b><span>TERMINADAS</span></div>
-        <div class="metric blue"><b>${c.summary?.proceso||0}</b><span>EN PROCESO</span></div>
         <div class="metric purple"><b>${c.summary?.agenda||0}</b><span>EN AGENDA</span></div>
-        <div class="metric red"><b>${c.summary?.cancelada||0}</b><span>CANCELADAS</span></div>
         <div class="metric yellow"><b>${c.summary?.recuperar||0}</b><span>POR RECUPERAR</span></div>
+        <div class="metric yellow"><b>${c.summary?.recuperada||0}</b><span>RECUPERADAS</span></div>
+        <div class="metric red"><b>${c.summary?.cancelada||0}</b><span>CANCELADAS</span></div>
+        <div class="metric red"><b>${c.summary?.escalada||0}</b><span>ESCALADA</span></div>
       </div>
       <div class="admin-daily-placeholder" data-center-daily="${esc(c.name)}">
         <div class="daily-sales-head"><strong>VENTAS DIARIAS</strong><span>Cargando...</span></div>
@@ -1785,8 +1789,8 @@ async function showAdminDashboard() {
     } catch (e) {
       console.error(e);
       box.innerHTML = `
-        <div class="daily-sales-head"><strong>TABLA DINÁMICA · VENTAS DIARIAS</strong><span>Error</span></div>
-        <div class="daily-sales-empty">No fue posible leer la tabla dinámica: ${esc(e.message || e)}</div>`;
+        <div class="daily-sales-head"><strong>VENTAS DIARIAS · FECHA DE INGRESO</strong><span>Error</span></div>
+        <div class="daily-sales-empty">No fue posible leer las ventas diarias: ${esc(e.message || e)}</div>`;
     }
   }));
 }
